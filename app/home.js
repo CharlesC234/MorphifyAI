@@ -30,6 +30,12 @@ export default async function Page() {
   ];
   return (
     <div style={{ backgroundColor: "#000000" }}>
+      <script
+        src="https://cdn.jsdelivr.net/npm/masonry-layout@4.2.2/dist/masonry.pkgd.min.js"
+        integrity="sha384-GNFwBvfVxBkLMJpYMOABq3c+d3KnQxudP/mGPkzpZSTYykLBNsZEnG2D9G/X/+7D"
+        crossorigin="anonymous"
+        async
+      ></script>
       <Navbar />
       <div class="container" style={{ backgroundColor: "#000000" }}>
         <h5 class="mt-4 mb-2 ps-1 fw-bold" style={{ color: "#ffffff" }}>
@@ -109,7 +115,7 @@ export default async function Page() {
         </ul>
       </div>
       <div class="container mt-4" style={{ backgroundColor: "#000000" }}>
-        <div class="row ms-0">
+        <div class="row ms-0" data-masonry='{"percentPosition": true }'>
           {dataArr.map((item, index) => {
             return (
               <>
@@ -154,7 +160,7 @@ export default async function Page() {
                           />
                         </button>
                         <div
-                          class="modal modal-xl fade"
+                          class="modal modal-xl fade m-0"
                           style={{ backgroundColor: "rgba(0,0,0,0)" }}
                           id={
                             "exampleModal" +
@@ -170,21 +176,18 @@ export default async function Page() {
                           aria-hidden="true"
                         >
                           <div
-                            class="modal-dialog modal-xl"
+                            class="modal-dialog modal-fullscreen mx-auto"
                             style={{
-                              width: "100%",
-                              height: "100%",
+                              width: "90%",
                               backgroundColor: "rgba(0,0,0,0)",
                             }}
                           >
                             <div
-                              class="modal-content modal-xl"
+                              class="modal-content ms-auto"
                               style={{
                                 borderRadius: 25,
-                                width: "100%",
-                                borderWidth: 0,
-                                height: "100%",
                                 backgroundColor: "rgba(0,0,0,0)",
+                                width: "100%",
                               }}
                             >
                               <div
@@ -231,20 +234,42 @@ export default async function Page() {
                                                     indexInnerTwo.toString()
                                                   }
                                                 >
-                                                  <img
-                                                    class="d-block img-fluid mx-auto"
-                                                    style={{
-                                                      height: 925,
-                                                      borderRadius: 25,
-                                                      borderWidth: 0,
-                                                      padding: 0,
-                                                    }}
-                                                    src={
-                                                      "http://localhost:1337" +
-                                                      item.attributes.url
-                                                    }
-                                                    alt="Card image cap"
-                                                  />
+                                                  <div class="d-flex justify-content-center">
+                                                    <div class="alert-trim m-auto">
+                                                      <div class="row alert-trim">
+                                                        <img
+                                                          class="ms-auto mt-3 mb-3"
+                                                          style={{
+                                                            height: 75,
+                                                            borderRadius: "50%",
+                                                            borderWidth: 0,
+                                                            objectFit: "cover",
+                                                            width: 75,
+                                                            padding: 0,
+                                                          }}
+                                                          src={
+                                                            "http://localhost:1337" +
+                                                            item.attributes.url
+                                                          }
+                                                          alt="Card image cap"
+                                                        />
+                                                      </div>
+                                                      <img
+                                                        class="d-block img-fluid"
+                                                        style={{
+                                                          height: 850,
+                                                          borderRadius: 25,
+                                                          borderWidth: 0,
+                                                          padding: 0,
+                                                        }}
+                                                        src={
+                                                          "http://localhost:1337" +
+                                                          item.attributes.url
+                                                        }
+                                                        alt="Card image cap"
+                                                      />
+                                                    </div>
+                                                  </div>
                                                 </div>
                                               );
                                             } else {
@@ -260,20 +285,42 @@ export default async function Page() {
                                                     indexInnerTwo.toString()
                                                   }
                                                 >
-                                                  <img
-                                                    class="d-block img-fluid mx-auto"
-                                                    style={{
-                                                      height: 925,
-                                                      borderRadius: 25,
-                                                      borderWidth: 0,
-                                                      padding: 0,
-                                                    }}
-                                                    src={
-                                                      "http://localhost:1337" +
-                                                      item.attributes.url
-                                                    }
-                                                    alt="Card image cap"
-                                                  />
+                                                  <div class="d-flex justify-content-center">
+                                                    <div class="alert-trim m-auto">
+                                                      <div class="row alert-trim">
+                                                        <img
+                                                          class="ms-auto mt-3 mb-3"
+                                                          style={{
+                                                            height: 75,
+                                                            borderRadius: "50%",
+                                                            borderWidth: 0,
+                                                            objectFit: "cover",
+                                                            width: 75,
+                                                            padding: 0,
+                                                          }}
+                                                          src={
+                                                            "http://localhost:1337" +
+                                                            item.attributes.url
+                                                          }
+                                                          alt="Card image cap"
+                                                        />
+                                                      </div>
+                                                      <img
+                                                        class="d-block img-fluid"
+                                                        style={{
+                                                          height: 850,
+                                                          borderRadius: 25,
+                                                          borderWidth: 0,
+                                                          padding: 0,
+                                                        }}
+                                                        src={
+                                                          "http://localhost:1337" +
+                                                          item.attributes.url
+                                                        }
+                                                        alt="Card image cap"
+                                                      />
+                                                    </div>
+                                                  </div>
                                                 </div>
                                               );
                                             }

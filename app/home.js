@@ -176,14 +176,14 @@ export default async function Page() {
                           aria-hidden="true"
                         >
                           <div
-                            class="modal-dialog modal-fullscreen mx-auto"
+                            class="modal-dialog modal-fullscreen m-auto"
                             style={{
-                              width: "90%",
+                              width: "100%",
                               backgroundColor: "rgba(0,0,0,0)",
                             }}
                           >
                             <div
-                              class="modal-content ms-auto"
+                              class="modal-content m-auto"
                               style={{
                                 borderRadius: 25,
                                 backgroundColor: "rgba(0,0,0,0)",
@@ -204,7 +204,7 @@ export default async function Page() {
                                 class="carousel slide"
                               >
                                 <div
-                                  class="carousel-inner"
+                                  class="carousel-inner my-auto"
                                   style={{
                                     borderRadius: 25,
                                     width: "100%",
@@ -224,7 +224,7 @@ export default async function Page() {
                                             ) {
                                               return (
                                                 <div
-                                                  class="carousel-item active"
+                                                  class="carousel-item active align-middle"
                                                   style={{
                                                     borderRadius: 25,
                                                     width: "100%",
@@ -234,17 +234,17 @@ export default async function Page() {
                                                     indexInnerTwo.toString()
                                                   }
                                                 >
-                                                  <div class="d-flex justify-content-center">
+                                                  <div class="d-flex justify-content-center align-middle">
                                                     <div class="alert-trim m-auto">
                                                       <div class="row alert-trim">
                                                         <img
-                                                          class="ms-auto mt-3 mb-3"
+                                                          class="mt-4 mb-4"
                                                           style={{
-                                                            height: 75,
+                                                            height: 80,
                                                             borderRadius: "50%",
                                                             borderWidth: 0,
                                                             objectFit: "cover",
-                                                            width: 75,
+                                                            width: 80,
                                                             padding: 0,
                                                           }}
                                                           src={
@@ -258,7 +258,7 @@ export default async function Page() {
                                                         class="d-block img-fluid"
                                                         style={{
                                                           height: 850,
-                                                          borderRadius: 25,
+                                                          borderRadius: 20,
                                                           borderWidth: 0,
                                                           padding: 0,
                                                         }}
@@ -275,7 +275,7 @@ export default async function Page() {
                                             } else {
                                               return (
                                                 <div
-                                                  class="carousel-item"
+                                                  class="carousel-item align-middle"
                                                   style={{
                                                     borderRadius: 25,
                                                     width: "100%",
@@ -285,17 +285,17 @@ export default async function Page() {
                                                     indexInnerTwo.toString()
                                                   }
                                                 >
-                                                  <div class="d-flex justify-content-center">
+                                                  <div class="d-flex justify-content-center align-middle">
                                                     <div class="alert-trim m-auto">
-                                                      <div class="row alert-trim">
+                                                      <div>
                                                         <img
-                                                          class="ms-auto mt-3 mb-3"
+                                                          class="mt-4 mb-4"
                                                           style={{
-                                                            height: 75,
+                                                            height: 80,
                                                             borderRadius: "50%",
                                                             borderWidth: 0,
                                                             objectFit: "cover",
-                                                            width: 75,
+                                                            width: 80,
                                                             padding: 0,
                                                           }}
                                                           src={
@@ -309,7 +309,7 @@ export default async function Page() {
                                                         class="d-block img-fluid"
                                                         style={{
                                                           height: 850,
-                                                          borderRadius: 25,
+                                                          borderRadius: 20,
                                                           borderWidth: 0,
                                                           padding: 0,
                                                         }}

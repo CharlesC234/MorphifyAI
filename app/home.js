@@ -54,6 +54,7 @@ export default function Page() {
             if (index == 0) {
               return (
                 <li
+                  key={index}
                   class="list-group-item me-1 fw-bold"
                   style={{
                     borderRadius: 30,
@@ -75,6 +76,7 @@ export default function Page() {
             } else if (index == categories.length) {
               return (
                 <li
+                  key={index}
                   class="list-group-item ms-1 fw-bold"
                   style={{
                     borderRadius: 30,
@@ -97,6 +99,7 @@ export default function Page() {
             } else {
               return (
                 <li
+                  key={index}
                   class="list-group-item mx-1 fw-bold"
                   style={{
                     borderRadius: 30,
@@ -128,6 +131,7 @@ export default function Page() {
                   (item, indexInner) => {
                     return (
                       <div
+                        key={index}
                         style={{
                           width: "32.5%",
                           margin: 5,

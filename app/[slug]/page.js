@@ -39,7 +39,6 @@ export default function modelPage() {
   if (pageExists) {
     return (
       <div style={{ backgroundColor: "#000000" }}>
-        <Navbar />
         <div className="container" style={{ baackgroundColor: "#000000" }}>
           <div className="row ms-1">
             <button

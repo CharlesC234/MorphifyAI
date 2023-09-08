@@ -222,6 +222,8 @@ export default function Page() {
                                                           <h3
                                                             class="my-auto fw-bold ms-3"
                                                             style={{
+                                                              fontSize:
+                                                                "1.75rem",
                                                               width: "50%",
                                                             }}
                                                           >
@@ -246,7 +248,7 @@ export default function Page() {
                                                       <img
                                                         class="d-block img-fluid"
                                                         style={{
-                                                          height: 835,
+                                                          height: "52rem",
                                                           borderRadius: 20,
                                                           borderWidth: 0,
                                                           padding: 0,
@@ -317,6 +319,9 @@ export default function Page() {
                                                           <h3
                                                             class="my-auto fw-bold ms-3"
                                                             style={{
+                                                              fontSize:
+                                                                "1.75rem",
+                                                              fontSize: 25,
                                                               width: "50%",
                                                             }}
                                                           >
@@ -342,7 +347,7 @@ export default function Page() {
                                                       <img
                                                         class="d-block img-fluid"
                                                         style={{
-                                                          height: 835,
+                                                          height: "52rem",
                                                           borderRadius: 20,
                                                           borderWidth: 0,
                                                           padding: 0,

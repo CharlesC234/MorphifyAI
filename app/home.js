@@ -245,14 +245,20 @@ export default function Page() {
                                                         class="d-flex row ms-0 justify-content-between"
                                                         data-bs-theme="dark"
                                                       >
-                                                        <div
+                                                        <a
                                                           class="row"
+                                                          href={
+                                                            "/" +
+                                                            dataArr[indexTwo]
+                                                              .attributes
+                                                              .display_name
+                                                          }
                                                           style={{
                                                             width: "80%",
                                                           }}
                                                         >
                                                           <img
-                                                            class="mt-4 mb-4"
+                                                            class="mt-4 mb-3"
                                                             style={{
                                                               height: 65,
                                                               borderRadius:
@@ -273,7 +279,7 @@ export default function Page() {
                                                             }
                                                             alt="Card image cap"
                                                           />
-                                                          <h4
+                                                          <h3
                                                             class="my-auto fw-bold ms-3"
                                                             style={{
                                                               width: "50%",
@@ -284,8 +290,8 @@ export default function Page() {
                                                                 .attributes
                                                                 .display_name
                                                             }
-                                                          </h4>
-                                                        </div>
+                                                          </h3>
+                                                        </a>
                                                         <button
                                                           type="button"
                                                           class="btn-close py-auto"
@@ -334,14 +340,20 @@ export default function Page() {
                                                         class="d-flex row ms-0 justify-content-between "
                                                         data-bs-theme="dark"
                                                       >
-                                                        <div
+                                                        <a
                                                           class="row"
+                                                          href={
+                                                            "/" +
+                                                            dataArr[indexTwo]
+                                                              .attributes
+                                                              .display_name
+                                                          }
                                                           style={{
                                                             width: "80%",
                                                           }}
                                                         >
                                                           <img
-                                                            class="mt-4 mb-4"
+                                                            class="mt-4 mb-3"
                                                             style={{
                                                               height: 65,
                                                               borderRadius:
@@ -362,7 +374,7 @@ export default function Page() {
                                                             }
                                                             alt="Card image cap"
                                                           />
-                                                          <h4
+                                                          <h3
                                                             class="my-auto fw-bold ms-3"
                                                             style={{
                                                               width: "50%",
@@ -373,8 +385,8 @@ export default function Page() {
                                                                 .attributes
                                                                 .display_name
                                                             }
-                                                          </h4>
-                                                        </div>
+                                                          </h3>
+                                                        </a>
                                                         <button
                                                           type="button"
                                                           class="btn-close py-auto"

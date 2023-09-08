@@ -45,7 +45,7 @@ export default function Navbar() {
             <input
               class="form-control me-2 ps-3"
               type="search"
-              placeholder="Find categories"
+              placeholder="Find pics"
               aria-label="Search"
               style={{
                 borderRadius: 20,

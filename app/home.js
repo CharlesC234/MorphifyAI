@@ -1,20 +1,25 @@
+"use client";
 import Image from "next/image";
 import styles from "./page.module.css";
 import "bootstrap/dist/css/bootstrap.css";
 import "./globals.css";
 import Navbar from "@/components/Navbar";
+import useSWR from "swr";
 
-async function getData() {
-  const res = await fetch("http://localhost:1337/api/categories?populate=*", {
-    next: { revalidate: 10 },
-  });
-  return res.json();
-}
+const fetcher = (...args) => fetch(...args).then((res) => res.json());
 
-export default async function Page() {
-  const dataRaw = await getData();
-  console.log(dataRaw);
-  const dataArr = dataRaw.data.reverse();
+export default function Page() {
+  const { data, error } = useSWR(
+    "http://localhost:1337/api/models?populate=*",
+    fetcher
+  );
+
+  if (data == undefined) {
+    return <div style={{ backgroundColor: "#000000", height: 1000 }}></div>;
+  }
+
+  console.log(data);
+  const dataArr = data.data.reverse();
 
   const categories = [
     "Latina",
@@ -119,7 +124,7 @@ export default async function Page() {
           {dataArr.map((item, index) => {
             return (
               <>
-                {dataArr[index].attributes.Images.data.map(
+                {dataArr[index].attributes.free_images.data.map(
                   (item, indexInner) => {
                     return (
                       <div
@@ -216,7 +221,7 @@ export default async function Page() {
                                       <>
                                         {dataArr[
                                           indexTwo
-                                        ].attributes.Images.data.map(
+                                        ].attributes.free_images.data.map(
                                           (item, indexInnerTwo) => {
                                             if (
                                               indexTwo == index &&
@@ -236,28 +241,66 @@ export default async function Page() {
                                                 >
                                                   <div class="d-flex justify-content-center align-middle">
                                                     <div class="alert-trim m-auto">
-                                                      <div class="row alert-trim">
-                                                        <img
-                                                          class="mt-4 mb-4"
+                                                      <div
+                                                        class="d-flex row ms-0 justify-content-between"
+                                                        data-bs-theme="dark"
+                                                      >
+                                                        <div
+                                                          class="row"
                                                           style={{
-                                                            height: 80,
-                                                            borderRadius: "50%",
-                                                            borderWidth: 0,
-                                                            objectFit: "cover",
-                                                            width: 80,
-                                                            padding: 0,
+                                                            width: "80%",
                                                           }}
-                                                          src={
-                                                            "http://localhost:1337" +
-                                                            item.attributes.url
-                                                          }
-                                                          alt="Card image cap"
-                                                        />
+                                                        >
+                                                          <img
+                                                            class="mt-4 mb-4"
+                                                            style={{
+                                                              height: 65,
+                                                              borderRadius:
+                                                                "50%",
+                                                              borderWidth: 0,
+                                                              objectFit:
+                                                                "cover",
+                                                              width: 65,
+                                                              padding: 0,
+                                                            }}
+                                                            src={
+                                                              "http://localhost:1337" +
+                                                              dataArr[indexTwo]
+                                                                .attributes
+                                                                .profile_pic
+                                                                .data.attributes
+                                                                .url
+                                                            }
+                                                            alt="Card image cap"
+                                                          />
+                                                          <h4
+                                                            class="my-auto fw-bold ms-3"
+                                                            style={{
+                                                              width: "50%",
+                                                            }}
+                                                          >
+                                                            {
+                                                              dataArr[indexTwo]
+                                                                .attributes
+                                                                .display_name
+                                                            }
+                                                          </h4>
+                                                        </div>
+                                                        <button
+                                                          type="button"
+                                                          class="btn-close py-auto"
+                                                          data-bs-dismiss="modal"
+                                                          aria-label="Close"
+                                                          style={{
+                                                            height: 110,
+                                                            width: 110,
+                                                          }}
+                                                        ></button>
                                                       </div>
                                                       <img
                                                         class="d-block img-fluid"
                                                         style={{
-                                                          height: 850,
+                                                          height: 835,
                                                           borderRadius: 20,
                                                           borderWidth: 0,
                                                           padding: 0,
@@ -287,28 +330,67 @@ export default async function Page() {
                                                 >
                                                   <div class="d-flex justify-content-center align-middle">
                                                     <div class="alert-trim m-auto">
-                                                      <div>
-                                                        <img
-                                                          class="mt-4 mb-4"
+                                                      <div
+                                                        class="d-flex row ms-0 justify-content-between "
+                                                        data-bs-theme="dark"
+                                                      >
+                                                        <div
+                                                          class="row"
                                                           style={{
-                                                            height: 80,
-                                                            borderRadius: "50%",
-                                                            borderWidth: 0,
-                                                            objectFit: "cover",
-                                                            width: 80,
-                                                            padding: 0,
+                                                            width: "80%",
                                                           }}
-                                                          src={
-                                                            "http://localhost:1337" +
-                                                            item.attributes.url
-                                                          }
-                                                          alt="Card image cap"
-                                                        />
+                                                        >
+                                                          <img
+                                                            class="mt-4 mb-4"
+                                                            style={{
+                                                              height: 65,
+                                                              borderRadius:
+                                                                "50%",
+                                                              borderWidth: 0,
+                                                              objectFit:
+                                                                "cover",
+                                                              width: 65,
+                                                              padding: 0,
+                                                            }}
+                                                            src={
+                                                              "http://localhost:1337" +
+                                                              dataArr[indexTwo]
+                                                                .attributes
+                                                                .profile_pic
+                                                                .data.attributes
+                                                                .url
+                                                            }
+                                                            alt="Card image cap"
+                                                          />
+                                                          <h4
+                                                            class="my-auto fw-bold ms-3"
+                                                            style={{
+                                                              width: "50%",
+                                                            }}
+                                                          >
+                                                            {
+                                                              dataArr[indexTwo]
+                                                                .attributes
+                                                                .display_name
+                                                            }
+                                                          </h4>
+                                                        </div>
+                                                        <button
+                                                          type="button"
+                                                          class="btn-close py-auto"
+                                                          data-bs-dismiss="modal"
+                                                          aria-label="Close"
+                                                          style={{
+                                                            height: 110,
+                                                            width: 110,
+                                                          }}
+                                                        ></button>
                                                       </div>
+
                                                       <img
                                                         class="d-block img-fluid"
                                                         style={{
-                                                          height: 850,
+                                                          height: 835,
                                                           borderRadius: 20,
                                                           borderWidth: 0,
                                                           padding: 0,

@@ -3,7 +3,6 @@ import Image from "next/image";
 import styles from "./page.module.css";
 import "bootstrap/dist/css/bootstrap.css";
 import "./globals.css";
-import Navbar from "@/components/Navbar";
 import useSWR from "swr";
 
 const fetcher = (...args) => fetch(...args).then((res) => res.json());
@@ -41,84 +40,21 @@ export default function Page() {
         crossorigin="anonymous"
         async
       ></script>
-      <Navbar />
+
       <div class="container" style={{ backgroundColor: "#000000" }}>
         <h5 class="mt-4 mb-2 ps-1 fw-bold" style={{ color: "#ffffff" }}>
           Categories:
         </h5>
         <ul
-          class="list-group list-group-horizontal mt-3"
+          class=" w-full flex overflow-x-scroll py-3"
           style={{ backgroundColor: "#000000" }}
         >
           {categories.map((item, index) => {
-            if (index == 0) {
-              return (
-                <li
-                  key={index}
-                  class="list-group-item me-1 fw-bold"
-                  style={{
-                    borderRadius: 30,
-                    fontSize: 16,
-                    color: "rgba(255, 255, 255, .85)",
-                    height: 35,
-                    paddingLeft: 32.5,
-                    paddingRight: 32.5,
-                    borderWidth: 2,
-                    paddingTop: 3,
-                    paddingBottom: 0,
-                    borderColor: "rgba(255, 255, 255, .075)",
-                    backgroundColor: "rgba(255, 255, 255, .125)",
-                  }}
-                >
-                  {item}
-                </li>
-              );
-            } else if (index == categories.length) {
-              return (
-                <li
-                  key={index}
-                  class="list-group-item ms-1 fw-bold"
-                  style={{
-                    borderRadius: 30,
-                    fontSize: 16,
-                    color: "rgba(255, 255, 255, .85)",
-                    height: 35,
-                    borderWidth: 2,
-                    paddingLeft: 32.5,
-                    paddingRight: 32.5,
-                    borderWidth: 2,
-                    paddingTop: 3,
-                    paddingBottom: 0,
-                    borderColor: "rgba(255, 255, 255, .075)",
-                    backgroundColor: "rgba(255, 255, 255, .125)",
-                  }}
-                >
-                  {item}
-                </li>
-              );
-            } else {
-              return (
-                <li
-                  key={index}
-                  class="list-group-item mx-1 fw-bold"
-                  style={{
-                    borderRadius: 30,
-                    fontSize: 16,
-                    color: "rgba(255, 255, 255, .85)",
-                    height: 35,
-                    paddingLeft: 32.5,
-                    paddingRight: 32.5,
-                    borderWidth: 2,
-                    paddingTop: 3,
-                    paddingBottom: 0,
-                    borderColor: "rgba(255, 255, 255, .075)",
-                    backgroundColor: "rgba(255, 255, 255, .125)",
-                  }}
-                >
-                  {item}
-                </li>
-              );
-            }
+            return (
+              <li key={index} class="px-3 py-2 bg-gray-700 mx-2 rounded-full">
+                {item}
+              </li>
+            );
           })}
         </ul>
       </div>

@@ -5,6 +5,7 @@ import { usePathname } from "next/navigation";
 import useSWR from "swr";
 import "../globals.css";
 import { useEffect } from "react";
+import ImageLayout from "@/components/ImageLayout";
 
 const fetcher = (...args) => fetch(...args).then((res) => res.json());
 
@@ -19,6 +20,7 @@ export default function modelPage() {
 
   const pathname = usePathname();
   const names = [];
+  const newDataArr = [];
   var pageExists = false;
   var modelIndex;
 
@@ -35,6 +37,21 @@ export default function modelPage() {
       modelIndex = i;
     }
   }
+
+  for (
+    let i = 0;
+    i < data.data[modelIndex].attributes.free_images.data.length;
+    i++
+  ) {
+    newDataArr.push({
+      display_name: data.data[modelIndex].attributes.display_name,
+      profile_pic:
+        data.data[modelIndex].attributes.profile_pic.data.attributes.url,
+      image:
+        data.data[modelIndex].attributes.free_images.data[i].attributes.url,
+    });
+  }
+  console.log(newDataArr);
 
   if (pageExists) {
     return (
@@ -116,6 +133,9 @@ export default function modelPage() {
                 </div>
               </div>
             </div>
+          </div>
+          <div class="container mt-4" style={{ backgroundColor: "#000000" }}>
+            <ImageLayout dataArr={newDataArr} />
           </div>
         </div>
         <div style={{ height: 1000 }} />

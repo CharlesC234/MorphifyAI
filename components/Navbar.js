@@ -18,7 +18,7 @@ export default function Navbar() {
         >
           <span class="navbar-toggler-icon"></span>
         </button>
-        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <div class="navbar-collapse" id="navbarSupportedContent">
           <ul class="navbar-nav me-auto mt-0 mb-lg-0 ms-5">
             <li class="nav-item px-2">
               <a class="nav-link active fw-bold" aria-current="page" href="#">
@@ -43,9 +43,9 @@ export default function Navbar() {
           </ul>
           <form class="d-flex">
             <input
-              class="form-control me-2 ps-3"
+              class="form-control me-3 ps-3"
               type="search"
-              placeholder="Find pics"
+              placeholder="Find models"
               aria-label="Search"
               style={{
                 borderRadius: 20,

@@ -57,7 +57,7 @@ export default function modelPage() {
     return (
       <div style={{ backgroundColor: "#000000" }}>
         <div className="container" style={{ baackgroundColor: "#000000" }}>
-          <div className="row ms-1">
+          <div className="row ms-2 mt-4">
             <button
               type="button"
               class="btn btn-primary"
@@ -73,12 +73,12 @@ export default function modelPage() {
             >
               <img
                 style={{
-                  width: 500,
-                  height: 500,
+                  width: 200,
+                  height: 200,
                   objectFit: "cover",
                   padding: 0,
                   borderWidth: 0,
-                  borderRadius: 12.5,
+                  borderRadius: "50%",
                 }}
                 src={
                   "http://localhost:1337" +
@@ -134,7 +134,7 @@ export default function modelPage() {
               </div>
             </div>
           </div>
-          <div class="container mt-4" style={{ backgroundColor: "#000000" }}>
+          <div class="container mt-5" style={{ backgroundColor: "#000000" }}>
             <ImageLayout dataArr={newDataArr} />
           </div>
         </div>

@@ -67,6 +67,7 @@ export default function Page() {
         crossorigin="anonymous"
         async
       ></script>
+      <script src="https://unpkg.com/masonry-layout@4/dist/masonry.pkgd.min.js"></script>
 
       <div class="container" style={{ backgroundColor: "#000000" }}>
         <h4

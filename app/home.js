@@ -18,16 +18,28 @@ export default function Page() {
     return <div style={{ backgroundColor: "#000000", height: 1000 }}></div>;
   }
 
-  console.log(data);
   const dataArr = data.data.reverse();
   const newDataArr = [];
-
-  for (let i = 0; i < 30; i++) {
-    var rand = Math.floor(Math.random() * (dataArr.length - 0)) + 0;
-    var randimg =
-      Math.floor(
-        Math.random() * (dataArr[rand].attributes.free_images.data.length - 0)
-      ) + 0;
+  const arrRecords = [];
+  for (let i = 0; i < 12; i++) {
+    var rand = -1;
+    var randimg = -1;
+    if (rand == -1) {
+      rand = Math.floor(Math.random() * (dataArr.length - 0)) + 0;
+      randimg =
+        Math.floor(
+          Math.random() * (dataArr[rand].attributes.free_images.data.length - 0)
+        ) + 0;
+    }
+    while (arrRecords.includes(rand.toString() + randimg.toString())) {
+      rand = Math.floor(Math.random() * (dataArr.length - 0)) + 0;
+      randimg =
+        Math.floor(
+          Math.random() * (dataArr[rand].attributes.free_images.data.length - 0)
+        ) + 0;
+    }
+    console.log("rand " + rand + "randimg " + randimg);
+    arrRecords.push(rand.toString() + randimg.toString());
     newDataArr.push({
       display_name: dataArr[rand].attributes.display_name,
       profile_pic: dataArr[rand].attributes.profile_pic.data.attributes.url,

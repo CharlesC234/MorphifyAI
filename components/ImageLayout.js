@@ -6,7 +6,6 @@ import "../app/globals.css";
 import useSWR from "swr";
 
 export default function ImageLayout(data) {
-  console.log("here: " + JSON.stringify(data.dataArr));
   var dataArr = data.dataArr;
   return (
     <div class="row ms-0" data-masonry='{"percentPosition": true }'>

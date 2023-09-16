@@ -57,24 +57,24 @@ export default function modelPage() {
     return (
       <div style={{ backgroundColor: "#000000" }}>
         <div className="container" style={{ baackgroundColor: "#000000" }}>
-          <div className="row ms-2 mt-4">
+          <div className="row ms-2" style={{ marginTop: "2.5rem" }}>
             <button
               type="button"
-              class="btn btn-primary"
+              class="btn btn-primary d-inline-block mt-4"
               data-bs-toggle="modal"
               data-bs-target={"#exampleModal" + pathname.slice(1)}
               style={{
-                width: 500,
-                borderRadius: 10,
                 backgroundColor: "#000000",
+                width: 250,
+                height: 250,
                 borderWidth: 0,
                 padding: 0,
               }}
             >
               <img
                 style={{
-                  width: 200,
-                  height: 200,
+                  width: 250,
+                  height: 250,
                   objectFit: "cover",
                   padding: 0,
                   borderWidth: 0,
@@ -85,7 +85,7 @@ export default function modelPage() {
                   data.data[modelIndex].attributes.profile_pic.data.attributes
                     .url
                 }
-                class="img-thumbnail mt-4"
+                class="img-thumbnail"
                 alt="..."
               />
             </button>
@@ -133,8 +133,16 @@ export default function modelPage() {
                 </div>
               </div>
             </div>
+            <div className="col mt-5 ms-5">
+              <h1 style={{ fontSize: 35, fontWeight: "bold" }}>
+                {pathname.slice(1)}
+              </h1>
+            </div>
           </div>
-          <div class="container mt-5" style={{ backgroundColor: "#000000" }}>
+          <div
+            class="container"
+            style={{ backgroundColor: "#000000", marginTop: "4.5rem" }}
+          >
             <ImageLayout dataArr={newDataArr} />
           </div>
         </div>

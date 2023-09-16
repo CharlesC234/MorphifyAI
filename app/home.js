@@ -67,7 +67,6 @@ export default function Page() {
         crossorigin="anonymous"
         async
       ></script>
-      <script src="https://unpkg.com/masonry-layout@4/dist/masonry.pkgd.min.js"></script>
 
       <div class="container" style={{ backgroundColor: "#000000" }}>
         <h4
@@ -93,7 +92,7 @@ export default function Page() {
                   class="px-3 py-2 rounded-full fw-bold"
                   style={{
                     backgroundColor: "rgba(33,37,41,1)",
-                    fontSize: ".95rem",
+                    fontSize: "1rem",
                     marginRight: ".4rem",
                   }}
                 >

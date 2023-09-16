@@ -226,7 +226,8 @@ export default function ImageLayout(data) {
                                   <img
                                     class="d-block img-fluid"
                                     style={{
-                                      height: "52rem",
+                                      maxHeight: "50rem",
+                                      width: "auto",
                                       borderRadius: 20,
                                       borderWidth: 0,
                                       padding: 0,

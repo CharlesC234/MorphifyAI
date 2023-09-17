@@ -38,6 +38,7 @@ export default function modelPage() {
     }
   }
 
+  if (pageExists) {
   for (
     let i = 0;
     i < data.data[modelIndex].attributes.free_images.data.length;
@@ -53,7 +54,6 @@ export default function modelPage() {
   }
   console.log(newDataArr);
 
-  if (pageExists) {
     return (
       <div style={{ backgroundColor: "#000000" }}>
         <div className="container" style={{ baackgroundColor: "#000000" }}>
@@ -134,7 +134,7 @@ export default function modelPage() {
               </div>
             </div>
             <div className="col mt-5 ms-5">
-              <h1 style={{ fontSize: 35, fontWeight: "bold" }}>
+              <h1 style={{ fontSize: 30, fontWeight: "bold" }}>
                 {pathname.slice(1)}
               </h1>
             </div>
@@ -151,8 +151,8 @@ export default function modelPage() {
     );
   } else {
     return (
-      <div style={{ backgroundColor: "#000000", height: 1000 }}>
-        <h1 class="pt-3 ps-3" style={{ color: "#ffffff" }}>
+      <div className="container" style={{ backgroundColor: "#000000", height: 1000 }}>
+        <h1 class="pt-4" style={{ color: "#ffffff" }}>
           404 - Page Not Found
         </h1>
       </div>

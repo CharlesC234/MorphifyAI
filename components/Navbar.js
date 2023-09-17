@@ -4,7 +4,7 @@ export default function Navbar() {
   return (
     <nav class="navbar navbar-dark bg-dark navbar-expand-lg px-4 py-3">
       <div class="container">
-        <a class="navbar-brand fw-bold" style={{ fontSize: 27.5 }} href="#">
+        <a class="navbar-brand fw-bold" style={{ fontSize: 27.5 }} href="/">
           stunner.club
         </a>
         <button
@@ -26,13 +26,13 @@ export default function Navbar() {
               </a>
             </li>
             <li class="nav-item px-2">
-              <a class="nav-link fw-bold" aria-current="page" href="#">
+              <a class="nav-link fw-bold" aria-current="page" href="/models">
                 Models
               </a>
             </li>
             <li class="nav-item px-2">
               <a class="nav-link fw-bold" href="#">
-                Legal
+                Sign In
               </a>
             </li>
           </ul>

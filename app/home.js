@@ -81,37 +81,13 @@ export default function Page() {
           Categories:
         </h4>
         <ul
-          class=" w-full flex overflow-x-hidden py-3"
+          class=" w-full flex overflow-x-scroll py-3"
           style={{ backgroundColor: "#000000" }}
         >
           {categories.map((item, index) => {
-            if (index == 0) {
-              return (
-                <li
-                  key={index}
-                  class="px-3 py-2 rounded-full fw-bold"
-                  style={{
-                    backgroundColor: "rgba(33,37,41,1)",
-                    fontSize: "1rem",
-                    marginRight: ".4rem",
-                  }}
-                >
-                  {item}
-                </li>
-              );
-            }
             return (
-              <li
-                key={index}
-                style={{
-                  backgroundColor: "rgba(33,37,41,1)",
-                  fontSize: ".95rem",
-                  marginRight: ".4rem",
-                  marginLeft: ".4rem",
-                }}
-                class="px-3 py-2 bg-gray-700 rounded-full fw-bold"
-              >
-                {item}
+              <li key={index} class="px-1 py-1">
+                <button class="btn btn-outline-primary"> {item}</button>
               </li>
             );
           })}

@@ -100,7 +100,7 @@ export default function ImageLayout(data) {
                                 <div class="alert-trim m-auto">
                                   <div
                                     class="d-flex row ms-0 justify-content-between"
-                                    data-bs-theme="dark"
+                                    data-bs-theme="light"
                                   >
                                     <a
                                       class="row"
@@ -137,14 +137,32 @@ export default function ImageLayout(data) {
                                     </a>
                                     <button
                                       type="button"
-                                      class="btn-close py-auto"
+                                      class="btn-close my-auto"
                                       data-bs-dismiss="modal"
                                       aria-label="Close"
                                       style={{
                                         height: 110,
                                         width: 110,
                                       }}
-                                    ></button>
+                                    >
+                                      <span
+                                        aria-hidden="true"
+                                        className="py-auto"
+                                        style={{
+                                          display: "block",
+                                          textAlign: "center",
+                                          justifyContent: "center",
+                                          alignContent: "center",
+                                          height: 110,
+                                          fontSize: 60,
+                                          width: 110,
+                                          color: "#ffffff",
+                                          opacity: 0.85,
+                                        }}
+                                      >
+                                        &times;
+                                      </span>
+                                    </button>
                                   </div>
                                   <img
                                     class="d-block img-fluid"
@@ -175,7 +193,7 @@ export default function ImageLayout(data) {
                                 <div class="alert-trim m-auto">
                                   <div
                                     class="d-flex row ms-0 justify-content-between "
-                                    data-bs-theme="dark"
+                                    data-bs-theme="light"
                                   >
                                     <a
                                       class="row"
@@ -213,14 +231,32 @@ export default function ImageLayout(data) {
                                     </a>
                                     <button
                                       type="button"
-                                      class="btn-close py-auto"
+                                      class="btn-close my-auto"
                                       data-bs-dismiss="modal"
                                       aria-label="Close"
                                       style={{
                                         height: 110,
                                         width: 110,
                                       }}
-                                    ></button>
+                                    >
+                                      <span
+                                        aria-hidden="true"
+                                        className="py-auto"
+                                        style={{
+                                          display: "block",
+                                          textAlign: "center",
+                                          justifyContent: "center",
+                                          alignContent: "center",
+                                          height: 110,
+                                          fontSize: 60,
+                                          width: 110,
+                                          color: "#ffffff",
+                                          opacity: 0.85,
+                                        }}
+                                      >
+                                        &times;
+                                      </span>
+                                    </button>
                                   </div>
 
                                   <img

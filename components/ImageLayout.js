@@ -28,12 +28,14 @@ export default function ImageLayout(data) {
             key={index}
             class="grid gap-4 cursor-pointer"
           >
+
             <img
               class="h-auto max-w-full rounded-lg"
               src={"http://localhost:1337" + item.image}
               alt=""
             />
           </a>
+  
         );
       })}
       {photoView ? (

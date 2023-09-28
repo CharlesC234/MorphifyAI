@@ -28,7 +28,6 @@ export default function Page() {
       [array[currentIndex], array[randomIndex]] = [
         array[randomIndex], array[currentIndex]];
     }
-  
     return array;
   }
 
@@ -69,17 +68,17 @@ export default function Page() {
         });
       }
     }
-}else{
-  for(let i = 0; i < cats.data.data[catSelected - 1].attributes.models.data.length; i++){
-    for(let j = 0; j < cats.data.data[catSelected - 1].attributes.models.data[i].attributes.free_images.data.length; j++){
-      newDataArr.push({
-        display_name: cats.data.data[catSelected - 1].attributes.models.data[i].attributes.display_name,
-        profile_pic: cats.data.data[catSelected - 1].attributes.models.data[i].attributes.profile_pic.data.attributes.url,
-        image: cats.data.data[catSelected - 1].attributes.models.data[i].attributes.free_images.data[j].attributes.url,
-      });
+  }else{
+    for(let i = 0; i < cats.data.data[catSelected - 1].attributes.models.data.length; i++){
+      for(let j = 0; j < cats.data.data[catSelected - 1].attributes.models.data[i].attributes.free_images.data.length; j++){
+        newDataArr.push({
+          display_name: cats.data.data[catSelected - 1].attributes.models.data[i].attributes.display_name,
+          profile_pic: cats.data.data[catSelected - 1].attributes.models.data[i].attributes.profile_pic.data.attributes.url,
+          image: cats.data.data[catSelected - 1].attributes.models.data[i].attributes.free_images.data[j].attributes.url,
+        });
+      }
     }
   }
-}
 
 shuffle(newDataArr);
 
@@ -121,7 +120,7 @@ shuffle(newDataArr);
         <ImageLayout dataArr={newDataArr} />
       </div>
 
-      <div style={{ height: 0, backgroundColor: "#000000" }} />
+      <div style={{ height: 500, backgroundColor: "#000000" }} />
     </div>
   );
 }

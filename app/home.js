@@ -53,8 +53,8 @@ export default function Page() {
   const newDataArr = [];
   const arrRecords = [];
   const categories = [];
+  categories.push("Top");
 
-  categories.push("All")
   for(let i = 0; i < cats.data.data.length ; i++){
     categories.push(cats.data.data[i].attributes.Category_Name);
   }

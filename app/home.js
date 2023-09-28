@@ -5,60 +5,84 @@ import "bootstrap/dist/css/bootstrap.css";
 import "./globals.css";
 import useSWR from "swr";
 import ImageLayout from "@/components/ImageLayout";
+import React from "react";
+import { useState } from "react";
 
 const fetcher = (...args) => fetch(...args).then((res) => res.json());
 
 export default function Page() {
-  const { data, error } = useSWR(
+
+  const [catSelected, setCatSelected] = useState(0);
+
+  function shuffle(array) {
+    let currentIndex = array.length,  randomIndex;
+  
+    // While there remain elements to shuffle.
+    while (currentIndex > 0) {
+  
+      // Pick a remaining element.
+      randomIndex = Math.floor(Math.random() * currentIndex);
+      currentIndex--;
+  
+      // And swap it with the current element.
+      [array[currentIndex], array[randomIndex]] = [
+        array[randomIndex], array[currentIndex]];
+    }
+  
+    return array;
+  }
+
+  const data = useSWR(
     "http://localhost:1337/api/models?populate=*",
     fetcher
   );
 
-  if (data == undefined) {
+  const cats = useSWR(
+    "http://localhost:1337/api/categories?populate[0]=models&populate[1]=models.free_images&populate[2]=models.profile_pic",
+    fetcher
+  );
+
+  if (data.data == undefined) {
+    return <div style={{ backgroundColor: "#000000", height: 1000 }}></div>;
+  }
+  if (cats.data == undefined) {
     return <div style={{ backgroundColor: "#000000", height: 1000 }}></div>;
   }
 
-  const dataArr = data.data.reverse();
+  const dataArr = data.data.data.reverse();
   const newDataArr = [];
   const arrRecords = [];
-  for (let i = 0; i < 12; i++) {
-    var rand = -1;
-    var randimg = -1;
-    if (rand == -1) {
-      rand = Math.floor(Math.random() * (dataArr.length - 0)) + 0;
-      randimg =
-        Math.floor(
-          Math.random() * (dataArr[rand].attributes.free_images.data.length - 0)
-        ) + 0;
-    }
-    while (arrRecords.includes(rand.toString() + randimg.toString())) {
-      rand = Math.floor(Math.random() * (dataArr.length - 0)) + 0;
-      randimg =
-        Math.floor(
-          Math.random() * (dataArr[rand].attributes.free_images.data.length - 0)
-        ) + 0;
-    }
-    console.log("rand " + rand + "randimg " + randimg);
-    arrRecords.push(rand.toString() + randimg.toString());
-    newDataArr.push({
-      display_name: dataArr[rand].attributes.display_name,
-      profile_pic: dataArr[rand].attributes.profile_pic.data.attributes.url,
-      image: dataArr[rand].attributes.free_images.data[randimg].attributes.url,
-    });
+  const categories = [];
+
+  categories.push("All")
+  for(let i = 0; i < cats.data.data.length ; i++){
+    categories.push(cats.data.data[i].attributes.Category_Name);
   }
 
-  const categories = [
-    "Latina",
-    "White",
-    "Black",
-    "Arab",
-    "Indian",
-    "Asian",
-    "Young",
-    "Thick",
-    "Skinny",
-    "MILF",
-  ];
+  if(catSelected == 0){
+    for(let i = 0; i < data.data.data.length; i++){
+      for(let j = 0; j < data.data.data[i].attributes.free_images.data.length; j++){
+        newDataArr.push({
+          display_name: data.data.data[i].attributes.display_name,
+          profile_pic: data.data.data[i].attributes.profile_pic.data.attributes.url,
+          image: data.data.data[i].attributes.free_images.data[j].attributes.url,
+        });
+      }
+    }
+}else{
+  for(let i = 0; i < cats.data.data[catSelected - 1].attributes.models.data.length; i++){
+    for(let j = 0; j < cats.data.data[catSelected - 1].attributes.models.data[i].attributes.free_images.data.length; j++){
+      newDataArr.push({
+        display_name: cats.data.data[catSelected - 1].attributes.models.data[i].attributes.display_name,
+        profile_pic: cats.data.data[catSelected - 1].attributes.models.data[i].attributes.profile_pic.data.attributes.url,
+        image: cats.data.data[catSelected - 1].attributes.models.data[i].attributes.free_images.data[j].attributes.url,
+      });
+    }
+  }
+}
+
+shuffle(newDataArr);
+
   return (
     <div style={{ backgroundColor: "#000000" }}>
       <script
@@ -87,7 +111,7 @@ export default function Page() {
           {categories.map((item, index) => {
             return (
               <li key={index} class="px-1 py-1">
-                <button class="btn btn-outline-primary"> {item}</button>
+                <button onClick={() => setCatSelected(index)} class="btn btn-outline-white"> {item}</button>
               </li>
             );
           })}

@@ -81,7 +81,7 @@ export default function Popup() {
               <div
                 class="flex flex-shrink-0 items-center justify-between rounded-t-md px-4">
                 <h1
-                  class="text-4xl font-semibold leading-normal text-neutral-800 dark:text-neutral-200 mt-4"
+                  class="text-5xl font-semibold leading-normal text-neutral-800 dark:text-neutral-200 mt-3"
                   id="exampleModalComponentsLabel">
                   18+ Content
                 </h1>

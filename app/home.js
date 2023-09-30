@@ -101,7 +101,7 @@ shuffle(newDataArr);
           Categories:
         </h4>
         <ul
-          class=" w-full flex overflow-x-scroll py-3"
+          class=" w-full flex overflow-x-hidden py-3"
           style={{ backgroundColor: "#000000" }}
         >
           {categories.map((item, index) => {

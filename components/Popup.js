@@ -1,16 +1,67 @@
 "use client";
 import "bootstrap/dist/css/bootstrap.css";
 import { useEffect ,useState } from "react";
+import useSWR from "swr";
+
+const fetcher = (...args) => fetch(...args).then((res) => res.json());
 
 export default function Popup() {
+
     const [visible, setVisible] = useState(false);
+    const [buttonDisabled, setButtonDisabled] = useState(false);
+    const [userEmail, setUserEmail] = useState(null);
+    const [buttonMsg, setButtonMsg] = useState("Subscribe");
+    const emailsArr = [];
+
     useEffect(() => {
-      let modal_status = localStorage.getItem('modal_status');
-            if(!modal_status){
-              setVisible(true);
-              localStorage.setItem('modal_status',1);
-            }
-    }, []);
+        let modal_status = localStorage.getItem('modal_status');
+              if(!modal_status){
+                setVisible(true);
+                localStorage.setItem('modal_status',1);
+              }
+      }, []);
+
+    const data = useSWR(
+        "http://localhost:1337/api/emails?populate=*",
+        fetcher
+      );
+
+      if (data.data == undefined) {
+        return <div style={{ backgroundColor: "#000000", height: 1000 }}/>;
+      }
+
+    
+    for(let i = 0; i < data.data.data.length; i++){
+        emailsArr.push(data.data.data[i].attributes.Email);
+    }
+
+    function handleEmailInput(e){
+        if(e.target.value != userEmail && buttonDisabled){
+            setButtonDisabled(false);
+            setButtonMsg("Subscribe");
+        }
+        setUserEmail(e.target.value);
+    }
+    function handleButtonPress(){
+        if(userEmail != null && userEmail.length > 5){
+        if(!emailsArr.includes(userEmail)){
+            fetch('http://localhost:1337/api/emails?populate=*', {
+                method: 'POST',
+                headers: {
+                  'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({data: {Email: userEmail}}),
+              })
+              emailsArr.push(userEmail);
+              setButtonMsg("Subscribed");
+              setButtonDisabled(true);
+        }else{
+        setButtonMsg("Already Subscribed");
+        setButtonDisabled(true);
+        }
+        }
+    }
+
     return <>{visible ? (
         <div
           style={{zIndex: 5}}
@@ -58,25 +109,34 @@ export default function Popup() {
               <div style={{opacity: .85}} class="px-4 font-medium mt-3 h-auto pb-0 mb-4">
                 Verify your age and enter your email to stay up to date on updates and new models!
               </div>
+              <div class="input-group mb-3">
               <input
-              class="form-control ms-4 ps-3 me-4 py-2 fs-7 w-auto"
+              class="form-control ms-4 ps-3 py-2 fs-7 w-auto"
               type="search"
               placeholder="Enter Your Email"
               aria-label="Search"
+              onBlur={handleEmailInput}
               style={{
-                borderRadius: 7.5,
+                borderTopLeftRadius: 7.5,
+                borderBottomLeftRadius: 7.5,
                 fontWeight: '600',
                 color: '#ffffff',
                 backgroundColor: "rgba(255, 255, 255, .1)",
-                borderColor: "rgba(255, 255, 255, .15)",
-                borderWidth: 2,
+                borderWidth: 0,
               }}
             />
+            <div class="input-group-append me-4">
+                <button style={{borderBottomLeftRadius: 0, borderTopLeftRadius: 0, borderTopRightRadius: 7.5, borderBottomRightRadius: 7.5}} 
+                onClick={handleButtonPress}
+                disabled={buttonDisabled}
+                class="px-3 border-transparent bg-green-600 text-slate-800 text-s font-semibold py-2" type="button">{buttonMsg}</button>
+             </div>
+            </div>
               <div
-                class="flex flex-shrink-0 flex-wrap items-center justify-end rounded-b-md p-4 mt-0">
+                class="flex flex-shrink-0 flex-wrap items-center justify-start rounded-b-md px-4 pb-4 pt-2 mt-0">
                 <button
                   type="button"
-                  class="ml-1 text-lg font-semibold inline-block rounded bg-green-600 px-10 pb-2 pt-2.5 text-xs font-medium uppercase leading-normal text-white shadow-[0_4px_9px_-4px_#3b71ca] transition duration-150 ease-in-out hover:bg-primary-600 hover:shadow-[0_8px_9px_-4px_rgba(59,113,202,0.3),0_4px_18px_0_rgba(59,113,202,0.2)] focus:bg-primary-600 focus:shadow-[0_8px_9px_-4px_rgba(59,113,202,0.3),0_4px_18px_0_rgba(59,113,202,0.2)] focus:outline-none focus:ring-0 active:bg-primary-700 active:shadow-[0_8px_9px_-4px_rgba(59,113,202,0.3),0_4px_18px_0_rgba(59,113,202,0.2)] dark:shadow-[0_4px_9px_-4px_rgba(59,113,202,0.5)] dark:hover:shadow-[0_8px_9px_-4px_rgba(59,113,202,0.2),0_4px_18px_0_rgba(59,113,202,0.1)] dark:focus:shadow-[0_8px_9px_-4px_rgba(59,113,202,0.2),0_4px_18px_0_rgba(59,113,202,0.1)] dark:active:shadow-[0_8px_9px_-4px_rgba(59,113,202,0.2),0_4px_18px_0_rgba(59,113,202,0.1)]"
+                  class="ml-1 text-xl font-semibold inline-block rounded bg-green-600 px-10 pb-2 pt-2.5 uppercase leading-normal text-slate-800 shadow-[0_4px_9px_-4px_#3b71ca] transition duration-150 ease-in-out hover:bg-primary-600 hover:shadow-[0_8px_9px_-4px_rgba(59,113,202,0.3),0_4px_18px_0_rgba(59,113,202,0.2)] focus:bg-primary-600 focus:shadow-[0_8px_9px_-4px_rgba(59,113,202,0.3),0_4px_18px_0_rgba(59,113,202,0.2)] focus:outline-none focus:ring-0 active:bg-primary-700 active:shadow-[0_8px_9px_-4px_rgba(59,113,202,0.3),0_4px_18px_0_rgba(59,113,202,0.2)] dark:shadow-[0_4px_9px_-4px_rgba(59,113,202,0.5)] dark:hover:shadow-[0_8px_9px_-4px_rgba(59,113,202,0.2),0_4px_18px_0_rgba(59,113,202,0.1)] dark:focus:shadow-[0_8px_9px_-4px_rgba(59,113,202,0.2),0_4px_18px_0_rgba(59,113,202,0.1)] dark:active:shadow-[0_8px_9px_-4px_rgba(59,113,202,0.2),0_4px_18px_0_rgba(59,113,202,0.1)]"
                   data-te-ripple-init
                   onClick={() => setVisible(false)}
                   data-te-ripple-color="light">

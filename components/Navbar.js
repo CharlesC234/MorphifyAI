@@ -32,7 +32,12 @@ export default function Navbar() {
             </li>
             <li class="nav-item px-2">
               <a class="nav-link fw-bold" href="#">
-                Sign In
+                Enter Email
+              </a>
+            </li>
+            <li class="nav-item px-2">
+              <a class="nav-link fw-bold" href="#">
+                Legal
               </a>
             </li>
           </ul>

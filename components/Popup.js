@@ -48,9 +48,9 @@ export default function Popup({emails}) {
         if(!emailsArr.includes(userEmail)){
               router.push(pathname + '?' + createQueryString('email', userEmail))
               emailsArr.push(userEmail);
-              router.replace("/");
               setButtonMsg("Subscribed");
               setButtonDisabled(true);
+              router.replace("/");
         }else{
         setButtonMsg("Already Subscribed");
         setButtonDisabled(true);

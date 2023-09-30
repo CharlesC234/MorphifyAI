@@ -33,7 +33,6 @@ export default async function Home({searchParams}) {
   const data = await getData();
   const cats = await getCats();
   const e = await getEmails();
-  
   const emails = [];
   for(let i = 0; i < e.data.length; i++){
     emails.push(e.data[i].attributes.Email);

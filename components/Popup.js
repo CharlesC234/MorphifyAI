@@ -44,13 +44,11 @@ export default function Popup({emails}) {
     function handleButtonPress(){
         const emailsArr = emails;
         if(userEmail != null && userEmail.length > 5){
-            console.log(emailsArr)
         if(!emailsArr.includes(userEmail)){
               router.push(pathname + '?' + createQueryString('email', userEmail))
               emailsArr.push(userEmail);
               setButtonMsg("Subscribed");
               setButtonDisabled(true);
-              router.replace("/");
         }else{
         setButtonMsg("Already Subscribed");
         setButtonDisabled(true);

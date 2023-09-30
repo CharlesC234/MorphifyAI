@@ -96,11 +96,9 @@ export default async function Home({searchParams}) {
 
   //checking and posting email data 
   var userEmail;
-  if(!searchParams.email){
-    userEmail = null;
-  }else{
+  console.log(searchParams);
+  if(searchParams.email){
     userEmail = searchParams.email;
-    console.log(userEmail);
     fetch('http://127.0.0.1:1337/api/emails?populate=*', {
       method: 'POST',
       headers: {

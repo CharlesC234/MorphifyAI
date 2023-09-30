@@ -22,7 +22,7 @@ async function getCats() {
 }
 
 async function getEmails(){
-  const res = await fetch('http://127.0.0.1:1337/api/emails?populate=*')
+  const res = await fetch('http://127.0.0.1:1337/api/emails')
   if (!res.ok) {
     throw new Error('Failed to fetch data')
   }

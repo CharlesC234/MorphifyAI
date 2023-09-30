@@ -15,6 +15,16 @@ export default function EnterEmail({emails}) {
     const [userEmail, setUserEmail] = useState(null);
     const [buttonMsg, setButtonMsg] = useState("Subscribe");
 
+    const createQueryString = useCallback(
+        (name, value) => {
+          const params = new URLSearchParams(searchParams)
+          params.set(name, value)
+     
+          return params.toString()
+        },
+        [searchParams]
+      )
+
     console.log(searchParams.get("ee"));
     var visible = searchParams.get("ee");
 
@@ -27,6 +37,7 @@ export default function EnterEmail({emails}) {
     }
     function handleButtonPress(){
         const emailsArr = emails;
+        console.log(emails);
         if(userEmail != null && userEmail.length > 5){
         if(!emailsArr.includes(userEmail)){
               router.push(pathname + '?' + createQueryString('email', userEmail))

@@ -67,7 +67,7 @@ export default function Popup() {
           style={{zIndex: 5}}
           data-te-modal-init
           data-te-backdrop="false"
-          class="fixed left-0 top-0 z-10 h-full w-full overflow-x-hidden backdrop-blur-md"
+          class="fixed left-0 top-0 z-10 h-full w-full overflow-x-hidden backdrop-blur-lg"
           id="exampleModalComponents"
           tabindex="-1"
           aria-labelledby="exampleModalComponentsLabel"

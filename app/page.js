@@ -3,6 +3,7 @@ import "./globals.css";
 import React from "react";
 import Explore from "./Explore/page";
 import Popup from "@/components/Popup";
+import EnterEmail from "@/components/EnterEmail";
 
 async function getData() {
   const res = await fetch('http://127.0.0.1:1337/api/models?populate=*')
@@ -96,7 +97,6 @@ export default async function Home({searchParams}) {
 
   //checking and posting email data 
   var userEmail;
-  console.log(searchParams);
   if(searchParams.email){
     userEmail = searchParams.email;
     fetch('http://127.0.0.1:1337/api/emails?populate=*', {
@@ -112,6 +112,7 @@ export default async function Home({searchParams}) {
   return (
     <>
     <Popup emails={emails}/>
+    <EnterEmail emails={emails}/>
     <Explore categories={categories} data={data} cats={cats} newDataArr={newDataArr}/>
     </>
   );

@@ -5,34 +5,18 @@ import { usePathname, useSearchParams } from 'next/navigation'
 import { useRouter } from "next/navigation";
 import { useCallback } from "react";
 
-export default function Popup({emails}) {
+export default function EnterEmail({emails}) {
 
     const router = useRouter();
     const pathname = usePathname();
     const searchParams = useSearchParams();
-  
-    const createQueryString = useCallback(
-      (name, value) => {
-        const params = new URLSearchParams(searchParams)
-        params.set(name, value)
-   
-        return params.toString()
-      },
-      [searchParams]
-    )
 
-    const [visible, setVisible] = useState(false);
     const [buttonDisabled, setButtonDisabled] = useState(false);
     const [userEmail, setUserEmail] = useState(null);
     const [buttonMsg, setButtonMsg] = useState("Subscribe");
 
-    useEffect(() => {
-        let modal_status = localStorage.getItem('modal_status');
-              if(!modal_status){
-                setVisible(true);
-                localStorage.setItem('modal_status',1);
-              }
-      }, []);
+    console.log(searchParams.get("ee"));
+    var visible = searchParams.get("ee");
 
     function handleEmailInput(e){
         if(e.target.value != userEmail && buttonDisabled){
@@ -77,14 +61,14 @@ export default function Popup({emails}) {
                 <h1
                   class="text-5xl font-semibold leading-normal text-neutral-800 dark:text-neutral-200 mt-3"
                   id="exampleModalComponentsLabel">
-                  18+ Content
+                  Enter Email
                 </h1>
                 <button
                   type="button"
                   class="box-content rounded-none border-none hover:no-underline hover:opacity-75 focus:opacity-100 focus:shadow-none focus:outline-none"
                   data-te-modal-dismiss
                   style={{marginTop: '1rem'}}
-                  onClick={() => setVisible(false)}
+                  onClick={() => router.replace("/")}
                   aria-label="Close">
                   <svg
                     xmlns="http://www.w3.org/2000/svg"
@@ -101,9 +85,9 @@ export default function Popup({emails}) {
                 </button>
               </div>
               <div style={{opacity: .85}} class="px-4 font-medium mt-3 h-auto pb-0 mb-4">
-                Verify your age and enter your email to stay up to date on updates and new models!
+                Enter your email to stay up to date on updates and new models!
               </div>
-              <div class="input-group mb-3">
+              <div class="input-group mb-4">
               <input
               class="form-control ms-4 ps-3 py-2 fs-7 w-auto"
               type="search"
@@ -126,17 +110,6 @@ export default function Popup({emails}) {
                 class="px-3 border-transparent bg-green-600 text-slate-800 text-s font-semibold py-2" type="button">{buttonMsg}</button>
              </div>
             </div>
-              <div
-                class="flex flex-shrink-0 flex-wrap items-center justify-start rounded-b-md px-4 pb-4 pt-2 mt-0">
-                <button
-                  type="button"
-                  class="ml-1 text-xl font-semibold inline-block rounded bg-green-600 px-10 pb-2 pt-2.5 uppercase leading-normal text-slate-800 shadow-[0_4px_9px_-4px_#3b71ca] transition duration-150 ease-in-out hover:bg-primary-600 hover:shadow-[0_8px_9px_-4px_rgba(59,113,202,0.3),0_4px_18px_0_rgba(59,113,202,0.2)] focus:bg-primary-600 focus:shadow-[0_8px_9px_-4px_rgba(59,113,202,0.3),0_4px_18px_0_rgba(59,113,202,0.2)] focus:outline-none focus:ring-0 active:bg-primary-700 active:shadow-[0_8px_9px_-4px_rgba(59,113,202,0.3),0_4px_18px_0_rgba(59,113,202,0.2)] dark:shadow-[0_4px_9px_-4px_rgba(59,113,202,0.5)] dark:hover:shadow-[0_8px_9px_-4px_rgba(59,113,202,0.2),0_4px_18px_0_rgba(59,113,202,0.1)] dark:focus:shadow-[0_8px_9px_-4px_rgba(59,113,202,0.2),0_4px_18px_0_rgba(59,113,202,0.1)] dark:active:shadow-[0_8px_9px_-4px_rgba(59,113,202,0.2),0_4px_18px_0_rgba(59,113,202,0.1)]"
-                  data-te-ripple-init
-                  onClick={() => setVisible(false)}
-                  data-te-ripple-color="light">
-                  I am 18+
-                </button>
-              </div>
             </div>
           </div>
         </div>

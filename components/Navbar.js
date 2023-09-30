@@ -1,6 +1,25 @@
+"use client";
 import "bootstrap/dist/css/bootstrap.css";
+import { usePathname, useSearchParams } from 'next/navigation'
+import { useRouter } from "next/navigation";
+import { useCallback } from "react";
 
 export default function Navbar() {
+
+  const router = useRouter();
+    const pathname = usePathname();
+    const searchParams = useSearchParams();
+  
+    const createQueryString = useCallback(
+      (name, value) => {
+        const params = new URLSearchParams(searchParams)
+        params.set(name, value)
+   
+        return params.toString()
+      },
+      [searchParams]
+    )
+
   return (
     <nav class="navbar navbar-dark bg-dark navbar-expand-lg px-4 py-3">
       <div class="container">
@@ -31,7 +50,7 @@ export default function Navbar() {
               </a>
             </li>
             <li class="nav-item px-2">
-              <a class="nav-link fw-bold" href="#">
+              <a class="nav-link fw-bold" onClick={() => {router.push(pathname + '?' + createQueryString('ee', "true"))}} >
                 Enter Email
               </a>
             </li>

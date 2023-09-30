@@ -25,8 +25,8 @@ export default function Popup() {
             data-te-modal-dialog-ref
             class="w-auto h-auto mx-auto opacity-100 transition-all duration-300 ease-in-out max-w-[576px]">
             <div
-            style={{borderRadius: 17.5, position: 'absolute', transform: 'translate(-50%, -50%)', top: '50%', bottom: '50%', left: '50%', right: '50%', maxHeight: 300, maxWidth: 500}}
-              class="min-[576px]:shadow-[0_0.5rem_1rem_rgba(#000, 0.15)] pointer-events-auto flex w-full h-full flex-col rounded-md border-none bg-clip-padding text-current shadow-lg outline-none bg-dark">
+            style={{borderRadius: 17.5, position: 'absolute', transform: 'translate(-50%, -50%)', top: '50%', bottom: '50%', left: '50%', right: '50%', maxHeight: 500, maxWidth: 500, height: 'fit-content'}}
+              class=" pb-1 min-[576px]:shadow-[0_0.5rem_1rem_rgba(#000, 0.15)] pointer-events-auto flex w-full h-full flex-col rounded-md border-none bg-clip-padding text-current shadow-lg outline-none bg-dark">
               <div
                 class="flex flex-shrink-0 items-center justify-between rounded-t-md px-4">
                 <h1
@@ -55,8 +55,8 @@ export default function Popup() {
                   </svg>
                 </button>
               </div>
-              <div class="px-4 font-medium mt-4 h-auto pb-0 mb-4">
-                Verify your age and enter your email to stay up to date
+              <div style={{opacity: .85}} class="px-4 font-medium mt-3 h-auto pb-0 mb-4">
+                Verify your age and enter your email to stay up to date on updates and new models!
               </div>
               <input
               class="form-control ms-4 ps-3 me-4 py-2 fs-7 w-auto"
@@ -73,7 +73,7 @@ export default function Popup() {
               }}
             />
               <div
-                class="flex flex-shrink-0 flex-wrap items-center justify-end rounded-b-md p-4 mt-2">
+                class="flex flex-shrink-0 flex-wrap items-center justify-end rounded-b-md p-4 mt-0">
                 <button
                   type="button"
                   class="ml-1 text-lg font-semibold inline-block rounded bg-green-600 px-10 pb-2 pt-2.5 text-xs font-medium uppercase leading-normal text-white shadow-[0_4px_9px_-4px_#3b71ca] transition duration-150 ease-in-out hover:bg-primary-600 hover:shadow-[0_8px_9px_-4px_rgba(59,113,202,0.3),0_4px_18px_0_rgba(59,113,202,0.2)] focus:bg-primary-600 focus:shadow-[0_8px_9px_-4px_rgba(59,113,202,0.3),0_4px_18px_0_rgba(59,113,202,0.2)] focus:outline-none focus:ring-0 active:bg-primary-700 active:shadow-[0_8px_9px_-4px_rgba(59,113,202,0.3),0_4px_18px_0_rgba(59,113,202,0.2)] dark:shadow-[0_4px_9px_-4px_rgba(59,113,202,0.5)] dark:hover:shadow-[0_8px_9px_-4px_rgba(59,113,202,0.2),0_4px_18px_0_rgba(59,113,202,0.1)] dark:focus:shadow-[0_8px_9px_-4px_rgba(59,113,202,0.2),0_4px_18px_0_rgba(59,113,202,0.1)] dark:active:shadow-[0_8px_9px_-4px_rgba(59,113,202,0.2),0_4px_18px_0_rgba(59,113,202,0.1)]"

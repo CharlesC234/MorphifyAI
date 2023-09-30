@@ -1,10 +1,7 @@
 "use client";
-import Image from "next/image";
-import styles from "../page.module.css";
 import "bootstrap/dist/css/bootstrap.css";
 import "../globals.css";
 import useSWR from "swr";
-import ImageLayout from "@/components/ImageLayout";
 
 const fetcher = (...args) => fetch(...args).then((res) => res.json());
 

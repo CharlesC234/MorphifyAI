@@ -1,14 +1,121 @@
-"use client";
-import Image from "next/image";
-import styles from "./page.module.css";
 import "bootstrap/dist/css/bootstrap.css";
-import { useEffect ,useState } from "react";
-import Page from "./home";
+import "./globals.css";
+import React from "react";
+import Explore from "./Explore/page";
+import Popup from "@/components/Popup";
 
-export default function Home() {
-  useEffect(() => {
-    require("bootstrap/dist/js/bootstrap");
-  }, []);
-  return<Page>
-  </Page>
+async function getData() {
+  const res = await fetch('http://127.0.0.1:1337/api/models?populate=*')
+  if (!res.ok) {
+    throw new Error('Failed to fetch data')
+  }
+  return res.json()
+}
+
+async function getCats() {
+  const res = await fetch('http://127.0.0.1:1337/api/categories?populate[0]=models&populate[1]=models.free_images&populate[2]=models.profile_pic')
+  if (!res.ok) {
+    throw new Error('Failed to fetch data')
+  }
+  return res.json()
+}
+
+async function getEmails(){
+  const res = await fetch('http://127.0.0.1:1337/api/emails?populate=*')
+  if (!res.ok) {
+    throw new Error('Failed to fetch data')
+  }
+  return res.json()
+}
+
+export default async function Home({searchParams}) {
+  //get data
+  const data = await getData();
+  const cats = await getCats();
+  const e = await getEmails();
+  
+  const emails = [];
+  for(let i = 0; i < e.data.length; i++){
+    emails.push(e.data[i].attributes.Email);
+  }
+
+
+  //sort images based on input
+  var catSelected = 0;
+
+  if(!searchParams.sort){
+    catSelected = 0;
+  }else{
+  catSelected = searchParams.sort;
+  }
+
+  function shuffle(array) {
+    let currentIndex = array.length,  randomIndex;
+    while (currentIndex > 0) {
+      randomIndex = Math.floor(Math.random() * currentIndex);
+      currentIndex--;
+  
+      [array[currentIndex], array[randomIndex]] = [
+        array[randomIndex], array[currentIndex]];
+    }
+    return array;
+  }
+  
+  const newDataArr = [];
+  
+  if(catSelected == 0){
+    var thisData = data.data;
+    for(let i = 0; i < thisData.length; i++){
+      for(let j = 0; j < thisData[i].attributes.free_images.data.length; j++){
+        newDataArr.push({
+          display_name: thisData[i].attributes.display_name,
+          profile_pic: thisData[i].attributes.profile_pic.data.attributes.url,
+          image: thisData[i].attributes.free_images.data[j].attributes.url,
+        });
+      }
+    }
+  }else{
+    var thisData = cats.data[catSelected - 1].attributes.models.data;
+    for(let i = 0; i < thisData.length; i++){
+      for(let j = 0; j < thisData[i].attributes.free_images.data.length; j++){
+        newDataArr.push({
+          display_name: thisData[i].attributes.display_name,
+          profile_pic: thisData[i].attributes.profile_pic.data.attributes.url,
+          image: thisData[i].attributes.free_images.data[j].attributes.url,
+        });
+      }
+    }
+  }
+  shuffle(newDataArr);
+
+  const categories = [];
+  categories.push("Top Pics");
+
+  for(let i = 0; i < cats.data.length ; i++){
+    categories.push(cats.data[i].attributes.Category_Name);
+  }
+
+  //checking and posting email data 
+  var userEmail;
+  if(!searchParams.email){
+    userEmail = null;
+  }else{
+    userEmail = searchParams.email;
+    console.log(userEmail);
+    fetch('http://127.0.0.1:1337/api/emails?populate=*', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({data: {Email: userEmail}}),
+    })
+  }
+
+
+  return (
+    <>
+    <Popup emails={emails}/>
+    <Explore categories={categories} data={data} cats={cats} newDataArr={newDataArr}/>
+    </>
+  );
 }

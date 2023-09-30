@@ -1,39 +1,38 @@
 "use client";
 import "bootstrap/dist/css/bootstrap.css";
 import { useEffect ,useState } from "react";
-import useSWR from "swr";
+import { usePathname, useSearchParams } from 'next/navigation'
+import { useRouter } from "next/navigation";
+import { useCallback } from "react";
 
-const fetcher = (...args) => fetch(...args).then((res) => res.json());
+export default function Popup({emails}) {
 
-export default function Popup() {
+    const router = useRouter();
+    const pathname = usePathname();
+    const searchParams = useSearchParams();
+  
+    const createQueryString = useCallback(
+      (name, value) => {
+        const params = new URLSearchParams(searchParams)
+        params.set(name, value)
+   
+        return params.toString()
+      },
+      [searchParams]
+    )
 
     const [visible, setVisible] = useState(false);
     const [buttonDisabled, setButtonDisabled] = useState(false);
     const [userEmail, setUserEmail] = useState(null);
     const [buttonMsg, setButtonMsg] = useState("Subscribe");
-    const emailsArr = [];
 
     useEffect(() => {
         let modal_status = localStorage.getItem('modal_status');
-              if(!modal_status){
+              if(true){
                 setVisible(true);
                 localStorage.setItem('modal_status',1);
               }
       }, []);
-
-    const data = useSWR(
-        "http://localhost:1337/api/emails?populate=*",
-        fetcher
-      );
-
-      if (data.data == undefined) {
-        return <div style={{ backgroundColor: "#000000", height: 1000 }}/>;
-      }
-
-    
-    for(let i = 0; i < data.data.data.length; i++){
-        emailsArr.push(data.data.data[i].attributes.Email);
-    }
 
     function handleEmailInput(e){
         if(e.target.value != userEmail && buttonDisabled){
@@ -43,16 +42,13 @@ export default function Popup() {
         setUserEmail(e.target.value);
     }
     function handleButtonPress(){
+        const emailsArr = emails;
         if(userEmail != null && userEmail.length > 5){
+            console.log(emailsArr)
         if(!emailsArr.includes(userEmail)){
-            fetch('http://localhost:1337/api/emails?populate=*', {
-                method: 'POST',
-                headers: {
-                  'Content-Type': 'application/json',
-                },
-                body: JSON.stringify({data: {Email: userEmail}}),
-              })
+              router.push(pathname + '?' + createQueryString('email', userEmail))
               emailsArr.push(userEmail);
+              router.replace("/");
               setButtonMsg("Subscribed");
               setButtonDisabled(true);
         }else{

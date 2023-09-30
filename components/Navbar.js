@@ -36,28 +36,21 @@ export default function Navbar() {
               </a>
             </li>
           </ul>
-          <form class="d-flex">
             <input
-              class="form-control me-3 ps-3"
+              class="form-control ps-4 py-2 fs-7"
               type="search"
               placeholder="Find models"
               aria-label="Search"
               style={{
                 borderRadius: 20,
-                width: 375,
+                fontWeight: '600',
+                width: '40%',
+                color: '#ffffff',
                 backgroundColor: "rgba(255, 255, 255, .1)",
                 borderColor: "rgba(255, 255, 255, .15)",
                 borderWidth: 2,
               }}
             />
-            <button
-              class="btn btn-outline-light"
-              style={{ borderRadius: 20, borderWidth: 2 }}
-              type="submit"
-            >
-              Search
-            </button>
-          </form>
         </div>
       </div>
     </nav>

@@ -16,20 +16,17 @@ export default function Page() {
 
   function shuffle(array) {
     let currentIndex = array.length,  randomIndex;
-  
-    // While there remain elements to shuffle.
+
     while (currentIndex > 0) {
-  
-      // Pick a remaining element.
       randomIndex = Math.floor(Math.random() * currentIndex);
       currentIndex--;
-  
-      // And swap it with the current element.
+
       [array[currentIndex], array[randomIndex]] = [
         array[randomIndex], array[currentIndex]];
     }
     return array;
   }
+
 
   const data = useSWR(
     "http://localhost:1337/api/models?populate=*",
@@ -42,15 +39,13 @@ export default function Page() {
   );
 
   if (data.data == undefined) {
-    return <div style={{ backgroundColor: "#000000", height: 1000 }}></div>;
+    return <div style={{ backgroundColor: "#000000", height: 1000 }}/>;
   }
   if (cats.data == undefined) {
-    return <div style={{ backgroundColor: "#000000", height: 1000 }}></div>;
+    return <div style={{ backgroundColor: "#000000", height: 1000 }}/>;
   }
 
-  const dataArr = data.data.data.reverse();
   const newDataArr = [];
-  const arrRecords = [];
   const categories = [];
   categories.push("Top");
 
@@ -59,28 +54,30 @@ export default function Page() {
   }
 
   if(catSelected == 0){
-    for(let i = 0; i < data.data.data.length; i++){
-      for(let j = 0; j < data.data.data[i].attributes.free_images.data.length; j++){
+    var thisData = data.data.data;
+    for(let i = 0; i < thisData.length; i++){
+      for(let j = 0; j < thisData[i].attributes.free_images.data.length; j++){
         newDataArr.push({
-          display_name: data.data.data[i].attributes.display_name,
-          profile_pic: data.data.data[i].attributes.profile_pic.data.attributes.url,
-          image: data.data.data[i].attributes.free_images.data[j].attributes.url,
+          display_name: thisData[i].attributes.display_name,
+          profile_pic: thisData[i].attributes.profile_pic.data.attributes.url,
+          image: thisData[i].attributes.free_images.data[j].attributes.url,
         });
       }
     }
   }else{
-    for(let i = 0; i < cats.data.data[catSelected - 1].attributes.models.data.length; i++){
-      for(let j = 0; j < cats.data.data[catSelected - 1].attributes.models.data[i].attributes.free_images.data.length; j++){
+    var thisData = cats.data.data[catSelected - 1].attributes.models.data;
+    for(let i = 0; i < thisData.length; i++){
+      for(let j = 0; j < thisData[i].attributes.free_images.data.length; j++){
         newDataArr.push({
-          display_name: cats.data.data[catSelected - 1].attributes.models.data[i].attributes.display_name,
-          profile_pic: cats.data.data[catSelected - 1].attributes.models.data[i].attributes.profile_pic.data.attributes.url,
-          image: cats.data.data[catSelected - 1].attributes.models.data[i].attributes.free_images.data[j].attributes.url,
+          display_name: thisData[i].attributes.display_name,
+          profile_pic: thisData[i].attributes.profile_pic.data.attributes.url,
+          image: thisData[i].attributes.free_images.data[j].attributes.url,
         });
       }
     }
   }
-
 shuffle(newDataArr);
+
 
   return (
     <div style={{ backgroundColor: "#000000" }}>
@@ -96,8 +93,8 @@ shuffle(newDataArr);
           class="fw-bold"
           style={{
             color: "#ffffff",
-            fontSize: "1.25rem",
-            marginTop: "2.5rem",
+            fontSize: "1.35rem",
+            marginTop: "2.25rem",
             marginBottom: ".4rem",
           }}
         >
@@ -110,7 +107,9 @@ shuffle(newDataArr);
           {categories.map((item, index) => {
             return (
               <li key={index} class="px-1 py-1">
-                <button onClick={() => setCatSelected(index)} class="btn btn-outline-white"> {item}</button>
+                <button  data-toggle="button" onClick={() => setCatSelected(index)} 
+                style={{paddingLeft: 17.5, fontWeight: '600', paddingRight: 17.5, paddingBottom: 7.5, paddingTop: 7.5, borderRadius: 10, backgroundColor: 'rgba(255, 255, 255, .2)'}}
+                class="hover:bg-black active:bg-black focus:outline-none focus:ring-2 focus:ring-white"> {item}</button>
               </li>
             );
           })}

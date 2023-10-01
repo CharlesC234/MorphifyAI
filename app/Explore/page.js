@@ -40,7 +40,7 @@ export default function Explore({categories, newDataArr}) {
             color: "#ffffff",
             fontSize: "1.35rem",
             marginTop: "2.25rem",
-            marginBottom: ".4rem",
+            marginBottom: "0rem",
           }}
         >
           Categories:

@@ -11,7 +11,7 @@ export const metadata = {
   description: "Your #1 destination for everything AI",
 };
 
-export default function RootLayout({ children, searchParams }) {
+export default function RootLayout({ children }) {
   return (
     <html lang="en">
       <body className={inter.className}>

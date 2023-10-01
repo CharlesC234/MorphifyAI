@@ -4,6 +4,8 @@ import React from "react";
 import Explore from "./Explore/page";
 import Popup from "@/components/Popup";
 import EnterEmail from "@/components/EnterEmail";
+import Navbar from "@/components/layout/Navbar";
+import { headers } from "next/headers";
 
 async function getData() {
   const res = await fetch('http://127.0.0.1:1337/api/models?populate=*')
@@ -29,7 +31,11 @@ async function getEmails(){
   return res.json()
 }
 
-export default async function Home({searchParams}) {
+export default async function Home({searchParams, children}) {
+
+  const headersList = headers();
+  const activePath = headersList.get("x-invoke-path");
+
   //get data
   const data = await getData();
   const cats = await getCats();
@@ -43,7 +49,7 @@ export default async function Home({searchParams}) {
   //sort images based on input
   var catSelected = 0;
 
-  if(!searchParams.sort){
+  if(searchParams.sort == undefined){
     catSelected = 0;
   }else{
   catSelected = searchParams.sort;
@@ -97,7 +103,7 @@ export default async function Home({searchParams}) {
 
   //checking and posting email data 
   var userEmail;
-  if(searchParams.email){
+  if(searchParams.email != undefined){
     userEmail = searchParams.email;
     fetch('http://127.0.0.1:1337/api/emails?populate=*', {
       method: 'POST',
@@ -107,7 +113,7 @@ export default async function Home({searchParams}) {
       body: JSON.stringify({data: {Email: userEmail}}),
     })
   }
-
+  
 
   return (
     <>

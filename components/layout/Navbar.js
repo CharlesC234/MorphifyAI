@@ -11,7 +11,20 @@ export default function Navbar({searchArr}) {
   const [border, setBorder] = useState(2);
   const [radius, setRadius] = useState(20);
 
+  const router = useRouter();
   const pathname = usePathname();
+  const searchParams = useSearchParams();
+
+  const createQueryString = useCallback(
+    (name, value) => {
+      const params = new URLSearchParams(searchParams)
+      params.set(name, value)
+ 
+      return params.toString()
+    },
+    [searchParams]
+  )
+
 
   const [inputStr, setInputStr] = useState("");
 

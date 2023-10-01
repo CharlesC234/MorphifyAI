@@ -1,5 +1,5 @@
 "use client";
-import Navbar from "@/components/Navbar";
+import Navbar from "@/components/layout/Navbar";
 import "bootstrap/dist/css/bootstrap.css";
 import { usePathname } from "next/navigation";
 import useSWR from "swr";
@@ -39,20 +39,20 @@ export default function modelPage() {
   }
 
   if (pageExists) {
-  for (
-    let i = 0;
-    i < data.data[modelIndex].attributes.free_images.data.length;
-    i++
-  ) {
-    newDataArr.push({
-      display_name: data.data[modelIndex].attributes.display_name,
-      profile_pic:
-        data.data[modelIndex].attributes.profile_pic.data.attributes.url,
-      image:
-        data.data[modelIndex].attributes.free_images.data[i].attributes.url,
-    });
-  }
-  console.log(newDataArr);
+    for (
+      let i = 0;
+      i < data.data[modelIndex].attributes.free_images.data.length;
+      i++
+    ) {
+      newDataArr.push({
+        display_name: data.data[modelIndex].attributes.display_name,
+        profile_pic:
+          data.data[modelIndex].attributes.profile_pic.data.attributes.url,
+        image:
+          data.data[modelIndex].attributes.free_images.data[i].attributes.url,
+      });
+    }
+    console.log(newDataArr);
 
     return (
       <div style={{ backgroundColor: "#000000" }}>
@@ -151,7 +151,10 @@ export default function modelPage() {
     );
   } else {
     return (
-      <div className="container" style={{ backgroundColor: "#000000", height: 1000 }}>
+      <div
+        className="container"
+        style={{ backgroundColor: "#000000", height: 1000 }}
+      >
         <h1 class="pt-4" style={{ color: "#ffffff" }}>
           404 - Page Not Found
         </h1>

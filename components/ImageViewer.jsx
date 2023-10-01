@@ -1,4 +1,5 @@
 import { useState, useEffect } from "react";
+import { FiArrowLeft, FiArrowRight } from "react-icons/fi";
 
 export default function ImageLayout(data) {
   const images = data.allImages;
@@ -23,8 +24,11 @@ export default function ImageLayout(data) {
   return (
     <a class="fixed z-10 left-0 top-0 h-full w-full overflow-hidden backdrop-blur-md">
       <div class=" grid grid-cols-6 items-center">
-        <button onClick={() => addIndex()} class="btn z-50">
-          ⬅️
+        <button
+          onClick={() => addIndex()}
+          class=" z-50 bg-gray-700 rounded-full p-3 mx-auto"
+        >
+          <FiArrowLeft size={55} />
         </button>
 
         <div
@@ -32,14 +36,17 @@ export default function ImageLayout(data) {
           class="col-span-4 xs:col-span-6"
         >
           <img
-            class="h-9/10 w-auto rounded-lg m-4 mx-auto"
+            class="max-h-fit w-auto rounded-lg m-8 mx-auto"
             src={"http://localhost:1337" + girls[index].image}
             alt=""
           />
         </div>
 
-        <a onClick={() => addIndex()} class="btn z-50">
-          ➡️
+        <a
+          onClick={() => addIndex()}
+          class=" z-50 bg-gray-700 rounded-full p-3 mx-auto"
+        >
+          <FiArrowRight size={55} />
         </a>
       </div>
     </a>

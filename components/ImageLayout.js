@@ -17,7 +17,7 @@ export default function ImageLayout(data) {
   function selectPhoto(index) {
     setIndex(index);
     setPhotoView(true);
-  }            
+  }
 
   return (
     <div class="grid grid-cols-2 md:grid-cols-4 gap-2">
@@ -28,14 +28,12 @@ export default function ImageLayout(data) {
             key={index}
             class="grid gap-4 cursor-pointer"
           >
-
             <img
               class="h-auto max-w-full rounded-lg"
               src={"http://localhost:1337" + item.image}
               alt=""
             />
           </a>
-  
         );
       })}
       {photoView ? (

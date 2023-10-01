@@ -1,30 +1,31 @@
 "use client";
 import "bootstrap/dist/css/bootstrap.css";
-import { usePathname, useSearchParams } from 'next/navigation'
+import { usePathname, useSearchParams } from "next/navigation";
 import { useRouter } from "next/navigation";
 import { useCallback } from "react";
 
 export default function Navbar() {
-
   const router = useRouter();
-    const pathname = usePathname();
-    const searchParams = useSearchParams();
-  
-    const createQueryString = useCallback(
-      (name, value) => {
-        const params = new URLSearchParams(searchParams)
-        params.set(name, value)
-   
-        return params.toString()
-      },
-      [searchParams]
-    )
+  const pathname = usePathname();
+  const searchParams = useSearchParams();
+
+  const createQueryString = useCallback(
+    (name, value) => {
+      const params = new URLSearchParams(searchParams);
+      params.set(name, value);
+
+      return params.toString();
+    },
+    [searchParams]
+  );
 
   return (
     <nav class="navbar navbar-dark bg-dark navbar-expand-lg px-4 py-3">
       <div class="container">
         <a class="navbar-brand fw-bold" style={{ fontSize: 27.5 }} href="/">
-          stunner.club
+          <h1 class="text-5xl font-extrabold text-transparent bg-clip-text bg-gradient-to-br from-pink-400 to-red-600">
+            VirtualGirls.ai
+          </h1>
         </a>
         <button
           class="navbar-toggler"
@@ -50,7 +51,12 @@ export default function Navbar() {
               </a>
             </li>
             <li class="nav-item px-2">
-              <a class="nav-link fw-bold" onClick={() => {router.push(pathname + '?' + createQueryString('ee', "true"))}} >
+              <a
+                class="nav-link fw-bold"
+                onClick={() => {
+                  router.push(pathname + "?" + createQueryString("ee", "true"));
+                }}
+              >
                 Enter Email
               </a>
             </li>
@@ -60,21 +66,21 @@ export default function Navbar() {
               </a>
             </li>
           </ul>
-            <input
-              class="form-control ps-4 py-2 fs-7"
-              type="search"
-              placeholder="Find models"
-              aria-label="Search"
-              style={{
-                borderRadius: 20,
-                fontWeight: '600',
-                width: '40%',
-                color: '#ffffff',
-                backgroundColor: "rgba(255, 255, 255, .1)",
-                borderColor: "rgba(255, 255, 255, .15)",
-                borderWidth: 2,
-              }}
-            />
+          <input
+            class="form-control ps-4 py-2 fs-7"
+            type="search"
+            placeholder="Find models"
+            aria-label="Search"
+            style={{
+              borderRadius: 20,
+              fontWeight: "600",
+              width: "40%",
+              color: "#ffffff",
+              backgroundColor: "rgba(255, 255, 255, .1)",
+              borderColor: "rgba(255, 255, 255, .15)",
+              borderWidth: 2,
+            }}
+          />
         </div>
       </div>
     </nav>

@@ -116,7 +116,7 @@ export default function Navbar({searchArr}) {
           </ul>
           <div class="relative" style={{width: '40%'}}>
             <input
-              class="form-control ps-4 py-2 z-10 font-bold text-md py-2 focus:bg-zinc-800 focus:border-zinc-700 bg-zinc-800 border-zinc-700 text-white"
+              class="form-control ps-4 py-2 font-bold text-md py-2 focus:bg-zinc-800 focus:border-zinc-700 bg-zinc-800 border-zinc-700 text-white"
               type="search"
               placeholder="Find models by name"
               onFocus={() => {setShowSearch(true); setRadius(0); setBorder(0)}}
@@ -133,7 +133,7 @@ export default function Navbar({searchArr}) {
               }}
             />
             <button onClick={() => {setShowSearch(false); setRadius(20); setBorder(2)}} className={`z-4 h-full w-full left-0 top-0 ${showSearch ? "fixed" : "hidden"}`}/>
-            <div class={`shadow-xl z-5 opacity-100 bg-zinc-800 position-absolute overflow-hidden border-zinc-700 mt-0 p-1 pt-3 pe-0 ${showSearch ? "block" : "hidden"}`} 
+            <div class={`shadow-xl opacity-100 bg-zinc-800 position-absolute overflow-hidden border-zinc-700 mt-0 p-1 pt-3 pe-0 ${showSearch ? "block" : "hidden"}`} 
             style={{borderLeftWidth: 2, borderRightWidth: 2, borderBottomWidth: 2, width: '100%', borderBottomLeftRadius: 20, borderBottomRightRadius: 20}}>
               {searchArr.slice(0,3).map((item)=>{
                 return <a className="row mb-3 px-3 pe-0" style={{width: '100%'}} href={"/" + item.display_name}>

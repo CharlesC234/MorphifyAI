@@ -7,7 +7,7 @@ import Search from "./search";
 const inter = Inter({ subsets: ["latin"] });
 
 export const metadata = {
-  title: "VirtualGirls.ai",
+  title: "xxxpixels.co",
   description: "Your #1 destination for everything AI",
 };
 

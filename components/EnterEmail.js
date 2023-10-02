@@ -118,7 +118,7 @@ export default function EnterEmail({emails}) {
                 <button style={{borderBottomLeftRadius: 0, borderTopLeftRadius: 0, borderTopRightRadius: 7.5, borderBottomRightRadius: 7.5}} 
                 onClick={handleButtonPress}
                 disabled={buttonDisabled}
-                class="px-3 border-transparent bg-green-600 text-slate-800 text-s font-semibold py-2" type="button">{buttonMsg}</button>
+                class="px-3 border-transparent bg-pink-500 text-slate-800 text-s font-semibold py-2" type="button">{buttonMsg}</button>
              </div>
             </div>
             </div>

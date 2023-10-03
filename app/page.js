@@ -23,27 +23,12 @@ async function getCats() {
   return res.json()
 }
 
-async function getEmails(){
-  const res = await fetch('http://127.0.0.1:1337/api/emails?')
-  if (!res.ok) {
-    throw new Error('Failed to fetch data')
-  }
-  return res.json()
-}
-
 export default async function Home({searchParams, children}) {
 
-  const headersList = headers();
-  const activePath = headersList.get("x-invoke-path");
 
   //get data
   const data = await getData();
   const cats = await getCats();
-  const e = await getEmails();
-  const emails = [];
-  for(let i = 0; i < e.data.length; i++){
-    emails.push(e.data[i].attributes.Email);
-  }
 
 
   //sort images based on input
@@ -100,26 +85,7 @@ export default async function Home({searchParams, children}) {
   for(let i = 0; i < cats.data.length ; i++){
     categories.push(cats.data[i].attributes.Category_Name);
   }
-
-  //checking and posting email data 
-  var userEmail;
-  if(searchParams.email != undefined){
-    userEmail = searchParams.email;
-    fetch('http://127.0.0.1:1337/api/emails?populate=*', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify({data: {Email: userEmail}}),
-    })
-  }
   
 
-  return (
-    <>
-    <Popup emails={emails}/>
-    <EnterEmail emails={emails}/>
-    <Explore categories={categories} data={data} cats={cats} newDataArr={newDataArr}/>
-    </>
-  );
+  return <Explore categories={categories} data={data} cats={cats} newDataArr={newDataArr}/>
 }

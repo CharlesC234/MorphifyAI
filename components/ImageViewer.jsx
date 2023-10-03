@@ -1,3 +1,4 @@
+import { useRouter } from "next/navigation";
 import { useState, useEffect } from "react";
 import { FiArrowLeft, FiArrowRight } from "react-icons/fi";
 
@@ -5,12 +6,9 @@ export default function ImageLayout(data) {
   const images = data.allImages;
   const girls = images.dataArr;
   const length = girls.length;
+  const router = useRouter();
 
   const [index, setIndex] = useState(data.index);
-
-  useEffect(() => {
-    console.log(index);
-  }, [index]);
 
   function addIndex() {
     console.log("im running");
@@ -22,33 +20,34 @@ export default function ImageLayout(data) {
   }
 
   return (
-    <a class="fixed z-10 left-0 top-0 h-full w-full overflow-hidden backdrop-blur-md">
-      <div class=" grid grid-cols-6 items-center">
+      <div class="grid grid-cols-3 items-center h-full w-full">
         <button
           onClick={() => addIndex()}
-          class=" z-50 bg-gray-700 rounded-full p-3 mx-auto"
+          class=" z-50 rounded-full p-3 mx-auto"
+          style={{backgroundColor: 'rgba(0,0,0,.35)'}}
         >
-          <FiArrowLeft size={55} />
+          <FiArrowLeft size={55}/>
         </button>
 
         <div
           onClick={() => data.setView(false)}
-          class="col-span-4 xs:col-span-6"
+          class="h-full w-auto my-auto grid grid-rows-1 items-center"
         >
           <img
-            class="max-h-fit w-auto rounded-lg m-8 mx-auto"
+            class="h-fit w-auto my-auto"
+            style={{borderRadius: 20}}
             src={"http://localhost:1337" + girls[index].image}
             alt=""
           />
         </div>
 
-        <a
+        <button
           onClick={() => addIndex()}
-          class=" z-50 bg-gray-700 rounded-full p-3 mx-auto"
+          class=" z-50 rounded-full p-3 mx-auto"
+          style={{backgroundColor: 'rgba(0,0,0,.35)'}}
         >
           <FiArrowRight size={55} />
-        </a>
+        </button>
       </div>
-    </a>
   );
 }

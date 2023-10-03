@@ -5,7 +5,7 @@ import React from "react";
 import Navbar from "@/components/layout/Navbar";
 
 async function getModels(){
-    const res = await fetch('http://127.0.0.1:1337/api/models?populate=*')
+    const res = await fetch('http://127.0.0.1:1337/api/models?populate[0]=profile_pic')
     if (!res.ok) {
       throw new Error('Failed to fetch data')
     }

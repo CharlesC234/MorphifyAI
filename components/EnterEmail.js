@@ -1,6 +1,6 @@
 "use client";
 import "bootstrap/dist/css/bootstrap.css";
-import { useEffect ,useState } from "react";
+import { useEffect, useState } from "react";
 import { usePathname, useSearchParams } from 'next/navigation'
 import { useRouter } from "next/navigation";
 import { useCallback } from "react";
@@ -40,7 +40,13 @@ export default function EnterEmail({emails}) {
         console.log(emails);
         if(userEmail != null && userEmail.length > 5){
         if(!emailsArr.includes(userEmail)){
-              router.push(pathname + '?' + createQueryString('email', userEmail))
+            fetch('http://127.0.0.1:1337/api/emails?populate=*', {
+                method: 'POST',
+                headers: {
+                  'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({data: {Email: userEmail}}),
+              })
               emailsArr.push(userEmail);
               setButtonMsg("Subscribed");
               setButtonDisabled(true);
@@ -50,6 +56,7 @@ export default function EnterEmail({emails}) {
         }
         }
     }
+
 
     return <>{visible ? (
         <div
@@ -79,7 +86,7 @@ export default function EnterEmail({emails}) {
                   class="box-content rounded-none border-none hover:no-underline hover:opacity-75 focus:opacity-100 focus:shadow-none focus:outline-none"
                   data-te-modal-dismiss
                   style={{marginTop: '1rem'}}
-                  onClick={() => router.replace("/")}
+                  onClick={() => router.back()}
                   aria-label="Close">
                   <svg
                     xmlns="http://www.w3.org/2000/svg"

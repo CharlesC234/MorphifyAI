@@ -8,7 +8,7 @@ import { FiArrowLeft, FiArrowRight } from "react-icons/fi";
 export default function Navbar({searchArr}) {
 
   const [showSearch, setShowSearch] = useState(false);
-  const [border, setBorder] = useState(2);
+  const [border, setBorder] = useState(1.5);
   const [radius, setRadius] = useState(20);
 
   const router = useRouter();
@@ -74,7 +74,7 @@ export default function Navbar({searchArr}) {
     <nav class="navbar navbar-dark bg-dark navbar-expand-lg px-4 py-3 pb-3">
       <div class="container">
         <a class="navbar-brand fw-bold mb" style={{ fontSize: 27.5 }} href="/">
-          <h1 class="text-5xl mb-1 font-extrabold text-transparent bg-clip-text bg-pink-500">
+          <h1 class="text-6xl mb-1 font-extrabold text-transparent bg-clip-text bg-pink-500">
             xxxpixels
           </h1>
         </a>
@@ -89,27 +89,27 @@ export default function Navbar({searchArr}) {
         >
           <span class="navbar-toggler-icon"></span>
         </button>
-        <div class="navbar-collapse" id="navbarSupportedContent">
-          <ul class="navbar-nav me-auto mt-1 mb-lg-0 ms-5">
+        <div class="navbar-collapse mt-1" id="navbarSupportedContent">
+          <ul class="navbar-nav me-auto mt-0 mb-lg-0 ms-5">
             <li class="nav-item px-2">
               <a href={"/"} 
-              class={`nav-link font-bold hover:text-white ${pathname == "/" ? "text-white" : "text-stone-400"}`} aria-current="page">
+              class={`nav-link text-lg hover:text-white ${pathname == "/" ? "text-white font-bold" : "text-stone-400 font-semibold"}`} aria-current="page">
                 Explore
               </a>
             </li>
             <li class="nav-item px-2">
               <a href={"/models"} 
-              class={`nav-link font-bold hover:text-white ${pathname == "/models" ? "text-white" : "text-stone-400"}`} aria-current="page">
+              class={`nav-link text-lg hover:text-white ${pathname == "/models" ? "text-white font-bold" : "text-stone-400 font-semibold"}`} aria-current="page">
                 Models
               </a>
             </li>
             <li class="nav-item px-2">
-              <a class="nav-link font-bold hover:text-white text-stone-400" onClick={() => {router.push(pathname + '?' + createQueryString('ee', "true"))}} >
+              <a class="nav-link text-lg hover:text-white text-stone-400 font-semibold" onClick={() => {router.push(pathname + '?' + createQueryString('ee', "true"))}} >
                 Enter Email
               </a>
             </li>
-            <li class="nav-item px-2">
-              <a href={"/legal"}  class={`nav-link font-bold hover:text-white ${pathname == "/legal" ? "text-white" : "text-stone-400"}`}>
+            <li class="nav-item text-lg px-2">
+              <a href={"/legal"}  class={`nav-link hover:text-white ${pathname == "/legal" ? "text-white font-bold" : "text-stone-400 font-semibold"}`}>
                 Legal
               </a>
             </li>
@@ -123,8 +123,10 @@ export default function Navbar({searchArr}) {
               onChange={(e) => {setInputStr(e.target.value)}}
               aria-label="Search"
               style={{
-                borderWidth: 2,
+                marginTop: "0rem",
+                borderWidth: 1.5,
                 fontSize: 15,
+                height: 40,
                 borderTopLeftRadius: 20,
                 borderTopRightRadius: 20,
                 borderBottomRightRadius: radius,
@@ -132,12 +134,12 @@ export default function Navbar({searchArr}) {
                 width: '100%',
               }}
             />
-            <button onClick={() => {setShowSearch(false); setRadius(20); setBorder(2)}} className={`z-4 h-full w-full left-0 top-0 ${showSearch ? "fixed" : "hidden"}`}/>
+            <button onClick={() => {setShowSearch(false); setRadius(20); setBorder(1.5)}} className={`z-4 h-full w-full left-0 top-0 ${showSearch ? "fixed" : "hidden"}`}/>
             <div class={`shadow-xl opacity-100 bg-zinc-800 position-absolute overflow-hidden border-zinc-700 mt-0 p-1 pt-3 pe-0 ${showSearch ? "block" : "hidden"}`} 
-            style={{borderLeftWidth: 2, borderRightWidth: 2, borderBottomWidth: 2, width: '100%', borderBottomLeftRadius: 20, borderBottomRightRadius: 20}}>
-              {searchArr.slice(0,3).map((item)=>{
+            style={{borderLeftWidth: 1.5, borderRightWidth: 1.5, borderBottomWidth: 1.5, width: '100%', borderBottomLeftRadius: 20, borderBottomRightRadius: 20}}>
+              {searchArr.slice(0,4).map((item)=>{
                 return <a className="row mb-3 px-3 pe-0" style={{width: '100%'}} href={"/" + item.display_name}>
-                  <div style={{width: '19.5%'}}>
+                  <div style={{width: '20%'}}>
                   <img
               alt="gallery"
               class="block rounded-lg object-cover object-center aspect-square"
@@ -146,8 +148,8 @@ export default function Navbar({searchArr}) {
               item.profile_pic} />
               </div>
               <h5 className="my-auto align-middle text-xl text-zinc-300 pe-0 me-0" style={{fontWeight: '700', textAlign: 'left', width: '60%', alignSelf: 'center'}}>{item.display_name}</h5>
-              <div className="my-auto" style={{width: '20%', alignContent: 'end'}}>
-              <FiArrowRight size={30} color={"rgba(255, 255, 255, .8)"} />
+              <div className="my-auto p-0" style={{width: '20%', alignContent: 'end'}}>
+              <FiArrowRight size={30} color={"rgb(236 72 153)"} class="ms-4 my-auto"/>
               </div>
                 </a>
               })}

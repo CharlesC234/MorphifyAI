@@ -9,10 +9,6 @@ import ImageLayout from "@/components/ImageLayout";
 
 export default function PerModel({newDataArr, modelIndex, data}) {
 
-  useEffect(() => {
-    require("bootstrap/dist/js/bootstrap");
-  }, []);
-
   const pathname = usePathname();
 
     return (
@@ -26,16 +22,16 @@ export default function PerModel({newDataArr, modelIndex, data}) {
               data-bs-target={"#exampleModal" + pathname.slice(1)}
               style={{
                 backgroundColor: "#000000",
-                width: 250,
-                height: 250,
+                width: 285,
+                height: 285,
                 borderWidth: 0,
                 padding: 0,
               }}
             >
               <img
                 style={{
-                  width: 250,
-                  height: 250,
+                  width: 285,
+                  height: 285,
                   objectFit: "cover",
                   padding: 0,
                   borderWidth: 0,
@@ -95,7 +91,7 @@ export default function PerModel({newDataArr, modelIndex, data}) {
               </div>
             </div>
             <div className="col mt-5 ms-5">
-              <h1 style={{ fontSize: 30, fontWeight: "bold" }}>
+              <h1 style={{ fontSize: 32.5, fontWeight: "bold" }}>
                 {pathname.slice(1)}
               </h1>
             </div>

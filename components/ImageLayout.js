@@ -39,7 +39,7 @@ export default function ImageLayout(data) {
       })}
       {photoView ? (
             <div class="fixed z-10 left-0 top-0 h-full w-full overflow-hidden backdrop-blur-md">
-            <button class="absolute z-50 h-full w-full" onClick={() => {setPhotoView(false)}}/>
+            <button class="fixed z-4 h-full w-full" onClick={() => {setPhotoView(false)}}/>
         <ImageViewer
           allImages={data}
           setView={setPhotoView}

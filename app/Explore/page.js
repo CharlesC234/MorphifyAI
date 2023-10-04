@@ -12,6 +12,7 @@ export default function Explore({categories, newDataArr}) {
   const router = useRouter();
   const pathname = usePathname();
   const searchParams = useSearchParams();
+  const [clickoff, setClickOff] = useState(false);
 
   const createQueryString = useCallback(
     (name, value) => {
@@ -33,7 +34,7 @@ export default function Explore({categories, newDataArr}) {
           style={{
             color: "#ffffff",
             fontSize: "1.35rem",
-            marginTop: "2.25rem",
+            marginTop: "2rem",
             marginBottom: "0rem",
           }}
         >
@@ -46,9 +47,11 @@ export default function Explore({categories, newDataArr}) {
           {categories.map((item, index) => {
             return (
               <li key={index} class="px-1 py-1">
-                <button  data-toggle="button" onClick={() => {router.push(pathname + '?' + createQueryString('sort', index))}} 
-                style={{paddingLeft: 17.5, fontWeight: '600', paddingRight: 17.5, paddingBottom: 7.5, paddingTop: 7.5, borderRadius: 10, backgroundColor: 'rgba(255, 255, 255, .2)'}}
-                class="hover:bg-black active:bg-black focus:outline-none focus:ring-2 focus:ring-white"> {item}</button>
+                <button  data-toggle="button" onClick={() => {router.push(pathname + '?' + createQueryString('sort', index)); 
+                if(index != 0){setClickOff(true)}}} 
+                style={{paddingLeft: 17.5, fontWeight: '700', paddingRight: 17.5, paddingBottom: 7.5, paddingTop: 7.5, borderRadius: 10}}
+                class={`hover:bg-zinc-700 active:bg-black focus:outline-none focus:text-black focus:bg-pink-500 
+                ${index == 0 && !clickoff ? "bg-pink-500 text-black" : "bg-zinc-800 "}`}> {item}</button>
               </li>
             );
           })}

@@ -5,6 +5,7 @@ import Popup from "@/components/Popup";
 import Search from "./search";
 import EnterEmail from "@/components/EnterEmail";
 import Email from "./email";
+import Footer from "@/components/layout/Footer";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -17,13 +18,10 @@ export default function RootLayout({ children }) {
   return (
     <html lang="en">
       <body className={inter.className}>
-<<<<<<< HEAD
+        <Email />
         <Search />
-=======
-        <Email/>
-        <Search/>
->>>>>>> b7aae2e283d655e56db8c79754ae921760987a6e
         {children}
+        <Footer />
       </body>
     </html>
   );

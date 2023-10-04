@@ -17,8 +17,12 @@ export default function RootLayout({ children }) {
   return (
     <html lang="en">
       <body className={inter.className}>
+<<<<<<< HEAD
+        <Search />
+=======
         <Email/>
         <Search/>
+>>>>>>> b7aae2e283d655e56db8c79754ae921760987a6e
         {children}
       </body>
     </html>

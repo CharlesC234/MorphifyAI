@@ -1,30 +1,77 @@
-import { useRouter } from "next/navigation";
-import { useState, useEffect } from "react";
-import { FiArrowLeft, FiArrowRight } from "react-icons/fi";
+import { usePathname, useRouter, useSearchParams } from "next/navigation";
+import { useState, useEffect, useCallback } from "react";
+import { FiArrowLeft, FiArrowRight, FiArrowDown, FiArrowUp } from "react-icons/fi";
 import {IoIosClose} from "react-icons/io"
 
 export default function ImageLayout(data) {
   const images = data.allImages;
   const girls = images.dataArr;
   const length = girls.length;
-  const router = useRouter();
-
   const [index, setIndex] = useState(data.index);
+  const [focused, setFocused] = useState(false);
+  const [upvotes, setupvotes] = useState(girls[index].upvotes);
+  const [downvotes, setdownvotes] = useState(girls[index].downvotes);
+  const [change, setChange] = useState(false);
+  const router = useRouter();
+    const pathname = usePathname();
+    const searchParams = useSearchParams();
+
+
+    useEffect(() => {
+      setupvotes(girls[index].upvotes);
+      setdownvotes(girls[index].downvotes);
+      setChange(false);
+    }, [index])
+
+
+    const createQueryString = useCallback(
+      (name, value) => {
+        const params = new URLSearchParams(searchParams)
+        params.set(name, value)
+   
+        return params.toString()
+      },
+      [searchParams]
+    )
+
+
+ 
 
   function addIndex() {
-    console.log("im running");
     if (index >= length - 1) {
       setIndex(0);
+      if(change){
+      router.refresh();
+      }
     } else {
       setIndex(index + 1);
+      if(change){
+        router.refresh();
+        }
     }
   }
+
+  function subtractIndex() {
+    if (index <= 0) {
+      setIndex(length - 1);
+      if(change){
+        router.refresh();
+        }
+    } else {
+      setIndex(index - 1);
+      if(change){
+        router.refresh();
+        }
+    }
+  }
+
+  console.log("here" + JSON.stringify(girls[index]))
 
   return (
       <div class="grid grid-cols-3 items-center h-full w-full">
         <button
-          onClick={() => addIndex()}
-          class="z-50 rounded-full p-3 mx-auto"
+          onClick={() => subtractIndex()}
+          class={`z-50 rounded-full p-3 mx-auto ${focused ? "opacity-0" : "opacity-100"}`}
           style={{backgroundColor: 'rgba(0,0,0,.2)'}}
         >
           <FiArrowLeft size={55}/>
@@ -34,7 +81,7 @@ export default function ImageLayout(data) {
           class="h-full w-auto my-auto grid grid-rows-1 items-center"
         >
           <div class="w-fit mt-0">
-            <div class="flex mb-0 mt-3">
+            <div class={`flex mb-0 mt-3 ${focused ? "hidden" : ""}`}>
             <a href={"/" + girls[index].display_name} class="ms-2 z-50 my-auto" style={{width: '18%', overflow: 'hidden'}}>
             <img
             class="block object-cover aspect-square"
@@ -47,27 +94,81 @@ export default function ImageLayout(data) {
           <h1 class="text-3xl my-auto font-bold" style={{width: '100%'}}>{girls[index].display_name}</h1>
           </a>
           <button
-          onClick={() => data.setView(false)}
+          onClick={() => {data.setView(false); if(change){
+            router.refresh();
+            }}}
           class="rounded-full z-50 me-3 mx-auto my-auto"
           style={{backgroundColor: 'rgba(0,0,0,.2)', padding: ".35rem"}}
         >
           <IoIosClose size={57.5}/>
         </button>
             </div>
-            <div class="p-3 mt-1">
+            <div class={`relative mt-1 ${focused ? "p-0" : "p-3"}`}>
+              <a onClick={() => setFocused(!focused)}>
           <img
             class="h-fit w-auto my-auto"
             style={{borderRadius: 15}}
             src={"http://localhost:1337" + girls[index].image}
             alt=""
           />
+          </a>
+          <div class={`absolute flex w-fit mb-3 pe-4 ${focused ? "opacity-0" : "opacity-100"}`} style={{position: 'absolute', bottom: 0, backgroundColor: 'rgba(0,0,0,.35)', 
+          borderBottomLeftRadius: 15, borderTopRightRadius: 15}}>
+          <button
+          onClick={() => {
+            fetch(`http://127.0.0.1:1337/api/posts/${girls[index].postid}`, {
+                method: 'PUT',
+                headers: {
+                  'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({data: {upvotes: upvotes + 1}}),
+              }).then(response => response.json())
+              .then(data => {
+                console.log('Updated successfully:', data);
+              })
+              .catch(error => {
+                console.error('Error updating model:', error);
+              });
+            setupvotes(upvotes + 1);
+            setChange(true);
+            }
+            }
+          class={`z-50 p-3 mx-auto`}
+        >
+          <FiArrowUp size={27.5}/>
+        </button>
+        <h1 class="my-auto font-semibold">{upvotes}</h1>
+        <button
+          onClick={() => {
+                fetch(`http://127.0.0.1:1337/api/posts/${girls[index].postid}`, {
+                method: 'PUT',
+                headers: {
+                  'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({data: {downvotes: downvotes + 1}}),
+              }).then(response => response.json())
+              .then(data => {
+                console.log('Updated successfully:', data);
+              })
+              .catch(error => {
+                console.error('Error updating model:', error);
+              });
+              setdownvotes(downvotes + 1);
+              setChange(true);
+            }}
+          class="z-50 p-3 mx-auto"
+        >
+          <FiArrowDown size={27.5}/>
+        </button>
+        <h1 class="my-auto font-semibold">{downvotes}</h1>
+          </div>
           </div>
           </div>
           </div>
 
         <button
           onClick={() => addIndex()}
-          class=" z-50 rounded-full p-3 mx-auto"
+          class={`z-50 rounded-full p-3 mx-auto ${focused ? "opacity-0" : "opacity-100"}`}
           style={{backgroundColor: 'rgba(0,0,0,.2)'}}
         >
           <FiArrowRight size={55} />

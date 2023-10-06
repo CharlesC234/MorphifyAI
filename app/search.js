@@ -5,14 +5,14 @@ import React from "react";
 import Navbar from "@/components/layout/Navbar";
 
 async function getModels(){
-    const res = await fetch('http://127.0.0.1:1337/api/models?populate[0]=profile_pic')
+    const res = await fetch('http://127.0.0.1:1337/api/models?populate=*', {cache: 'force-cache'})
     if (!res.ok) {
       throw new Error('Failed to fetch data')
     }
     return res.json()
   }
 
-export default async function Search({searchParams}) {
+export default async function Search({}) {
 
 const dataModels = await getModels();
 const searchArr = [];

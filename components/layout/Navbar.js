@@ -86,7 +86,7 @@ export default function Navbar({ searchArr }) {
       <div class="container">
         <a class="navbar-brand fw-bold mb" style={{ fontSize: 27.5 }} href="/">
           <h1 class="text-6xl mb-1 font-extrabold text-transparent bg-clip-text bg-pink-500">
-            xxxpixels
+            xpixels
           </h1>
         </a>
         <button
@@ -126,7 +126,7 @@ export default function Navbar({ searchArr }) {
             </li>
             <li class="nav-item px-2">
               <button
-                class="nav-link max-sm:py-1 text-lg hover:text-white text-white font-bold "
+                class="nav-link max-sm:py-1 text-lg hover:text-pink-500 text-white font-bold "
                 onClick={() => {
                   router.push(pathname + "?" + createQueryString("ee", "true"));
                 }}

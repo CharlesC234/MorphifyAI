@@ -13,11 +13,11 @@ export default function PerModel({newDataArr, modelIndex, data}) {
 
     return (
       <div style={{ backgroundColor: "#000000" }}>
-        <div className="container" style={{ baackgroundColor: "#000000" }}>
-          <div className="row ms-2" style={{ marginTop: "2.5rem" }}>
+        <div className="container justify-center" style={{ baackgroundColor: "#000000" }}>
+          <div className="flex-row justify-center">
             <button
               type="button"
-              class="btn btn-primary d-inline-block mt-4"
+              class="btn btn-primary d-inline-block mt-4 h-fit mx-auto"
               data-bs-toggle="modal"
               data-bs-target={"#exampleModal" + pathname.slice(1)}
               style={{
@@ -90,8 +90,8 @@ export default function PerModel({newDataArr, modelIndex, data}) {
                 </div>
               </div>
             </div>
-            <div className="col mt-5 ms-5">
-              <h1 style={{ fontSize: 32.5, fontWeight: "bold" }}>
+            <div className="col h-fit mx-auto">
+              <h1 class="w-fit mx-auto" style={{ fontSize: 32.5, fontWeight: "bold" }}>
                 {pathname.slice(1)}
               </h1>
             </div>

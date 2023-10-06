@@ -128,16 +128,16 @@ export default function Navbar({ searchArr }) {
               </a>
             </li>
             <li class="nav-item px-2">
-              <a
+              <button
                 class="nav-link text-lg hover:text-white text-stone-400 font-semibold "
                 onClick={() => {
                   router.push(pathname + "?" + createQueryString("ee", "true"));
                 }}
               >
-                <h1 class="text-xl mb-1 font-extrabold text-transparent bg-clip-text bg-pink-500">
-                  EARLY ACCESS
+                <h1 class="text-lg mb-1 font-extrabold text-transparent bg-clip-text bg-pink-500">
+                  Early Access
                 </h1>
-              </a>
+              </button>
             </li>
           </ul>
           <div class="relative" style={{ width: "40%" }}>

@@ -33,6 +33,6 @@ export default function Models({models}){
         );
       })}
     </div>
-    <div style={{ backgroundColor: "#000000", height: 1000 }} />
+
   </div>
 }

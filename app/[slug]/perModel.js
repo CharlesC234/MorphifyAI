@@ -103,7 +103,6 @@ export default function PerModel({newDataArr, modelIndex, data}) {
             <ImageLayout dataArr={newDataArr} />
           </div>
         </div>
-        <div style={{ height: 1000 }} />
       </div>
     );
 }

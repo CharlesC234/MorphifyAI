@@ -61,7 +61,6 @@ export default function Explore({categories, newDataArr}) {
       <ImageLayout dataArr={newDataArr} /> 
       </div>
 
-      <div style={{ height: 500, backgroundColor: "#000000" }} />
     </div>
   );
 }

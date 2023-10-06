@@ -68,21 +68,21 @@ export default function ImageLayout(data) {
   console.log("here" + JSON.stringify(girls[index]))
 
   return (
-      <div class="grid grid-cols-3 items-center h-full w-full">
+      <div class="grid grid-cols-3 max-sm:grid-cols-2 items-center h-full w-full">
         <button
           onClick={() => subtractIndex()}
-          class={`z-50 rounded-full p-3 mx-auto ${focused ? "opacity-0" : "opacity-100"}`}
+          class={`z-40 max-sm:h-full max-sm:w-full max-sm:opacity-0 rounded-full p-3 mx-auto ${focused ? "opacity-0" : "md:opacity-100"}`}
           style={{backgroundColor: 'rgba(0,0,0,.2)'}}
         >
           <FiArrowLeft size={55}/>
         </button>
 
         <div
-          class="h-full w-auto my-auto grid grid-rows-1 items-center"
+          class="relative h-full w-auto my-auto grid grid-rows-1 items-center max-sm:absolute"
         >
           <div class="w-fit mt-0">
             <div class={`flex mb-0 mt-3 ${focused ? "hidden" : ""}`}>
-            <a href={"/" + girls[index].display_name} class="ms-2 z-50 my-auto" style={{width: '18%', overflow: 'hidden'}}>
+            <a href={"/" + girls[index].display_name} class="md:ms-2 z-50 my-auto md:w-20 max-sm:w-24 max-sm:ms-4" style={{overflow: 'hidden'}}>
             <img
             class="block object-cover aspect-square"
             style={{borderRadius: "100%"}}
@@ -168,7 +168,7 @@ export default function ImageLayout(data) {
 
         <button
           onClick={() => addIndex()}
-          class={`z-50 rounded-full p-3 mx-auto ${focused ? "opacity-0" : "opacity-100"}`}
+          class={`z-40 max-sm:h-full max-sm:opacity-0 max-sm:w-full rounded-full p-3 mx-auto ${focused ? "opacity-0" : "md:opacity-100"}`}
           style={{backgroundColor: 'rgba(0,0,0,.2)'}}
         >
           <FiArrowRight size={55} />

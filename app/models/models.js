@@ -6,11 +6,11 @@ import "../globals.css";
 export default function Models({models}){
     
     return <div style={{ backgroundColor: "#000000" }}>
-    <div class="container mx-auto py-2 lg:pt-12 row mt-5 justify-content-between">
+    <div class="container grid md:grid-cols-4 md:gap-2 p-10 justify-center md:p-0 grid-cols-1 mx-auto py-2 lg:pt-12 row mt-5 md:justify-content-between ">
       {models.map((item) => {
         return (
-          <a href={item.display_name} class="ms-2 mt-2" style={{ width: "23.5%" }}>
-            <div class="flex flex-wrap p">
+          <a href={item.display_name} class="grid-col-1 md:mt-0 mt-16">
+            <div class="flex flex-wrap">
               <img
                 alt="gallery"
                 class="block object-cover object-center aspect-square"
@@ -18,7 +18,7 @@ export default function Models({models}){
                 src={"http://localhost:1337" + item.profile_pic}
               />
               <h2
-                class="mt-4 text-3xl"
+                class="mt-4 md:text-3xl text-4xl"
                 style={{
                     fontSize: 28,
                   fontWeight: "bold",

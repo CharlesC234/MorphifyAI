@@ -9,6 +9,7 @@ export default function Navbar({ searchArr }) {
   const [showSearch, setShowSearch] = useState(false);
   const [border, setBorder] = useState(1.5);
   const [radius, setRadius] = useState(20);
+  const [hidden, setHidden] = useState(false);
 
   const router = useRouter();
   const pathname = usePathname();
@@ -91,23 +92,19 @@ export default function Navbar({ searchArr }) {
         <button
           class="navbar-toggler"
           type="button"
-          data-bs-toggle="collapse"
-          data-bs-target="#navbarSupportedContent"
-          aria-controls="navbarSupportedContent"
-          aria-expanded="false"
-          aria-label="Toggle navigation"
+          onClick={() => {setHidden(!hidden)}}
         >
           <span class="navbar-toggler-icon"></span>
         </button>
-        <div class="navbar-collapse mt-1" id="navbarSupportedContent">
-          <ul class="navbar-nav me-auto mt-0 mb-lg-0 ms-5">
+        <div class={`navbar-collapse mt-2 ${hidden ? "hidden" : ""}`}>
+          <ul class="navbar-nav me-auto mt-0 mb-lg-0 md:ms-5 mb-2.5 md:mb-0">
             <li class="nav-item px-2">
               <a
                 href={"/"}
-                class={`nav-link text-lg hover:text-white ${
+                class={`nav-link max-sm:py-1 hover:text-pink-500 text-lg font-bold ${
                   pathname == "/"
-                    ? "text-white font-bold"
-                    : "text-stone-400 font-semibold"
+                    ? "text-pink-500"
+                    : "text-stone-300"
                 }`}
                 aria-current="page"
               >
@@ -117,10 +114,10 @@ export default function Navbar({ searchArr }) {
             <li class="nav-item px-2">
               <a
                 href={"/models"}
-                class={`nav-link text-lg hover:text-white ${
+                class={`nav-link max-sm:py-1 text-lg hover:text-pink-500 font-bold ${
                   pathname == "/models"
-                    ? "text-white font-bold"
-                    : "text-stone-400 font-semibold"
+                    ? "text-pink-500"
+                    : "text-stone-300"
                 }`}
                 aria-current="page"
               >
@@ -129,18 +126,18 @@ export default function Navbar({ searchArr }) {
             </li>
             <li class="nav-item px-2">
               <button
-                class="nav-link text-lg hover:text-white text-stone-400 font-semibold "
+                class="nav-link max-sm:py-1 text-lg hover:text-white text-white font-bold "
                 onClick={() => {
                   router.push(pathname + "?" + createQueryString("ee", "true"));
                 }}
               >
-                <h1 class="text-lg mb-1 font-extrabold text-transparent bg-clip-text bg-pink-500">
+                <h1 class="text-lg mb-1 font-bold text-transparent bg-clip-text bg-stone-300">
                   Early Access
                 </h1>
               </button>
             </li>
           </ul>
-          <div class="relative" style={{ width: "40%" }}>
+          <div class="relative sm:w-100 md:w-5/12">
             <input
               class="form-control ps-4 py-2 font-bold text-md py-2 focus:bg-zinc-800 focus:border-zinc-700 bg-zinc-800 border-zinc-700 text-white"
               type="search"

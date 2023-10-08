@@ -142,7 +142,7 @@ export default function Navbar({ searchArr }) {
               </button>
             </li>
           </ul>
-          <div class="relative sm:w-100 md:w-5/12">
+          <div class="relative sm:w-100 md:w-5/12" style={{marginBottom: ".25rem"}}>
             <input
               class="form-control ps-4 py-2 font-semibold text-md py-2 focus:bg-zinc-800 focus:border-zinc-600 bg-zinc-800 border-zinc-700 text-white"
               type="search"
@@ -157,7 +157,6 @@ export default function Navbar({ searchArr }) {
               }}
               aria-label="Search"
               style={{
-                marginTop: "0rem",
                 borderWidth: 1.5,
                 fontSize: 16,
                 height: 40,
@@ -179,7 +178,7 @@ export default function Navbar({ searchArr }) {
               }`}
             />
             <div
-              class={`z-50 shadow-xl opacity-100 bg-zinc-800 position-absolute overflow-hidden border-zinc-600 mt-0 p-1 pt-3 pe-0 ${
+              class={`z-50 shadow-xl opacity-100 bg-zinc-800 position-absolute overflow-hidden border-zinc-600 p-1 pt-3 pe-0 ${
                 showSearch ? "block" : "hidden"
               }`}
               style={{

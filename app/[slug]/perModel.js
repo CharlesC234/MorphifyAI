@@ -62,7 +62,7 @@ export default function PerModel({ newDataArr, modelIndex, data }) {
               alt="..."
             />
           </button>
-          <div className="col h-fit mx-auto mt-5">
+          <div className="col h-fit mx-auto mt-4">
             <h1
               class="w-fit mx-auto"
               style={{ fontSize: 37.5, fontWeight: "bold" }}

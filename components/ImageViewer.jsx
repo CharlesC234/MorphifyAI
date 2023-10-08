@@ -81,7 +81,7 @@ export default function ImageLayout(data) {
         </button>
 
         <div
-          class={`relative h-fit w-fit mx-auto my-auto grid grid-rows-1 items-center max-sm:absolute ${focused ? "p-0" : 'p-10'}`}
+          class={`relative h-fit w-fit mx-auto my-auto grid grid-rows-1 items-center max-sm:absolute max-sm:p-0 ${focused ? "md:p-0" : 'md:p-10'}`}
         >
           <div class="w-fit mt-0">
             <div class={`flex mb-0 mt-3 ${focused ? "hidden" : ""}`}>

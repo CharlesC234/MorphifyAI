@@ -73,7 +73,7 @@ export default function EnterEmail({emails}) {
             class="w-auto h-auto mx-auto opacity-100 transition-all duration-300 ease-in-out max-w-[576px]">
             <div
             style={{borderRadius: 17.5, position: 'absolute', transform: 'translate(-50%, -50%)', top: '50%', bottom: '50%', left: '50%', right: '50%', maxHeight: 500, maxWidth: 500, height: 'fit-content'}}
-              class="pb-1 min-[576px]:shadow-[0_0.5rem_1rem_rgba(#000, 0.15)] pointer-events-auto flex w-full h-full flex-col rounded-md border-none bg-clip-padding text-current shadow-lg outline-none bg-dark">
+              class="pb-1 min-[576px]:shadow-[0_0.5rem_1rem_rgba(#000, 0.15)] pointer-events-auto flex w-full h-full flex-col md:rounded-md max-sm:rounded-0 border-none bg-clip-padding text-current shadow-lg outline-none bg-dark">
               <div
                 class="flex flex-shrink-0 items-center justify-between rounded-t-md px-4">
                 <h1

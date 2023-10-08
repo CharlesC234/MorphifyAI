@@ -43,11 +43,15 @@ export default function ImageLayout(data) {
   function addIndex() {
     if (index >= length - 1) {
       setIndex(0);
+      setupvoted(false);
+      setDownvoted(false);
       if(change){
       router.refresh();
       }
     } else {
       setIndex(index + 1);
+      setupvoted(false);
+      setDownvoted(false);
       if(change){
         router.refresh();
         }
@@ -57,11 +61,15 @@ export default function ImageLayout(data) {
   function subtractIndex() {
     if (index <= 0) {
       setIndex(length - 1);
+      setupvoted(false);
+      setDownvoted(false);
       if(change){
         router.refresh();
         }
     } else {
       setIndex(index - 1);
+      setupvoted(false);
+      setDownvoted(false);
       if(change){
         router.refresh();
         }
@@ -89,7 +97,7 @@ export default function ImageLayout(data) {
             <img
             class="block object-cover aspect-square"
             style={{borderRadius: "100%"}}
-            src={"http://localhost:1337" + girls[index].profile_pic}
+            src={"http://192.168.1.143:1337" + girls[index].profile_pic}
             alt=""
           />
           </a>
@@ -109,18 +117,18 @@ export default function ImageLayout(data) {
             <div class={`relative mt-1 overflow-hidden ${focused ? "p-0" : "p-3"}`}>
               <a onClick={() => setFocused(!focused)}>
           <img
-            class="h-fit w-auto my-auto"
+            class="h-auto w-auto my-auto"
             style={{borderRadius: 15}}
-            src={"http://localhost:1337" + girls[index].image}
+            src={"http://192.168.1.143:1337" + girls[index].image}
             alt=""
           />
           </a>
-          <div class={`absolute flex w-fit mb-3 pe-4 ${focused ? "opacity-0" : "opacity-100"}`} style={{position: 'absolute', bottom: 0, backgroundColor: 'rgba(0,0,0,.4)', 
+          <div class={`absolute flex w-fit mb-3 pe-4 ${focused ? "opacity-0" : "opacity-100"}`} style={{position: 'absolute', bottom: 0, backgroundColor: 'rgba(0,0,0,.2)', 
           borderBottomLeftRadius: 15, borderTopRightRadius: 15}}>
           <button
           onClick={() => {
             if(upvoted){
-              fetch(`http://127.0.0.1:1337/api/posts/${girls[index].postid}`, {
+              fetch(`http://192.168.1.143:1337/api/posts/${girls[index].postid}`, {
                 method: 'PUT',
                 headers: {
                   'Content-Type': 'application/json',
@@ -136,7 +144,7 @@ export default function ImageLayout(data) {
             setupvotes(upvotes - 1);
             setupvoted(false);
             }else{
-            fetch(`http://127.0.0.1:1337/api/posts/${girls[index].postid}`, {
+            fetch(`http://192.168.1.143:1337/api/posts/${girls[index].postid}`, {
                 method: 'PUT',
                 headers: {
                   'Content-Type': 'application/json',
@@ -163,7 +171,7 @@ export default function ImageLayout(data) {
         <button
           onClick={() => {
             if(downvoted){
-              fetch(`http://127.0.0.1:1337/api/posts/${girls[index].postid}`, {
+              fetch(`http://192.168.1.143:1337/api/posts/${girls[index].postid}`, {
                 method: 'PUT',
                 headers: {
                   'Content-Type': 'application/json',
@@ -179,7 +187,7 @@ export default function ImageLayout(data) {
               setdownvotes(downvotes - 1);
               setDownvoted(false);
             }else{
-                fetch(`http://127.0.0.1:1337/api/posts/${girls[index].postid}`, {
+                fetch(`http://192.168.1.143:1337/api/posts/${girls[index].postid}`, {
                 method: 'PUT',
                 headers: {
                   'Content-Type': 'application/json',

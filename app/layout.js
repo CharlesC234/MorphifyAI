@@ -10,7 +10,7 @@ import Footer from "@/components/layout/Footer";
 const inter = Inter({ subsets: ["latin"] });
 
 export const metadata = {
-  title: "xxxpixels.co",
+  title: "xpixels.io",
   description: "Your #1 destination for everything AI",
 };
 

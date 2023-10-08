@@ -15,7 +15,7 @@ export default function Models({models}){
                 alt="gallery"
                 class="block object-cover object-center aspect-square"
                 style={{ borderRadius: "100%" }}
-                src={"http://localhost:1337" + item.profile_pic}
+                src={"http://192.168.1.143:1337" + item.profile_pic}
               />
               <h2
                 class="mt-4 md:text-3xl text-4xl"

@@ -48,7 +48,7 @@ export default function ImageLayout(data) {
           >
             <img
               class="h-auto max-w-full rounded-lg"
-              src={"http://localhost:1337" + item.image}
+              src={"http://192.168.1.143:1337" + item.image}
               alt=""
             />
           </a>

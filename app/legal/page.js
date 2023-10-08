@@ -8,12 +8,11 @@ import { usePathname, useSearchParams } from "next/navigation";
 import { useRouter } from "next/navigation";
 
 export default function legal() {
-  const [clickoff, setClickOff] = useState(false);
   const [page, setPage] = useState("TOS");
 
   return (
     <div class="container">
-      <div class="flex mt-5 max-sm:flex-col max-sm:px-5 md:flex-row">
+      <div class="flex mt-5 max-sm:flex-col max-sm:px-1 md:flex-row">
         <div class="w-fit mt-1 me-32">
           <div class="flex-column">
             <button
@@ -29,8 +28,8 @@ export default function legal() {
               onClick={() => {
                 setPage("TOS");
               }}
-              class={`mb-2 whitespace-nowrap flex hover:bg-zinc-700 focus:outline-none focus:text-black focus:bg-pink-500 
-                ${!clickoff ? "bg-pink-500 text-black" : "bg-zinc-800 "}`}
+              class={`mb-2 whitespace-nowrap flex md:hover:bg-zinc-700 
+                ${page == "TOS" ? "bg-pink-500 text-black" : "bg-zinc-800 "}`}
             >
               Terms Of Service
             </button>
@@ -45,11 +44,10 @@ export default function legal() {
                 borderRadius: 10,
               }}
               onClick={() => {
-                setClickOff(true);
                 setPage("PP");
               }}
-              class={`mb-2 whitespace-nowrap flex bg-zinc-800 hover:bg-zinc-700 active:bg-black focus:outline-none focus:text-black focus:bg-pink-500 
-                `}
+              class={`mb-2 whitespace-nowrap flex md:hover:bg-zinc-700 
+              ${page == "PP" ? "bg-pink-500 text-black" : "bg-zinc-800 text-white"}`}
             >
               Policy Privacy
             </button>
@@ -64,12 +62,11 @@ export default function legal() {
                 borderRadius: 10,
               }}
               onClick={() => {
-                setClickOff(true);
                 setPage("C");
               }}
-              class={`whitespace-nowrap flex bg-zinc-800 hover:bg-zinc-700 active:bg-black focus:outline-none focus:text-black focus:bg-pink-500 `}
+              class={`whitespace-nowrap flex md:hover:bg-zinc-700 ${page == "C" ? "bg-pink-500 text-black" : "bg-zinc-800 text-white"}`}
             >
-              Cookies
+              Cookies Policy
             </button>
           </div>
         </div>
@@ -266,10 +263,10 @@ export default function legal() {
                     If you have any questions or concerns regarding these Terms,
                     please contact us at{" "}
                     <a
-                      href="mailto:contact@email.com"
+                      href="mailto:aiaestheticallc@gmail.com"
                       className="text-blue-500"
                     >
-                      contact@email.com
+                      aiaestheticallc@gmail.com
                     </a>
                     .
                   </p>
@@ -520,10 +517,10 @@ export default function legal() {
                     If you have any questions or concerns regarding these Terms,
                     please contact us at{" "}
                     <a
-                      href="mailto:contact@email.com"
+                      href="mailto:aiaestheticallc@gmail.com"
                       className="text-blue-500"
                     >
-                      contact@email.com
+                      aiaestheticallc@gmail.com
                     </a>
                     .
                   </p>
@@ -646,10 +643,10 @@ export default function legal() {
                     If you have any questions or concerns regarding the cookies
                     policy, please contact us at{" "}
                     <a
-                      href="mailto:contact@email.com"
+                      href="mailto:aiaestheticallc@gmail.com"
                       className="text-blue-500"
                     >
-                      contact@email.com
+                      aiaestheticallc@gmail.com
                     </a>
                     .
                   </p>

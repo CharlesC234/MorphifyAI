@@ -11,7 +11,7 @@ export default function Explore({ categories, newDataArr }) {
   const router = useRouter();
   const pathname = usePathname();
   const searchParams = useSearchParams();
-  const [clickoff, setClickOff] = useState(false);
+  const [clicked, setClicked] = useState(0);
 
   const createQueryString = useCallback(
     (name, value) => {
@@ -24,7 +24,7 @@ export default function Explore({ categories, newDataArr }) {
   );
 
   return (
-    <div class="max-sm:px-6" style={{ backgroundColor: "#000000" }}>
+    <div class="max-sm:px-0" style={{ backgroundColor: "#000000" }}>
       <div class="container" style={{ backgroundColor: "#000000" }}>
         <h4
           class="fw-bold ms-1"
@@ -43,16 +43,15 @@ export default function Explore({ categories, newDataArr }) {
         >
           {categories.map((item, index) => {
             return (
-              <li key={index} class="px-1 py-1 w-fit">
+              <li key={index} class={`py-1 w-fit ${index == 0 ? "pe-1" : "px-1"}`}>
                 <button
                   data-toggle="button"
+                  
                   onClick={() => {
                     router.push(
                       pathname + "?" + createQueryString("sort", index)
                     );
-                    if (index != 0) {
-                      setClickOff(true);
-                    }
+                   setClicked(index);
                   }}
                   style={{
                     paddingLeft: 17.5,
@@ -62,9 +61,9 @@ export default function Explore({ categories, newDataArr }) {
                     paddingTop: 7.5,
                     borderRadius: 10,
                   }}
-                  class={`whitespace-nowrap flex hover:bg-zinc-700 active:bg-black focus:outline-none focus:text-black focus:bg-pink-500 
+                  class={`whitespace-nowrap flex md:hover:bg-zinc-700
                 ${
-                  index == 0 && !clickoff
+                  clicked == index
                     ? "bg-pink-500 text-black"
                     : "bg-zinc-800 "
                 }`}

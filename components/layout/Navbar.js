@@ -82,7 +82,7 @@ export default function Navbar({ searchArr }) {
   var sortedArray = sortByLevenshteinDistance(searchArr, inputStr);
 
   return (
-    <nav class="navbar navbar-dark bg-dark navbar-expand-lg px-4 py-3 pb-3">
+    <nav class="navbar navbar-dark bg-dark navbar-expand-lg px-0 py-3 pb-3">
       <div class="container">
         <a
           class="navbar-brand fw-bold me-10"
@@ -104,34 +104,34 @@ export default function Navbar({ searchArr }) {
         </button>
         <div class={`navbar-collapse mt-2 ${hidden ? "hidden" : ""}`}>
           <ul class="navbar-nav me-auto mt-0 mb-lg-0 md:ms-5 mb-2.5 md:mb-0">
-            <li class="nav-item px-2">
+            <li class="nav-item px-1">
               <a
                 href={"/"}
                 class={`nav-link max-sm:py-1 hover:text-pink-500 text-lg font-semibold ${
-                  pathname == "/" ? "text-pink-500" : "text-white"
+                  pathname == "/" ? "text-pink-500" : "text-white opacity-85"
                 }`}
                 aria-current="page"
               >
                 Explore
               </a>
             </li>
-            <li class="nav-item px-2">
+            <li class="nav-item px-1">
               <a
                 href={"/models"}
                 class={`nav-link max-sm:py-1 text-lg hover:text-pink-500 font-semibold ${
                   pathname == "/models" ||
                   (pathname != "/" && pathname != "/legal")
                     ? "text-pink-500"
-                    : "text-white"
+                    : "text-white opacity-85"
                 }`}
                 aria-current="page"
               >
                 Models
               </a>
             </li>
-            <li class="nav-item px-2">
+            <li class="nav-item px-1">
               <button
-                class="nav-link max-sm:py-1 text-lg hover:text-pink-500 text-white font-semibold "
+                class="nav-link max-sm:py-1 text-lg hover:text-pink-500 text-white font-semibold opacity-85"
                 onClick={() => {
                   router.push(pathname + "?" + createQueryString("ee", "true"));
                 }}
@@ -197,12 +197,12 @@ export default function Navbar({ searchArr }) {
                     style={{ width: "100%" }}
                     href={"/" + item.display_name}
                   >
-                    <div style={{ width: "18%", maxWidth: 85, minWidth: 52.5 }}>
+                    <div style={{ width: "18%", maxWidth: 85, minWidth: 65 }}>
                       <img
                         alt="gallery"
                         class="block rounded object-cover object-center aspect-square my-auto"
                         style={{ borderRadius: "100%" }}
-                        src={"http://localhost:1337" + item.profile_pic}
+                        src={"http://192.168.1.143:1337" + item.profile_pic}
                       />
                     </div>
                     <h5

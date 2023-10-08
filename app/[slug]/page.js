@@ -5,7 +5,7 @@ import PerModel from "./perModel";
 import { revalidateTag } from "next/cache";
 
 async function getModels() {
-  const res = await fetch('http://127.0.0.1:1337/api/models?populate[0]=profile_pic&populate[1]=free_images', {cache: "no-cache"});
+  const res = await fetch('http://192.168.1.143:1337/api/models?populate[0]=profile_pic&populate[1]=free_images', {cache: "no-cache"});
   if (!res.ok) {
     throw new Error('Failed to fetch data')
   }
@@ -13,7 +13,7 @@ async function getModels() {
 }
 
 async function getPostData(){
-  const res = await fetch('http://127.0.0.1:1337/api/posts?populate=*', {cache: 'no-store', next: {tags: ['postdata']}})
+  const res = await fetch('http://192.168.1.143:1337/api/posts?populate=*', {cache: 'no-store', next: {tags: ['postdata']}})
   if (!res.ok) {
     throw new Error('Failed to fetch data')
   }
@@ -80,7 +80,7 @@ export default async function modelPage({searchParams}) {
         }
     }}
     if(!newDataArr[i].upvotes && !newDataArr[i].downvotes && newDataArr.length > posts.data.length){
-      fetch(`http://127.0.0.1:1337/api/posts`, {
+      fetch(`http://192.168.1.143:1337/api/posts`, {
               method: 'POST',
               headers: {
                 'Content-Type': 'application/json',

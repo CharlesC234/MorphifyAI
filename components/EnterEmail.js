@@ -40,7 +40,7 @@ export default function EnterEmail({emails}) {
         console.log(emails);
         if(userEmail != null && userEmail.length > 5){
         if(!emailsArr.includes(userEmail)){
-            fetch('http://127.0.0.1:1337/api/emails?populate=*', {
+            fetch('http://192.168.1.143:1337/api/emails?populate=*', {
                 method: 'POST',
                 headers: {
                   'Content-Type': 'application/json',

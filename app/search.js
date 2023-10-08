@@ -5,7 +5,7 @@ import React from "react";
 import Navbar from "@/components/layout/Navbar";
 
 async function getModels(){
-    const res = await fetch('http://127.0.0.1:1337/api/models?populate=*', {cache: 'force-cache'})
+    const res = await fetch('http://192.168.1.143:1337/api/models?populate=*', {cache: 'force-cache'})
     if (!res.ok) {
       throw new Error('Failed to fetch data')
     }

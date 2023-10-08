@@ -106,7 +106,7 @@ export default function ImageLayout(data) {
           <IoIosClose size={57.5}/>
         </button>
             </div>
-            <div class={`relative mt-1 ${focused ? "p-0" : "p-3"}`}>
+            <div class={`relative mt-1 overflow-hidden ${focused ? "p-0" : "p-3"}`}>
               <a onClick={() => setFocused(!focused)}>
           <img
             class="h-fit w-auto my-auto"
@@ -115,7 +115,7 @@ export default function ImageLayout(data) {
             alt=""
           />
           </a>
-          <div class={`absolute flex w-fit mb-3 pe-4 ${focused ? "opacity-0" : "opacity-100"}`} style={{position: 'absolute', bottom: 0, backgroundColor: 'rgba(0,0,0,.35)', 
+          <div class={`absolute flex w-fit mb-3 pe-4 ${focused ? "opacity-0" : "opacity-100"}`} style={{position: 'absolute', bottom: 0, backgroundColor: 'rgba(0,0,0,.4)', 
           borderBottomLeftRadius: 15, borderTopRightRadius: 15}}>
           <button
           onClick={() => {

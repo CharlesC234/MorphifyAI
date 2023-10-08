@@ -29,7 +29,7 @@ export default function legal() {
               onClick={() => {
                 setPage("TOS");
               }}
-              class={`mb-2 whitespace-xnowrap flex hover:bg-zinc-700 focus:outline-none focus:text-black focus:bg-pink-500 
+              class={`mb-2 whitespace-nowrap flex hover:bg-zinc-700 focus:outline-none focus:text-black focus:bg-pink-500 
                 ${!clickoff ? "bg-pink-500 text-black" : "bg-zinc-800 "}`}
             >
               Terms Of Service

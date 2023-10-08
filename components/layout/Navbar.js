@@ -144,7 +144,7 @@ export default function Navbar({ searchArr }) {
           </ul>
           <div class="relative sm:w-100 md:w-5/12" style={{marginBottom: ".25rem"}}>
             <input
-              class="form-control ps-4 py-2 font-semibold text-md py-2 focus:bg-zinc-800 focus:border-zinc-600 bg-zinc-800 border-zinc-700 text-white"
+              class="form-control ps-4 py-2 font-semibold text-md py-2 focus:bg-zinc-800 focus:border-zinc-600 bg-zinc-800 border-zinc-600 text-white"
               type="search"
               placeholder="Find models by name"
               onFocus={() => {
@@ -157,7 +157,7 @@ export default function Navbar({ searchArr }) {
               }}
               aria-label="Search"
               style={{
-                borderWidth: 1.5,
+                borderWidth: 2,
                 fontSize: 16,
                 height: 40,
                 borderTopLeftRadius: 20,
@@ -182,9 +182,9 @@ export default function Navbar({ searchArr }) {
                 showSearch ? "block" : "hidden"
               }`}
               style={{
-                borderLeftWidth: 1.5,
-                borderRightWidth: 1.5,
-                borderBottomWidth: 1.5,
+                borderLeftWidth: 2,
+                borderRightWidth: 2,
+                borderBottomWidth: 2,
                 width: "100%",
                 borderBottomLeftRadius: 20,
                 borderBottomRightRadius: 20,

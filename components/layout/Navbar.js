@@ -84,7 +84,11 @@ export default function Navbar({ searchArr }) {
   return (
     <nav class="navbar navbar-dark bg-dark navbar-expand-lg px-4 py-3 pb-3">
       <div class="container">
-        <a class="navbar-brand fw-bold me-5" style={{ fontSize: 27.5 }} href="/">
+        <a
+          class="navbar-brand fw-bold me-10"
+          style={{ fontSize: 27.5 }}
+          href="/"
+        >
           <h1 class="text-6xl mb-1 font-extrabold text-transparent bg-clip-text bg-pink-500">
             xpixels
           </h1>
@@ -92,7 +96,9 @@ export default function Navbar({ searchArr }) {
         <button
           class="navbar-toggler"
           type="button"
-          onClick={() => {setHidden(!hidden)}}
+          onClick={() => {
+            setHidden(!hidden);
+          }}
         >
           <span class="navbar-toggler-icon"></span>
         </button>
@@ -102,9 +108,7 @@ export default function Navbar({ searchArr }) {
               <a
                 href={"/"}
                 class={`nav-link max-sm:py-1 hover:text-pink-500 text-lg font-semibold ${
-                  pathname == "/"
-                    ? "text-pink-500"
-                    : "text-white"
+                  pathname == "/" ? "text-pink-500" : "text-white"
                 }`}
                 aria-current="page"
               >
@@ -115,7 +119,8 @@ export default function Navbar({ searchArr }) {
               <a
                 href={"/models"}
                 class={`nav-link max-sm:py-1 text-lg hover:text-pink-500 font-semibold ${
-                  pathname == "/models" || pathname != "/" && pathname != "/legal"
+                  pathname == "/models" ||
+                  (pathname != "/" && pathname != "/legal")
                     ? "text-pink-500"
                     : "text-white"
                 }`}
@@ -193,16 +198,16 @@ export default function Navbar({ searchArr }) {
                     style={{ width: "100%" }}
                     href={"/" + item.display_name}
                   >
-                    <div style={{ width: "18%" }}>
+                    <div style={{ width: "18%", maxWidth: 85, minWidth: 52.5 }}>
                       <img
                         alt="gallery"
-                        class="block rounded object-cover object-center aspect-square"
+                        class="block rounded object-cover object-center aspect-square my-auto"
                         style={{ borderRadius: "100%" }}
                         src={"http://localhost:1337" + item.profile_pic}
                       />
                     </div>
                     <h5
-                      className="my-auto font-semibold align-middle text-xl text-zinc-300 pe-0 me-0"
+                      className="my-auto font-bold align-middle text-xl text-zinc-300 pe-0 me-0"
                       style={{
                         textAlign: "left",
                         width: "60%",

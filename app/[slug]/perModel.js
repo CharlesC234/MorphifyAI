@@ -14,14 +14,15 @@ export default function PerModel({newDataArr, modelIndex, data}) {
     return (
       <div style={{ backgroundColor: "#000000" }}>
         <div className="container justify-center" style={{ baackgroundColor: "#000000" }}>
-          <div className="flex-row justify-center">
+          <div className="justify-center">
             <button
               type="button"
-              class="btn btn-primary d-inline-block mt-4 h-fit mx-auto"
+              class="btn btn-primary mt-4 mx-auto"
               data-bs-toggle="modal"
               data-bs-target={"#exampleModal" + pathname.slice(1)}
               style={{
                 backgroundColor: "#000000",
+                alignSelf: 'center',
                 width: 285,
                 height: 285,
                 borderWidth: 0,

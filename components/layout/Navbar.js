@@ -84,7 +84,7 @@ export default function Navbar({ searchArr }) {
   return (
     <nav class="navbar navbar-dark bg-dark navbar-expand-lg px-4 py-3 pb-3">
       <div class="container">
-        <a class="navbar-brand fw-bold mb" style={{ fontSize: 27.5 }} href="/">
+        <a class="navbar-brand fw-bold me-5" style={{ fontSize: 27.5 }} href="/">
           <h1 class="text-6xl mb-1 font-extrabold text-transparent bg-clip-text bg-pink-500">
             xpixels
           </h1>
@@ -101,10 +101,10 @@ export default function Navbar({ searchArr }) {
             <li class="nav-item px-2">
               <a
                 href={"/"}
-                class={`nav-link max-sm:py-1 hover:text-pink-500 text-lg font-bold ${
+                class={`nav-link max-sm:py-1 hover:text-pink-500 text-lg font-semibold ${
                   pathname == "/"
                     ? "text-pink-500"
-                    : "text-stone-300"
+                    : "text-white"
                 }`}
                 aria-current="page"
               >
@@ -114,10 +114,10 @@ export default function Navbar({ searchArr }) {
             <li class="nav-item px-2">
               <a
                 href={"/models"}
-                class={`nav-link max-sm:py-1 text-lg hover:text-pink-500 font-bold ${
-                  pathname == "/models"
+                class={`nav-link max-sm:py-1 text-lg hover:text-pink-500 font-semibold ${
+                  pathname == "/models" || pathname != "/" && pathname != "/legal"
                     ? "text-pink-500"
-                    : "text-stone-300"
+                    : "text-white"
                 }`}
                 aria-current="page"
               >
@@ -126,12 +126,12 @@ export default function Navbar({ searchArr }) {
             </li>
             <li class="nav-item px-2">
               <button
-                class="nav-link max-sm:py-1 text-lg hover:text-pink-500 text-white font-bold "
+                class="nav-link max-sm:py-1 text-lg hover:text-pink-500 text-white font-semibold "
                 onClick={() => {
                   router.push(pathname + "?" + createQueryString("ee", "true"));
                 }}
               >
-                <h1 class="text-lg mb-1 font-bold text-transparent bg-clip-text bg-stone-300">
+                <h1 class="text-lg mb-1 text-transparent bg-clip-text bg-white">
                   Early Access
                 </h1>
               </button>
@@ -139,7 +139,7 @@ export default function Navbar({ searchArr }) {
           </ul>
           <div class="relative sm:w-100 md:w-5/12">
             <input
-              class="form-control ps-4 py-2 font-bold text-md py-2 focus:bg-zinc-800 focus:border-zinc-700 bg-zinc-800 border-zinc-700 text-white"
+              class="form-control ps-4 py-2 font-semibold text-md py-2 focus:bg-zinc-800 focus:border-zinc-600 bg-zinc-800 border-zinc-700 text-white"
               type="search"
               placeholder="Find models by name"
               onFocus={() => {
@@ -154,7 +154,7 @@ export default function Navbar({ searchArr }) {
               style={{
                 marginTop: "0rem",
                 borderWidth: 1.5,
-                fontSize: 15,
+                fontSize: 16,
                 height: 40,
                 borderTopLeftRadius: 20,
                 borderTopRightRadius: 20,
@@ -174,7 +174,7 @@ export default function Navbar({ searchArr }) {
               }`}
             />
             <div
-              class={`shadow-xl opacity-100 bg-zinc-800 position-absolute overflow-hidden border-zinc-700 mt-0 p-1 pt-3 pe-0 ${
+              class={`z-50 shadow-xl opacity-100 bg-zinc-800 position-absolute overflow-hidden border-zinc-600 mt-0 p-1 pt-3 pe-0 ${
                 showSearch ? "block" : "hidden"
               }`}
               style={{
@@ -193,7 +193,7 @@ export default function Navbar({ searchArr }) {
                     style={{ width: "100%" }}
                     href={"/" + item.display_name}
                   >
-                    <div style={{ width: "20%" }}>
+                    <div style={{ width: "18%" }}>
                       <img
                         alt="gallery"
                         class="block rounded object-cover object-center aspect-square"
@@ -202,9 +202,8 @@ export default function Navbar({ searchArr }) {
                       />
                     </div>
                     <h5
-                      className="my-auto align-middle text-xl text-zinc-300 pe-0 me-0"
+                      className="my-auto font-semibold align-middle text-xl text-zinc-300 pe-0 me-0"
                       style={{
-                        fontWeight: "700",
                         textAlign: "left",
                         width: "60%",
                         alignSelf: "center",

@@ -7,9 +7,9 @@ export default function Models({models}){
     
     return <div style={{ backgroundColor: "#000000" }}>
     <div class="container grid md:grid-cols-4 md:gap-2 p-10 justify-center md:p-0 grid-cols-1 mx-auto py-2 lg:pt-12 row mt-5 md:justify-content-between ">
-      {models.map((item) => {
+      {models.map((item, index) => {
         return (
-          <a href={item.display_name} class="grid-col-1 md:mt-0 mt-16">
+          <a href={item.display_name} class={`grid-col-1 md:mt-0 ${index == 0 ? "mt-0" : "mt-16"}`}>
             <div class="flex flex-wrap">
               <img
                 alt="gallery"
@@ -20,7 +20,7 @@ export default function Models({models}){
               <h2
                 class="mt-4 md:text-3xl text-4xl"
                 style={{
-                    fontSize: 28,
+                    fontSize: 30,
                   fontWeight: "bold",
                   textAlign: "center",
                   width: "100%",

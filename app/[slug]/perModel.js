@@ -10,11 +10,26 @@ import ImageLayout from "@/components/ImageLayout";
 export default function PerModel({newDataArr, modelIndex, data}) {
 
   const pathname = usePathname();
-
+console.log("here " + JSON.stringify(newDataArr[0]));
     return (
-      <div style={{ backgroundColor: "#000000" }}>
-        <div className="container justify-center" style={{ baackgroundColor: "#000000" }}>
-          <div className="justify-center">
+      <div class="mt-0" style={{ backgroundColor: "#000000" }}>
+        <img
+                style={{
+                  objectFit: "cover",
+                  padding: 0,
+                  borderWidth: 0,
+                  height: 200, 
+                  width: '100%',
+                }}
+                src={
+                  "http://localhost:1337" + newDataArr[0].image
+                }
+                class="absolute object-cover blur-lg opacity-0  m-0 p-0"
+                alt="..."
+              />
+
+        <div className="container content-center" style={{ baackgroundColor: "#000000" }}>
+          <div className="grid grid-cols-1 mt-3 content-center">
             <button
               type="button"
               class="btn btn-primary mt-4 mx-auto"
@@ -22,7 +37,7 @@ export default function PerModel({newDataArr, modelIndex, data}) {
               data-bs-target={"#exampleModal" + pathname.slice(1)}
               style={{
                 backgroundColor: "#000000",
-                alignSelf: 'center',
+                borderRadius: '50%',
                 width: 285,
                 height: 285,
                 borderWidth: 0,
@@ -91,8 +106,8 @@ export default function PerModel({newDataArr, modelIndex, data}) {
                 </div>
               </div>
             </div>
-            <div className="col h-fit mx-auto">
-              <h1 class="w-fit mx-auto" style={{ fontSize: 32.5, fontWeight: "bold" }}>
+            <div className="col h-fit mx-auto mt-4">
+              <h1 class="w-fit mx-auto" style={{ fontSize: 35, fontWeight: "bold" }}>
                 {pathname.slice(1)}
               </h1>
             </div>

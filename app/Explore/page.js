@@ -41,7 +41,7 @@ export default function Explore({categories, newDataArr}) {
           Categories:
         </h4>
         <ul
-          class=" w-full flex overflow-scroll py-3"
+          class=" w-full flex overflow-x-scroll no-scrollbar py-3"
           style={{ backgroundColor: "#000000" }}
         >
           {categories.map((item, index) => {

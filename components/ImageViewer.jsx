@@ -12,6 +12,9 @@ export default function ImageLayout(data) {
   const [upvotes, setupvotes] = useState(girls[index].upvotes);
   const [downvotes, setdownvotes] = useState(girls[index].downvotes);
   const [change, setChange] = useState(false);
+  const [upvoted, setupvoted] = useState(false);
+  const [downvoted, setDownvoted] = useState(false);
+
   const router = useRouter();
     const pathname = usePathname();
     const searchParams = useSearchParams();
@@ -86,7 +89,7 @@ export default function ImageLayout(data) {
             <img
             class="block object-cover aspect-square"
             style={{borderRadius: "100%"}}
-            src={"http://localhost:1337" + girls[index].image}
+            src={"http://localhost:1337" + girls[index].profile_pic}
             alt=""
           />
           </a>
@@ -116,6 +119,23 @@ export default function ImageLayout(data) {
           borderBottomLeftRadius: 15, borderTopRightRadius: 15}}>
           <button
           onClick={() => {
+            if(upvoted){
+              fetch(`http://127.0.0.1:1337/api/posts/${girls[index].postid}`, {
+                method: 'PUT',
+                headers: {
+                  'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({data: {upvotes: upvotes - 1}}),
+              }).then(response => response.json())
+              .then(data => {
+                console.log('Updated successfully:', data);
+              })
+              .catch(error => {
+                console.error('Error updating model:', error);
+              });
+            setupvotes(upvotes - 1);
+            setupvoted(false);
+            }else{
             fetch(`http://127.0.0.1:1337/api/posts/${girls[index].postid}`, {
                 method: 'PUT',
                 headers: {
@@ -130,16 +150,35 @@ export default function ImageLayout(data) {
                 console.error('Error updating model:', error);
               });
             setupvotes(upvotes + 1);
+            setupvoted(true)
             setChange(true);
             }
+          }
             }
           class={`z-50 p-3 mx-auto`}
         >
-          <FiArrowUp size={27.5}/>
+          <FiArrowUp size={27.5} color={upvoted ? "rgb(236 72 153)" : "rgb(255, 255, 255)"}/>
         </button>
         <h1 class="my-auto font-semibold">{upvotes}</h1>
         <button
           onClick={() => {
+            if(downvoted){
+              fetch(`http://127.0.0.1:1337/api/posts/${girls[index].postid}`, {
+                method: 'PUT',
+                headers: {
+                  'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({data: {downvotes: downvotes - 1}}),
+              }).then(response => response.json())
+              .then(data => {
+                console.log('Updated successfully:', data);
+              })
+              .catch(error => {
+                console.error('Error updating model:', error);
+              });
+              setdownvotes(downvotes - 1);
+              setDownvoted(false);
+            }else{
                 fetch(`http://127.0.0.1:1337/api/posts/${girls[index].postid}`, {
                 method: 'PUT',
                 headers: {
@@ -154,11 +193,13 @@ export default function ImageLayout(data) {
                 console.error('Error updating model:', error);
               });
               setdownvotes(downvotes + 1);
+              setDownvoted(true);
               setChange(true);
+            }
             }}
           class="z-50 p-3 mx-auto"
         >
-          <FiArrowDown size={27.5}/>
+          <FiArrowDown size={27.5} color={downvoted ? "rgb(236 72 153)" : "rgb(255,255,255)"}/>
         </button>
         <h1 class="my-auto font-semibold">{downvotes}</h1>
           </div>

@@ -70,7 +70,7 @@ export default function legal() {
             </button>
           </div>
         </div>
-        <div class="w-fit max-sm:mt-5">
+        <div class="w-fit max-sm:mt-7">
           {/* TERMS OF SERVICE*/}
           {/* TERMS OF SERVICE*/}
           {/* TERMS OF SERVICE*/}

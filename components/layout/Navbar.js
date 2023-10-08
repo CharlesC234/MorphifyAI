@@ -9,7 +9,7 @@ export default function Navbar({ searchArr }) {
   const [showSearch, setShowSearch] = useState(false);
   const [border, setBorder] = useState(1.5);
   const [radius, setRadius] = useState(20);
-  const [hidden, setHidden] = useState(false);
+  const [hidden, setHidden] = useState(true);
 
   const router = useRouter();
   const pathname = usePathname();
@@ -108,7 +108,7 @@ export default function Navbar({ searchArr }) {
               <a
                 href={"/"}
                 class={`nav-link max-sm:py-1 hover:text-pink-500 text-lg font-semibold ${
-                  pathname == "/" ? "text-pink-500" : "text-white opacity-85"
+                  pathname == "/" ? "text-pink-500" : "text-white opacity-80"
                 }`}
                 aria-current="page"
               >
@@ -122,7 +122,7 @@ export default function Navbar({ searchArr }) {
                   pathname == "/models" ||
                   (pathname != "/" && pathname != "/legal")
                     ? "text-pink-500"
-                    : "text-white opacity-85"
+                    : "text-white opacity-80"
                 }`}
                 aria-current="page"
               >
@@ -131,7 +131,7 @@ export default function Navbar({ searchArr }) {
             </li>
             <li class="nav-item px-1">
               <button
-                class="nav-link max-sm:py-1 text-lg hover:text-pink-500 text-white font-semibold opacity-85"
+                class="nav-link max-sm:py-1 text-lg hover:text-pink-500 text-white font-semibold opacity-80"
                 onClick={() => {
                   router.push(pathname + "?" + createQueryString("ee", "true"));
                 }}

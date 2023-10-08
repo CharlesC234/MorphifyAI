@@ -65,7 +65,7 @@ export default function Explore({ categories, newDataArr }) {
                 ${
                   clicked == index
                     ? "bg-pink-500 text-black"
-                    : "bg-zinc-800 "
+                    : "bg-zinc-800"
                 }`}
                 >
                   {" "}

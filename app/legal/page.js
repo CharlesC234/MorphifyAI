@@ -12,7 +12,7 @@ export default function legal() {
 
   return (
     <div class="container">
-      <div class="flex mt-5 max-sm:flex-col max-sm:px-1 md:flex-row">
+      <div class="flex md:mt-5 max-sm:flex-col max-sm:px-1 max-sm:mt-10 md:flex-row">
         <div class="w-fit mt-1 me-32">
           <div class="flex-column">
             <button

@@ -7,12 +7,12 @@ import ImageLayout from "@/components/ImageLayout";
 import { usePathname, useSearchParams } from "next/navigation";
 import { useRouter } from "next/navigation";
 
-export default function legal() {
+export default function Legal() {
   const [page, setPage] = useState("TOS");
 
   return (
     <div class="container">
-      <div class="flex md:mt-5 max-sm:flex-col max-sm:px-1 max-sm:mt-10 md:flex-row">
+      <div class="flex md:mt-10 max-sm:flex-col max-sm:px-1 max-sm:mt-8 md:flex-row">
         <div class="w-fit mt-1 me-32">
           <div class="flex-column">
             <button
@@ -47,7 +47,11 @@ export default function legal() {
                 setPage("PP");
               }}
               class={`mb-2 whitespace-nowrap flex md:hover:bg-zinc-700 
-              ${page == "PP" ? "bg-pink-500 text-black" : "bg-zinc-800 text-white"}`}
+              ${
+                page == "PP"
+                  ? "bg-pink-500 text-black"
+                  : "bg-zinc-800 text-white"
+              }`}
             >
               Policy Privacy
             </button>
@@ -64,7 +68,11 @@ export default function legal() {
               onClick={() => {
                 setPage("C");
               }}
-              class={`whitespace-nowrap flex md:hover:bg-zinc-700 ${page == "C" ? "bg-pink-500 text-black" : "bg-zinc-800 text-white"}`}
+              class={`whitespace-nowrap flex md:hover:bg-zinc-700 ${
+                page == "C"
+                  ? "bg-pink-500 text-black"
+                  : "bg-zinc-800 text-white"
+              }`}
             >
               Cookies Policy
             </button>
@@ -110,9 +118,9 @@ export default function legal() {
                     update these Terms of Use at any time without prior notice.
                     Any changes will be effective immediately upon posting the
                     revised Terms of Use on AI Asthetica LLC’s website
-                    xpixels.io. Your continued use of AI Asthetica LLC’s services
-                    after the changes constitutes your acceptance of the
-                    modified terms.
+                    xpixels.io. Your continued use of AI Asthetica LLC’s
+                    services after the changes constitutes your acceptance of
+                    the modified terms.
                   </p>
                 </li>
               </ul>
@@ -482,8 +490,8 @@ export default function legal() {
                   <p className="mb-4">
                     Upon initial visit, users are required to verify their age
                     by clicking a "Yes, I am 18" button to dismiss the pop-up.
-                    By accessing and using the site xpixels.io, you represent and
-                    warrant that you are at least 18 years of age.
+                    By accessing and using the site xpixels.io, you represent
+                    and warrant that you are at least 18 years of age.
                   </p>
                 </li>
               </ul>
@@ -546,9 +554,9 @@ export default function legal() {
               </p>
               <p className="mb-4 ml-1">
                 This Cookies Policy explains how AI Asthetica LLC ("we", "our",
-                or "us") uses cookies and local storage on the website xpixels.io
-                ("the Site"). By using the Site, you consent to our use of
-                cookies in accordance with this policy.
+                or "us") uses cookies and local storage on the website
+                xpixels.io ("the Site"). By using the Site, you consent to our
+                use of cookies in accordance with this policy.
               </p>
 
               <p className="text-2xl font-bold mb-3">What Are Cookies?</p>

@@ -193,9 +193,10 @@ export default function Navbar({ searchArr }) {
                 borderBottomRightRadius: 20,
               }}
             >
-              {searchArr.slice(0, 4).map((item) => {
+              {searchArr.slice(0, 4).map((item, index) => {
                 return (
                   <a
+                    key={index}
                     className="row mb-3 px-3 pe-0"
                     style={{ width: "100%" }}
                     href={"/" + item.display_name}

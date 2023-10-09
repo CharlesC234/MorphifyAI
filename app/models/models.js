@@ -9,6 +9,7 @@ export default function Models({ models }) {
         {models.map((item, index) => {
           return (
             <a
+              key={index}
               href={item.display_name}
               class={`grid-col-1 md:mt-0 ${index == 0 ? "mt-0" : "mt-16"}`}
             >

@@ -48,7 +48,7 @@ export default function ImageLayout(data) {
           >
             <img
               class="h-auto max-w-full rounded-lg"
-              src={process.env.API + "" + item.image}
+              src={process.env.API + item.image}
               alt=""
             />
           </a>

@@ -20,7 +20,7 @@ export default function PerModel({ newDataArr, modelIndex, data }) {
           height: 200,
           width: "100%",
         }}
-        src={process.env.API + "" + newDataArr[0].image}
+        src={process.env.API + newDataArr[0].image}
         class="absolute object-cover blur-lg opacity-0  m-0 p-0"
         alt="..."
       />
@@ -56,7 +56,6 @@ export default function PerModel({ newDataArr, modelIndex, data }) {
               }}
               src={
                 process.env.API +
-                "" +
                 data.data[modelIndex].attributes.profile_pic.data.attributes.url
               }
               class="img-thumbnail aspect-square"

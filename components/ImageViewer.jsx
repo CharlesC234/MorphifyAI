@@ -105,7 +105,7 @@ export default function ImageLayout(data) {
               <img
                 class="block object-cover aspect-square"
                 style={{ borderRadius: "100%" }}
-                src={process.env.API + "" + girls[index].profile_pic}
+                src={process.env.API + girls[index].profile_pic}
                 alt=""
               />
             </a>
@@ -138,7 +138,7 @@ export default function ImageLayout(data) {
               <img
                 class="h-auto w-auto my-auto"
                 style={{ borderRadius: 15 }}
-                src={process.env.API + "" + girls[index].image}
+                src={process.env.API + girls[index].image}
                 alt=""
               />
             </a>

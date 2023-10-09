@@ -205,7 +205,7 @@ export default function Navbar({ searchArr }) {
                         alt="gallery"
                         class="block rounded object-cover object-center aspect-square my-auto"
                         style={{ borderRadius: "100%" }}
-                        src={process.env.API + "" + item.profile_pic}
+                        src={process.env.API + item.profile_pic}
                       />
                     </div>
                     <h5

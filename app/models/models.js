@@ -17,7 +17,7 @@ export default function Models({ models }) {
                   alt="gallery"
                   class="block object-cover object-center aspect-square"
                   style={{ borderRadius: "100%" }}
-                  src={process.env.API + "" + item.profile_pic}
+                  src={process.env.API + item.profile_pic}
                 />
                 <h2
                   class="mt-4 md:text-3xl text-4xl"

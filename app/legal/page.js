@@ -590,7 +590,7 @@ export default function legal() {
                 <li className="mb-2">
                   <p>
                     Cookie Consent: By continuing to use AI Asthetica LLC's
-                    website (xxpixels), you consent to the use of cookies as
+                    website (xpixels.io), you consent to the use of cookies as
                     described in this policy. You may withdraw your consent or
                     manage your cookie preferences by adjusting your browser
                     settings. However, please note that disabling or blocking

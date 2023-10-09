@@ -80,22 +80,22 @@ export default function legal() {
           <div class={`${page == "TOS" ? "" : "hidden"}`}>
             <div className="mx-auto max-w-5xl pe-10 ">
               <h1 className="text-4xl font-bold mb-4">Terms of Service</h1>
-              <p className="text-sm font-bold mb-2">
+              <p className="text-sm font-bold mb-2 ml-1">
                 Created at: 6 October 2023
               </p>
-              <p className="text-sm font-bold mb-4">
+              <p className="text-sm font-bold mb-4 ml-1">
                 Updated at: 6 October 2023
               </p>
-              <p className="mb-4">
+              <p className="mb-4 ml-1">
                 Please read these Terms of Use carefully before accessing or
                 using the services provided by AI Asthetica LLC ("we", "our", or
                 "us"). By accessing or using AI Asthetica LLC services, you
                 agree to be bound by these Terms of Use. AI Asthetica LLC
-                operates the xxxpixels website ("the Site").
+                operates the xpixels.io website ("the Site").
               </p>
 
               <p className="text-2xl font-bold mb-3">Acceptance of Terms</p>
-              <ul className="list-disc ml-4 mb-4">
+              <ul className="list-disc ml-5 mb-4">
                 <li>
                   <p className="mb-2">
                     Agreement: These Terms of Use constitute a legally binding
@@ -110,7 +110,7 @@ export default function legal() {
                     update these Terms of Use at any time without prior notice.
                     Any changes will be effective immediately upon posting the
                     revised Terms of Use on AI Asthetica LLC’s website
-                    xxxpixels. Your continued use of AI Asthetica LLC’s services
+                    xpixels.io. Your continued use of AI Asthetica LLC’s services
                     after the changes constitutes your acceptance of the
                     modified terms.
                   </p>
@@ -118,7 +118,7 @@ export default function legal() {
               </ul>
 
               <p className="text-2xl font-bold mb-3">Use of Services</p>
-              <ul className="list-disc ml-4 mb-4">
+              <ul className="list-disc ml-5 mb-4">
                 <li>
                   <p className="mb-2">
                     Eligibility: Users must be 18 years of age or older to
@@ -139,7 +139,7 @@ export default function legal() {
                   <p className="mb-2">
                     Activities: You agree not to engage in any activity that:
                   </p>
-                  <ul className="list-disc ml-4 mt-1">
+                  <ul className="list-disc ml-5 mt-1">
                     <li>
                       Violates any applicable laws, regulations, or third-party
                       rights.
@@ -171,7 +171,7 @@ export default function legal() {
 
               {/* Continue with other sections */}
               <p className="text-2xl font-bold mb-2 mb-3">User Data</p>
-              <ul className="list-disc ml-4 mb-4 mb-4">
+              <ul className="list-disc ml-5 mb-4 mb-4">
                 <li className="mb-2">
                   <p>
                     User Emails: We collect user emails solely for the purpose
@@ -180,7 +180,7 @@ export default function legal() {
                     email is completely optional. We do not engage in the
                     selling of user data (user emails) please look at our
                     privacy policy and cookies policy for more information about
-                    the data xxxpixels collects and the reasons for it.
+                    the data xpixels.io collects and the reasons for it.
                   </p>
                 </li>
                 <li>
@@ -194,7 +194,7 @@ export default function legal() {
 
               {/* Continue with other sections */}
               <p className="text-2xl font-bold mb-3">Intellectual Property</p>
-              <ul className="list-disc ml-4 mb-4">
+              <ul className="list-disc ml-5 mb-4">
                 <li className="mb-2">
                   <p>
                     Ownership: All content on the Site, including but not
@@ -218,7 +218,7 @@ export default function legal() {
 
               {/* Continue with other sections */}
               <p className="text-2xl font-bold mb-3">Limitation of Liability</p>
-              <ul className="list-disc ml-4 mb-4">
+              <ul className="list-disc ml-5 mb-4">
                 <li>
                   <p className="mb-4">
                     We are not liable for any direct, indirect, incidental,
@@ -230,7 +230,7 @@ export default function legal() {
               </ul>
 
               <p className="text-2xl font-bold mb-3">Changes to the Terms</p>
-              <ul className="list-disc ml-4 mb-4">
+              <ul className="list-disc ml-5 mb-4">
                 <li>
                   <p className="mb-4">
                     We reserve the right to update or modify these Terms at any
@@ -243,7 +243,7 @@ export default function legal() {
               <p className="text-2xl font-bold mb-3">
                 Governing Law and Jurisdiction
               </p>
-              <ul className="list-disc ml-4 mb-4">
+              <ul className="list-disc ml-5 mb-4">
                 <li>
                   <p className="mb-4">
                     These Terms of Use shall be governed by and construed in
@@ -257,7 +257,7 @@ export default function legal() {
               </ul>
 
               <p className="text-2xl font-bold mb-3">Contact Us</p>
-              <ul className="list-disc ml-4">
+              <ul className="list-disc ml-5">
                 <li>
                   <p>
                     If you have any questions or concerns regarding these Terms,
@@ -284,16 +284,16 @@ export default function legal() {
           <div class={`${page == "PP" ? "" : "hidden"}`}>
             <div className="mx-auto max-w-5xl pe-10 ">
               <h1 className="text-4xl font-bold mb-4">Privacy Policy</h1>
-              <p className="text-sm font-bold mb-2">
+              <p className="text-sm font-bold mb-2 ml-1">
                 Created at: 6 October 2023
               </p>
-              <p className="text-sm font-bold mb-4">
+              <p className="text-sm font-bold mb-4 ml-1">
                 Updated at: 6 October 2023
               </p>
-              <p className="mb-4">
+              <p className="mb-4 ml-1">
                 This Privacy Policy describes how AI Asthetica LLC ("we", "our",
                 or "us") collects, uses, and protects your personal information
-                when you visit and use the website xxxpixels ("the Site"). By
+                when you visit and use the website xpixels.io ("the Site"). By
                 using the Site, you consent to the practices described in this
                 Privacy Policy.
               </p>
@@ -302,10 +302,10 @@ export default function legal() {
               <p className="mb-2">
                 We collect and store the following information:
               </p>
-              <ul className="list-disc ml-4 mb-4">
+              <ul className="list-disc ml-5 mb-4">
                 <li>
                   <p className="mb-2 font-bold">User emails</p>
-                  <ul className="list-disc ml-4 mb-2">
+                  <ul className="list-disc ml-5 mb-2">
                     <li>
                       <p>
                         User emails are Provided voluntarily for notifications
@@ -317,7 +317,7 @@ export default function legal() {
                 </li>
                 <li>
                   <p className="mb-2 font-bold">Upvotes and Downvotes</p>
-                  <ul className="list-disc ml-4 mb-2">
+                  <ul className="list-disc ml-5 mb-2">
                     <li>
                       <p>
                         We collect upvotes and downvotes on the site in order to
@@ -333,7 +333,7 @@ export default function legal() {
                 </li>
                 <li>
                   <p className="mb-2 font-bold">Cookies</p>
-                  <ul className="list-disc ml-4">
+                  <ul className="list-disc ml-5">
                     <li>
                       <p className="mb-2">
                         We use cookies and local storage to determine whether a
@@ -362,7 +362,7 @@ export default function legal() {
                     whenever you visit our Service or when you access the
                     Service by or through a mobile device.
                   </p>
-                  <ul className="list-disc ml-4 mb-4">
+                  <ul className="list-disc ml-5 mb-4">
                     <li className="mb-2">
                       <p>
                         Usage Data may include information such as your
@@ -398,7 +398,7 @@ export default function legal() {
               </ul>
 
               <p className="text-2xl font-bold mb-3">Use of Information</p>
-              <ul className="list-disc ml-4 mb-4">
+              <ul className="list-disc ml-5 mb-4">
                 <li className="mb-2">
                   <p>
                     We collect different types of user data to provide and
@@ -424,7 +424,7 @@ export default function legal() {
                     We use the following collected information for the following
                     purposes:
                   </p>
-                  <ul className="list-disc ml-4 mt-1">
+                  <ul className="list-disc ml-5 mt-1">
                     <li className="mb-2">
                       Emails: To notify users about updates, new additions, and
                       other notifications related to the Site.
@@ -443,7 +443,7 @@ export default function legal() {
               <p className="text-2xl font-bold mb-2 mb-3">
                 Sharing of Information
               </p>
-              <ul className="list-disc ml-4 mb-4 mb-4">
+              <ul className="list-disc ml-5 mb-4 mb-4">
                 <li>
                   <p>
                     We do not share, sell, or disclose user emails or any user
@@ -456,7 +456,7 @@ export default function legal() {
               <p className="text-2xl font-bold mb-3">
                 Cookies and Local Storage
               </p>
-              <ul className="list-disc ml-4 mb-4">
+              <ul className="list-disc ml-5 mb-4">
                 <li className="mb-2">
                   <p>
                     We use cookies and local storage to determine whether a user
@@ -477,19 +477,19 @@ export default function legal() {
 
               {/* Continue with other sections */}
               <p className="text-2xl font-bold mb-3">Age Verification</p>
-              <ul className="list-disc ml-4 mb-4">
+              <ul className="list-disc ml-5 mb-4">
                 <li>
                   <p className="mb-4">
                     Upon initial visit, users are required to verify their age
                     by clicking a "Yes, I am 18" button to dismiss the pop-up.
-                    By accessing and using the site xxxpixels, you represent and
+                    By accessing and using the site xpixels.io, you represent and
                     warrant that you are at least 18 years of age.
                   </p>
                 </li>
               </ul>
 
               <p className="text-2xl font-bold mb-3">Security</p>
-              <ul className="list-disc ml-4 mb-4">
+              <ul className="list-disc ml-5 mb-4">
                 <li>
                   <p className="mb-4">
                     We implement industry-standard security measures to protect
@@ -500,7 +500,7 @@ export default function legal() {
               </ul>
 
               <p className="text-2xl font-bold mb-3">Changes To This Policy</p>
-              <ul className="list-disc ml-4 mb-4">
+              <ul className="list-disc ml-5 mb-4">
                 <li>
                   <p className="mb-4">
                     We reserve the right to update or modify this Privacy Policy
@@ -511,7 +511,7 @@ export default function legal() {
               </ul>
 
               <p className="text-2xl font-bold mb-3">Contact Us</p>
-              <ul className="list-disc ml-4">
+              <ul className="list-disc ml-5">
                 <li>
                   <p>
                     If you have any questions or concerns regarding these Terms,
@@ -538,21 +538,21 @@ export default function legal() {
           <div class={`${page == "C" ? "" : "hidden"}`}>
             <div className="mx-auto max-w-5xl pe-10 ">
               <h1 className="text-4xl font-bold mb-4">Cookies Policy</h1>
-              <p className="text-sm font-bold mb-2">
+              <p className="text-sm font-bold mb-2 ml-1">
                 Created at: 6 October 2023
               </p>
-              <p className="text-sm font-bold mb-4">
+              <p className="text-sm font-bold mb-4 ml-1">
                 Updated at: 6 October 2023
               </p>
-              <p className="mb-4">
+              <p className="mb-4 ml-1">
                 This Cookies Policy explains how AI Asthetica LLC ("we", "our",
-                or "us") uses cookies and local storage on the website xxxpixels
+                or "us") uses cookies and local storage on the website xpixels.io
                 ("the Site"). By using the Site, you consent to our use of
                 cookies in accordance with this policy.
               </p>
 
               <p className="text-2xl font-bold mb-3">What Are Cookies?</p>
-              <ul className="list-disc ml-4 mb-4">
+              <ul className="list-disc ml-5 mb-4">
                 <li>
                   <p>
                     Cookies are small text files stored on your device's
@@ -564,7 +564,7 @@ export default function legal() {
               </ul>
 
               <p className="text-2xl font-bold mb-3">How We Use Cookies</p>
-              <ul className="list-disc ml-4 mb-4">
+              <ul className="list-disc ml-5 mb-4">
                 <li>
                   <p className="mb-2">
                     We use cookies and local storage for the purpose of
@@ -586,7 +586,7 @@ export default function legal() {
 
               {/* Continue with other sections */}
               <p className="text-2xl font-bold mb-2 mb-3">Managing Cookies</p>
-              <ul className="list-disc ml-4 mb-4 mb-4">
+              <ul className="list-disc ml-5 mb-4 mb-4">
                 <li className="mb-2">
                   <p>
                     Cookie Consent: By continuing to use AI Asthetica LLC's
@@ -611,7 +611,7 @@ export default function legal() {
               </ul>
 
               <p className="text-2xl font-bold mb-3">Changes To This Policy</p>
-              <ul className="list-disc ml-4 mb-4">
+              <ul className="list-disc ml-5 mb-4">
                 <li>
                   <p className="mb-4">
                     We may update this Cookies Policy from time to time. The
@@ -624,7 +624,7 @@ export default function legal() {
               <p className="text-2xl font-bold mb-3">
                 Data Security And Privacy
               </p>
-              <ul className="list-disc ml-4 mb-4">
+              <ul className="list-disc ml-5 mb-4">
                 <li>
                   <p className="mb-4">
                     AI Asthetica LLC is committed to protecting your personal
@@ -637,7 +637,7 @@ export default function legal() {
               </ul>
 
               <p className="text-2xl font-bold mb-3">Contact Us</p>
-              <ul className="list-disc ml-4">
+              <ul className="list-disc ml-5">
                 <li>
                   <p>
                     If you have any questions or concerns regarding the cookies

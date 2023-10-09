@@ -6,7 +6,7 @@ import "../app/globals.css";
 import useSWR from "swr";
 import { useState } from "react";
 import ImageViewer from "@/components/ImageViewer";
-import { usePathname, useSearchParams } from 'next/navigation'
+import { usePathname, useSearchParams } from "next/navigation";
 import { useRouter } from "next/navigation";
 import { useCallback } from "react";
 
@@ -17,20 +17,18 @@ export default function ImageLayout(data) {
   const [selectedIndex, setIndex] = useState(1);
   const [close, setClose] = useState(false);
   const router = useRouter();
-    const pathname = usePathname();
-    const searchParams = useSearchParams();
+  const pathname = usePathname();
+  const searchParams = useSearchParams();
 
+  const createQueryString = useCallback(
+    (name, value) => {
+      const params = new URLSearchParams(searchParams);
+      params.set(name, value);
 
-    const createQueryString = useCallback(
-      (name, value) => {
-        const params = new URLSearchParams(searchParams)
-        params.set(name, value)
-   
-        return params.toString()
-      },
-      [searchParams]
-    )
-
+      return params.toString();
+    },
+    [searchParams]
+  );
 
   function selectPhoto(index) {
     setIndex(index);
@@ -42,27 +40,34 @@ export default function ImageLayout(data) {
       {dataArr.map((item, index) => {
         return (
           <a
-            onClick={() => {selectPhoto(index);}}
+            onClick={() => {
+              selectPhoto(index);
+            }}
             key={index}
             class="grid gap-4 cursor-pointer"
           >
             <img
               class="h-auto max-w-full rounded-lg"
-              src={"http://192.168.1.143:1337" + item.image}
+              src={process.env.API + "" + item.image}
               alt=""
             />
           </a>
         );
       })}
       {photoView ? (
-            <div class="fixed z-10 left-0 top-0 h-full w-full overflow-hidden backdrop-blur-lg">
-            <button class="fixed z-4 h-full w-full" onClick={() => {
-              setPhotoView(false); router.refresh()}}/>
-        <ImageViewer
-          allImages={data}
-          setView={setPhotoView}
-          index={selectedIndex}
-        />
+        <div class="fixed z-10 left-0 top-0 h-full w-full overflow-hidden backdrop-blur-lg">
+          <button
+            class="fixed z-4 h-full w-full"
+            onClick={() => {
+              setPhotoView(false);
+              router.refresh();
+            }}
+          />
+          <ImageViewer
+            allImages={data}
+            setView={setPhotoView}
+            index={selectedIndex}
+          />
         </div>
       ) : (
         <div />

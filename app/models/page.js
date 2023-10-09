@@ -4,15 +4,17 @@ import "../globals.css";
 import Models from "./models";
 
 async function getModels() {
-  const res = await fetch('http://192.168.1.143:1337/api/models?populate[0]=profile_pic', { cache: 'no-cache' });
+  const res = await fetch(
+    process.env.API + "/api/models?populate[0]=profile_pic",
+    { cache: "no-cache" }
+  );
   if (!res.ok) {
-    throw new Error('Failed to fetch data')
+    throw new Error("Failed to fetch data");
   }
-  return res.json()
+  return res.json();
 }
 
 export default async function ModelsServer() {
-
   const data = await getModels();
   const models = [];
 
@@ -23,8 +25,5 @@ export default async function ModelsServer() {
     });
   }
 
-
-  return (
-    <Models models={models}/>
-  );
+  return <Models models={models} />;
 }

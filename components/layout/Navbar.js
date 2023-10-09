@@ -142,7 +142,10 @@ export default function Navbar({ searchArr }) {
               </button>
             </li>
           </ul>
-          <div class="relative sm:w-100 md:w-5/12" style={{marginBottom: ".25rem"}}>
+          <div
+            class="relative sm:w-100 md:w-5/12"
+            style={{ marginBottom: ".25rem" }}
+          >
             <input
               class="form-control ps-4 py-2 font-semibold text-md py-2 focus:bg-zinc-800 focus:border-zinc-600 bg-zinc-800 border-zinc-600 text-white"
               type="search"
@@ -202,7 +205,7 @@ export default function Navbar({ searchArr }) {
                         alt="gallery"
                         class="block rounded object-cover object-center aspect-square my-auto"
                         style={{ borderRadius: "100%" }}
-                        src={"http://192.168.1.143:1337" + item.profile_pic}
+                        src={process.env.API + "" + item.profile_pic}
                       />
                     </div>
                     <h5

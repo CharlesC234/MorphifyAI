@@ -133,7 +133,7 @@ export default async function Home({ searchParams, children }) {
       !newDataArr[i].downvotes &&
       newDataArr.length > posts.data.length
     ) {
-      fetch(`http://192.168.1.143:1337/api/posts`, {
+      fetch(process.env.API + `/api/posts`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",

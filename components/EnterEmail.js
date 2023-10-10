@@ -24,7 +24,6 @@ export default function EnterEmail({ emails }) {
     [searchParams]
   );
 
-  console.log(searchParams.get("ee"));
   var visible = searchParams.get("ee");
 
   function handleEmailInput(e) {
@@ -36,7 +35,6 @@ export default function EnterEmail({ emails }) {
   }
   function handleButtonPress() {
     const emailsArr = emails;
-    console.log(emails);
     if (userEmail != null && userEmail.length > 5) {
       if (!emailsArr.includes(userEmail)) {
         fetch(process.env.API + "/api/emails?populate=*", {

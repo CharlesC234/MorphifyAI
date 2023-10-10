@@ -11,7 +11,7 @@ export default function Models({ models }) {
             <a
               key={index}
               href={item.display_name}
-              class={`grid-col-1 md:mt-0 ${index == 0 ? "mt-0" : "mt-16"}`}
+              class={`grid-col-1 md:mt-0 md:mb-10 ${index == 0 ? "mt-0" : "mt-16"}`}
             >
               <div class="flex flex-wrap">
                 <img

@@ -76,8 +76,6 @@ export default function ImageLayout(data) {
     }
   }
 
-  console.log("here" + JSON.stringify(girls[index]));
-
   return (
     <div class="grid grid-cols-3 max-sm:grid-cols-2 items-center h-full w-full">
       <button
@@ -158,7 +156,7 @@ export default function ImageLayout(data) {
                 onClick={() => {
                   if (upvoted) {
                     fetch(
-                      process.env.API + "/api/posts/${girls[index].postid}",
+                      process.env.API + "/api/posts/" + girls[index].postid,
                       {
                         method: "PUT",
                         headers: {
@@ -171,7 +169,6 @@ export default function ImageLayout(data) {
                     )
                       .then((response) => response.json())
                       .then((data) => {
-                        console.log("Updated successfully:", data);
                       })
                       .catch((error) => {
                         console.error("Error updating model:", error);
@@ -180,7 +177,7 @@ export default function ImageLayout(data) {
                     setupvoted(false);
                   } else {
                     fetch(
-                      process.env.API + "/api/posts/${girls[index].postid}",
+                      process.env.API + "/api/posts/" + girls[index].postid,
                       {
                         method: "PUT",
                         headers: {
@@ -193,7 +190,6 @@ export default function ImageLayout(data) {
                     )
                       .then((response) => response.json())
                       .then((data) => {
-                        console.log("Updated successfully:", data);
                       })
                       .catch((error) => {
                         console.error("Error updating model:", error);
@@ -215,7 +211,7 @@ export default function ImageLayout(data) {
                 onClick={() => {
                   if (downvoted) {
                     fetch(
-                      process.env.API + "/api/posts/${girls[index].postid}",
+                      process.env.API + "/api/posts/" + girls[index].postid,
                       {
                         method: "PUT",
                         headers: {
@@ -228,7 +224,6 @@ export default function ImageLayout(data) {
                     )
                       .then((response) => response.json())
                       .then((data) => {
-                        console.log("Updated successfully:", data);
                       })
                       .catch((error) => {
                         console.error("Error updating model:", error);
@@ -237,7 +232,7 @@ export default function ImageLayout(data) {
                     setDownvoted(false);
                   } else {
                     fetch(
-                      process.env.API + "/api/posts/${girls[index].postid}",
+                      process.env.API + "/api/posts/" + girls[index].postid,
                       {
                         method: "PUT",
                         headers: {
@@ -250,7 +245,6 @@ export default function ImageLayout(data) {
                     )
                       .then((response) => response.json())
                       .then((data) => {
-                        console.log("Updated successfully:", data);
                       })
                       .catch((error) => {
                         console.error("Error updating model:", error);

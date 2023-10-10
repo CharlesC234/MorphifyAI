@@ -55,7 +55,6 @@ export default async function Home({ searchParams, children }) {
 
   if (searchParams.revalidate) {
     revalidateTag("postdata");
-    console.log("revalidated");
   }
 
   //sort images based on input
@@ -133,7 +132,7 @@ export default async function Home({ searchParams, children }) {
       !newDataArr[i].downvotes &&
       newDataArr.length > posts.data.length
     ) {
-      fetch(process.env.API + "/api/posts", {
+      fetch(process.env.API + `/api/posts`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -144,7 +143,6 @@ export default async function Home({ searchParams, children }) {
       })
         .then((response) => response.json())
         .then((data) => {
-          console.log("Updated successfully:", data);
           newDataArr[i].upvotes = 0;
           newDataArr[i].downvotes = 0;
           newDataArr[i].postid = data.id;

@@ -36,7 +36,6 @@ export default async function modelPage({ searchParams }) {
 
   if (searchParams.revalidate) {
     revalidateTag("postdata");
-    console.log("revalidated");
   }
 
   const names = [];
@@ -101,7 +100,6 @@ export default async function modelPage({ searchParams }) {
         })
           .then((response) => response.json())
           .then((data) => {
-            console.log("Updated successfully:", data);
             newDataArr[i].upvotes = 0;
             newDataArr[i].downvotes = 0;
             newDataArr[i].postid = data.id;
@@ -115,6 +113,8 @@ export default async function modelPage({ searchParams }) {
     newDataArr.sort(
       (a, b) => b.upvotes - b.downvotes - (a.upvotes - a.downvotes)
     );
+
+    console.log(newDataArr);
 
     return (
       <PerModel newDataArr={newDataArr} modelIndex={modelIndex} data={data} />

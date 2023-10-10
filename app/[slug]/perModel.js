@@ -38,7 +38,7 @@ export default function PerModel({ newDataArr, modelIndex, data }) {
               backgroundColor: "#000000",
               borderRadius: "100%",
               width: "25%",
-              minWidth: 300,
+              minWidth: 250,
               height: "auto",
               borderWidth: 0,
               padding: 0,

@@ -9,7 +9,6 @@ import ImageLayout from "@/components/ImageLayout";
 
 export default function PerModel({ newDataArr, modelIndex, data }) {
   const pathname = usePathname();
-  console.log("here " + JSON.stringify(newDataArr[0]));
   return (
     <div class="mt-0" style={{ backgroundColor: "#000000" }}>
       <img

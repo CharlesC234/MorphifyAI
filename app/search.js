@@ -6,7 +6,7 @@ import Navbar from "@/components/layout/Navbar";
 
 async function getModels() {
   const res = await fetch(process.env.API + "/api/models?populate=*", {
-    cache: "force-cache",
+    cache: "no-cache",
   });
   if (!res.ok) {
     throw new Error("Failed to fetch data");

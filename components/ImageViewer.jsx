@@ -158,7 +158,7 @@ export default function ImageLayout(data) {
                 onClick={() => {
                   if (upvoted) {
                     fetch(
-                      process.env.API + "/api/posts/${girls[index].postid}",
+                      process.env.API + "/api/posts/" + girls[index].postid,
                       {
                         method: "PUT",
                         headers: {
@@ -180,7 +180,7 @@ export default function ImageLayout(data) {
                     setupvoted(false);
                   } else {
                     fetch(
-                      process.env.API + "/api/posts/${girls[index].postid}",
+                      process.env.API + "/api/posts/" + girls[index].postid,
                       {
                         method: "PUT",
                         headers: {
@@ -215,7 +215,7 @@ export default function ImageLayout(data) {
                 onClick={() => {
                   if (downvoted) {
                     fetch(
-                      process.env.API + "/api/posts/${girls[index].postid}",
+                      process.env.API + "/api/posts/" + girls[index].postid,
                       {
                         method: "PUT",
                         headers: {
@@ -237,7 +237,7 @@ export default function ImageLayout(data) {
                     setDownvoted(false);
                   } else {
                     fetch(
-                      process.env.API + "/api/posts/${girls[index].postid}",
+                      process.env.API + "/api/posts/" + girls[index].postid,
                       {
                         method: "PUT",
                         headers: {

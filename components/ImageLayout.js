@@ -50,7 +50,28 @@ export default function ImageLayout(data) {
   
       window.addEventListener("scroll", handleScroll);
       return () => window.removeEventListener("scroll", handleScroll);
-    }, [numImages]);
+    }, []);
+
+
+
+    if(numImages > 16){
+      setTimeout(() => {
+      const handleScroll = () => {
+        const offsetHeight = document.documentElement.offsetHeight;
+        const innerHeight = window.innerHeight;
+        const scrollTop = document.documentElement.scrollTop;
+  
+        const hasReachedBottom = offsetHeight - (innerHeight + scrollTop) <= 5;
+
+        if(hasReachedBottom){
+        setNumImages(numImages + 16);
+        }
+      };
+  
+      window.addEventListener("scroll", handleScroll);
+      return () => window.removeEventListener("scroll", handleScroll);
+    }, 1000)
+    }
 
   return (
     <div class="grid grid-cols-2 md:grid-cols-4 gap-2">
@@ -77,7 +98,7 @@ export default function ImageLayout(data) {
             class="fixed z-4 h-full w-full"
             onClick={() => {
               setPhotoView(false);
-              router.refresh();
+              router.push(pathname + "?" + createQueryString("revalidate", [!searchParams.get("revalidate") ? 0 : [searchParams.get("revalidate") == 1 ? 0 : 1]]));
             }}
           />
           <ImageViewer

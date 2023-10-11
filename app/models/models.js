@@ -5,7 +5,7 @@ import "../globals.css";
 export default function Models({ models }) {
   return (
     <div style={{ backgroundColor: "#000000" }}>
-      <div class="container grid md:grid-cols-4 md:gap-2 p-10 justify-center md:p-0 grid-cols-1 mx-auto py-2 lg:pt-12 row mt-5 md:justify-content-between ">
+      <div class="container grid md:grid-cols-4 md:gap-3 p-10 justify-center md:p-0 grid-cols-1 mx-auto py-2 lg:pt-12 row mt-5 md:justify-content-between ">
         {models.map((item, index) => {
           return (
             <a

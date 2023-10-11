@@ -12,8 +12,8 @@ import { revalidatePath } from "next/cache";
 async function getData() {
   const res = await fetch(
     process.env.API +
-      "/api/models?populate[0]=profile_pic&populate[1]=free_images",
-    { cache: "no-store"}
+      "/api/models?populate[0]=profile_pic&populate[1]=free_images&random=true",
+    { cache: "no-cache"}
   );
   if (!res.ok) {
     throw new Error("Failed to fetch data");
@@ -24,8 +24,8 @@ async function getData() {
 async function getCats() {
   const res = await fetch(
     process.env.API +
-      "/api/categories?populate[0]=models&populate[1]=models.free_images&populate[2]=models.profile_pic",
-    { cache: "no-store" }
+      "/api/categories?populate[0]=models&populate[1]=models.free_image&populate[2]=models.profile_pic&random=true",
+    { cache: "no-cache" }
   );
   if (!res.ok) {
     throw new Error("Failed to fetch data");
@@ -66,20 +66,6 @@ export default async function Home({ searchParams, children }) {
     catSelected = searchParams.sort;
   }
 
-  function shuffle(array) {
-    let currentIndex = array.length,
-      randomIndex;
-    while (currentIndex > 0) {
-      randomIndex = Math.floor(Math.random() * currentIndex);
-      currentIndex--;
-
-      [array[currentIndex], array[randomIndex]] = [
-        array[randomIndex],
-        array[currentIndex],
-      ];
-    }
-    return array;
-  }
 
   const newDataArr = [];
 
@@ -162,12 +148,22 @@ export default async function Home({ searchParams, children }) {
     categories.push(cats.data[i].attributes.Category_Name);
   }
 
-  newDataArr.sort(
-    (a, b) => b.upvotes - b.downvotes - (a.upvotes - a.downvotes)
-  );
+  function randomSort(a, b) {
+    const diffA = b.upvotes - b.downvotes - (a.upvotes - a.downvotes);
+    const diffB = b.upvotes - b.downvotes - (b.upvotes - b.downvotes);
+  
+    if (diffA !== diffB) {
+      return diffA - diffB;
+    } else {
+      return Math.random() - 0.5;
+    }
+  }
+  
+  newDataArr.sort(randomSort);
 
   return (
     <Explore
+      sp={searchParams}
       categories={categories}
       data={data}
       cats={cats}

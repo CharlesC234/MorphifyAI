@@ -7,8 +7,8 @@ import { revalidateTag } from "next/cache";
 async function getModels() {
   const res = await fetch(
     process.env.API +
-      "/api/models?populate[0]=profile_pic&populate[1]=free_images",
-    { cache: "no-store" }
+      "/api/models?populate[0]=profile_pic&populate[1]=free_images&random=true",
+    { cache: "force-cache" }
   );
   if (!res.ok) {
     throw new Error("Failed to fetch data");
@@ -117,7 +117,7 @@ export default async function modelPage({ searchParams }) {
     console.log(newDataArr);
 
     return (
-      <PerModel newDataArr={newDataArr} modelIndex={modelIndex} data={data} />
+      <PerModel newDataArr={newDataArr} modelIndex={modelIndex} data={data} sp={searchParams}/>
     );
   } else {
     return (

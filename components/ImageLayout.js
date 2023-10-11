@@ -18,7 +18,7 @@ export default function ImageLayout(data) {
   const router = useRouter();
   const pathname = usePathname();
   const searchParams = useSearchParams();
-  const [numImages, setNumImages] = useState(16);
+  const [numImages, setNumImages] = useState(12);
 
   const createQueryString = useCallback(
     (name, value) => {
@@ -44,7 +44,7 @@ export default function ImageLayout(data) {
         const hasReachedBottom = offsetHeight - (innerHeight + scrollTop) <= 5;
 
         if(hasReachedBottom){
-        setNumImages(numImages + 16);
+        setNumImages(numImages + 12);
         }
       };
   

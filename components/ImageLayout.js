@@ -187,7 +187,7 @@ export default function ImageLayout(data) {
             </a>
             <button
               onClick={() => {
-                data.setView(false);
+                setPhotoView(false);
                 setupvoted(false);
               setDownvoted(false);
               }}

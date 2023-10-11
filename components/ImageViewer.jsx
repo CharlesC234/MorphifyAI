@@ -46,14 +46,14 @@ export default function ImageLayout(data) {
       setupvoted(false);
       setDownvoted(false);
       if (change) {
-        router.push(pathname + "?" + createQueryString("revalidate", [!searchParams.get("revalidate") ? 0 : [searchParams.get("revalidate") == 1 ? 0 : 1]]));
+        router.refresh();
       }
     } else {
       setIndex(index + 1);
       setupvoted(false);
       setDownvoted(false);
       if (change) {
-        router.push(pathname + "?" + createQueryString("revalidate", [!searchParams.get("revalidate") ? 0 : [searchParams.get("revalidate") == 1 ? 0 : 1]]));
+        router.refresh();
       }
     }
   }
@@ -64,14 +64,14 @@ export default function ImageLayout(data) {
       setupvoted(false);
       setDownvoted(false);
       if (change) {
-        router.push(pathname + "?" + createQueryString("revalidate", [!searchParams.get("revalidate") ? 0 : [searchParams.get("revalidate") == 1 ? 0 : 1]]));
+        router.refresh();
       }
     } else {
       setIndex(index - 1);
       setupvoted(false);
       setDownvoted(false);
       if (change) {
-        router.push(pathname + "?" + createQueryString("revalidate", [!searchParams.get("revalidate") ? 0 : [searchParams.get("revalidate") == 1 ? 0 : 1]]));
+        router.refresh();
       }
     }
   }
@@ -120,7 +120,7 @@ export default function ImageLayout(data) {
               onClick={() => {
                 data.setView(false);
                 if (change) {
-                  router.push(pathname + "?" + createQueryString("revalidate", [!searchParams.get("revalidate") ? 0 : [searchParams.get("revalidate") == 1 ? 0 : 1]]));
+                  router.refresh();
                 }
               }}
               class="rounded-full z-50 me-3 mx-auto my-auto"

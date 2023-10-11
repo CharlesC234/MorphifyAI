@@ -98,7 +98,7 @@ export default function ImageLayout(data) {
             class="fixed z-4 h-full w-full"
             onClick={() => {
               setPhotoView(false);
-              router.push(pathname + "?" + createQueryString("revalidate", [!searchParams.get("revalidate") ? 0 : [searchParams.get("revalidate") == 1 ? 0 : 1]]));
+              router.refresh();
             }}
           />
           <ImageViewer

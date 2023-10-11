@@ -7,8 +7,8 @@ import { revalidateTag } from "next/cache";
 async function getModels() {
   const res = await fetch(
     process.env.API +
-      "/api/models?populate[0]=profile_pic&populate[1]=free_images",
-    { cache: "no-cache" }
+      "/api/models?populate[0]=profile_pic&populate[1]=free_images&random=true",
+    { cache: "force-cache" }
   );
   if (!res.ok) {
     throw new Error("Failed to fetch data");

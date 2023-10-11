@@ -1,10 +1,9 @@
 "use client";
-
 import styles from "../app/page.module.css";
 import "bootstrap/dist/css/bootstrap.css";
 import "../app/globals.css";
 import useSWR from "swr";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import ImageViewer from "@/components/ImageViewer";
 import { usePathname, useSearchParams } from "next/navigation";
 import { useRouter } from "next/navigation";
@@ -19,6 +18,7 @@ export default function ImageLayout(data) {
   const router = useRouter();
   const pathname = usePathname();
   const searchParams = useSearchParams();
+  const [numImages, setNumImages] = useState(12);
 
   const createQueryString = useCallback(
     (name, value) => {
@@ -34,10 +34,48 @@ export default function ImageLayout(data) {
     setIndex(index);
     setPhotoView(true);
   }
+  
+    useEffect(() => {
+      const handleScroll = () => {
+        const offsetHeight = document.documentElement.offsetHeight;
+        const innerHeight = window.innerHeight;
+        const scrollTop = document.documentElement.scrollTop;
+  
+        const hasReachedBottom = offsetHeight - (innerHeight + scrollTop) <= 5;
+
+        if(hasReachedBottom){
+        setNumImages(numImages + 12);
+        }
+      };
+  
+      window.addEventListener("scroll", handleScroll);
+      return () => window.removeEventListener("scroll", handleScroll);
+    }, []);
+
+
+
+    if(numImages > 16){
+      setTimeout(() => {
+      const handleScroll = () => {
+        const offsetHeight = document.documentElement.offsetHeight;
+        const innerHeight = window.innerHeight;
+        const scrollTop = document.documentElement.scrollTop;
+  
+        const hasReachedBottom = offsetHeight - (innerHeight + scrollTop) <= 5;
+
+        if(hasReachedBottom){
+        setNumImages(numImages + 16);
+        }
+      };
+  
+      window.addEventListener("scroll", handleScroll);
+      return () => window.removeEventListener("scroll", handleScroll);
+    }, 1000)
+    }
 
   return (
     <div class="grid grid-cols-2 md:grid-cols-4 gap-2">
-      {dataArr.map((item, index) => {
+      {dataArr.slice(0, numImages).map((item, index) => {
         return (
           <a
             onClick={() => {
@@ -47,9 +85,9 @@ export default function ImageLayout(data) {
             class="grid gap-4 cursor-pointer"
           >
             <img
+              loading="lazy"
               class="h-auto max-w-full rounded-lg"
               src={process.env.API + item.image}
-              alt=""
             />
           </a>
         );

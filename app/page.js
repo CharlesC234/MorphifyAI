@@ -13,7 +13,7 @@ async function getData() {
   const res = await fetch(
     process.env.API +
       "/api/models?populate[0]=profile_pic&populate[1]=free_images",
-    { cache: "no-cache" }
+    { cache: "no-store"}
   );
   if (!res.ok) {
     throw new Error("Failed to fetch data");
@@ -25,7 +25,7 @@ async function getCats() {
   const res = await fetch(
     process.env.API +
       "/api/categories?populate[0]=models&populate[1]=models.free_images&populate[2]=models.profile_pic",
-    { cache: "no-cache" }
+    { cache: "no-store" }
   );
   if (!res.ok) {
     throw new Error("Failed to fetch data");

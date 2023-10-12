@@ -125,7 +125,7 @@ export default function ImageLayout(data) {
         if(Math.random() < 0.45 && index - ads >= 6){
           ads = index;
           return (
-            <div class="grid gap-4 cursor-pointer">
+            <div key={index} class="grid gap-4 cursor-pointer">
           <iframe class="h-full max-w-full rounded-lg" src="//a.magsrv.com/iframe.php?idzone=5100036&size=300x250" width="300" height="250" scrolling="no" marginwidth="0" marginheight="0" frameborder="0"></iframe>
           </div>);
         }else{

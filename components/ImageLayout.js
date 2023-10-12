@@ -59,7 +59,7 @@ export default function ImageLayout(data) {
         const innerHeight = window.innerHeight;
         const scrollTop = document.documentElement.scrollTop;
   
-        const hasReachedBottom = offsetHeight - (innerHeight + scrollTop) <= 5;
+        const hasReachedBottom = offsetHeight - (innerHeight + scrollTop) <= 15;
 
         if(hasReachedBottom){
         setNumImages(numImages + 12);
@@ -121,14 +121,14 @@ export default function ImageLayout(data) {
     }
 
   return (
-    <div class="grid grid-cols-2 md:grid-cols-4 gap-2">
+    <div class="columns-2 md:columns-4 gap-2">
       {dataArr.slice(0, numImages).map((item, index) => {
         if(index - ads > val){
           ads = index;
           val = [val == 4 ? 3 : 4];
           return (
-            <div key={index} class="grid gap-4 cursor-pointer">
-          <iframe class="h-full max-w-full rounded-lg" src="//a.magsrv.com/iframe.php?idzone=5100036&size=325x250" width="325" height="250" scrolling="no" marginwidth="0" marginheight="0" frameborder="0"></iframe>
+            <div key={index} class="my-2 cursor-pointer">
+          <iframe class="max-w-full rounded-lg" src="//a.magsrv.com/iframe.php?idzone=5100036&size=325x250" width="325" height="250" scrolling="no" marginwidth="0" marginheight="0" frameborder="0"></iframe>
           </div>);
         }else{
         return (
@@ -137,12 +137,12 @@ export default function ImageLayout(data) {
               selectPhoto(index);
             }}
             key={index}
-            class="grid gap-4 cursor-pointer"
+            class="cursor-pointer"
           >
             <img
               loading="lazy"
               style={{backgroundColor: 'rgba(255,255,255,.15)'}}
-              class="h-auto max-w-full rounded-lg"
+              class="h-auto mb-2 max-w-full rounded-lg"
               src={process.env.API + item.image}
             />
           </a>

@@ -24,7 +24,7 @@ async function getData() {
 async function getCats() {
   const res = await fetch(
     process.env.API +
-      "/api/categories?populate[0]=models&populate[1]=models.free_image&populate[2]=models.profile_pic&random=true",
+      "/api/categories?populate[0]=models&populate[1]=models.free_images&populate[2]=models.profile_pic",
     { cache: "no-cache" }
   );
   if (!res.ok) {

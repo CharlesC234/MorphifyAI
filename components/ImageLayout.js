@@ -141,6 +141,7 @@ export default function ImageLayout(data) {
           >
             <img
               loading="lazy"
+              style={{backgroundColor: 'rgba(255,255,255,.15)'}}
               class="h-auto max-w-full rounded-lg"
               src={process.env.API + item.image}
             />

@@ -122,7 +122,7 @@ export default function ImageLayout(data) {
   return (
     <div class="grid grid-cols-2 md:grid-cols-4 gap-2">
       {dataArr.slice(0, numImages).map((item, index) => {
-        if(Math.random() < 0.45 && index - ads >= 6){
+        if(Math.random() < 0.5 && index - ads >= 5){
           ads = index;
           return (
             <div key={index} class="grid gap-4 cursor-pointer">

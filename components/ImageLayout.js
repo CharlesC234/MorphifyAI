@@ -35,6 +35,7 @@ export default function ImageLayout(data) {
   const [upvoted, setupvoted] = useState(false);
   const [downvoted, setDownvoted] = useState(false);
   var ads = 0;
+  var val = 3;
   const [adsFullScreen, setAdsFullScreen] = useState(0);
 
   const createQueryString = useCallback(
@@ -122,11 +123,12 @@ export default function ImageLayout(data) {
   return (
     <div class="grid grid-cols-2 md:grid-cols-4 gap-2">
       {dataArr.slice(0, numImages).map((item, index) => {
-        if(Math.random() < 0.5 && index - ads >= 5){
+        if(index - ads > val){
           ads = index;
+          val = [val == 4 ? 3 : 4];
           return (
             <div key={index} class="grid gap-4 cursor-pointer">
-          <iframe class="h-full max-w-full rounded-lg" src="//a.magsrv.com/iframe.php?idzone=5100036&size=300x250" width="300" height="250" scrolling="no" marginwidth="0" marginheight="0" frameborder="0"></iframe>
+          <iframe class="h-full max-w-full rounded-lg" src="//a.magsrv.com/iframe.php?idzone=5100036&size=325x250" width="325" height="250" scrolling="no" marginwidth="0" marginheight="0" frameborder="0"></iframe>
           </div>);
         }else{
         return (

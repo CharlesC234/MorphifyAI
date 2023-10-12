@@ -26,9 +26,9 @@ export default function Explore({ categories, newDataArr }) {
   return (
     <div class="max-sm:px-0" style={{ backgroundColor: "#000000" }}>
       <div class="container" style={{ backgroundColor: "#000000" }}>
-        
-      {/* <iframe src="//a.magsrv.com/iframe.php?idzone=5100010&size=900x250" width="900" height="250" scrolling="no" marginwidth="0" marginheight="0" frameborder="0"></iframe> */}
-      <iframe class="mt-4 mx-auto md:hidden" src="//a.magsrv.com/iframe.php?idzone=5100030&size=300x100" width="300" height="100" scrolling="no" marginwidth="0" marginheight="0" frameborder="0"></iframe>
+
+      <iframe class="mt-4 mx-auto max-sm:hidden rounded" src="//a.magsrv.com/iframe.php?idzone=5100010&size=900x250" width="900" height="250" scrolling="no" marginwidth="0" marginheight="0" frameborder="0"></iframe>
+      <iframe class="mt-4 mx-auto md:hidden rounded" src="//a.magsrv.com/iframe.php?idzone=5100030&size=300x100" width="300" height="100" scrolling="no" marginwidth="0" marginheight="0" frameborder="0"></iframe>
         
         <h4
           class="fw-bold ms-1"

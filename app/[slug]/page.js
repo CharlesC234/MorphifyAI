@@ -110,9 +110,18 @@ export default async function modelPage({ searchParams }) {
       }
     }
 
-    newDataArr.sort(
-      (a, b) => b.upvotes - b.downvotes - (a.upvotes - a.downvotes)
-    );
+    function randomSort(a, b) {
+      const diffA = b.upvotes - b.downvotes - (a.upvotes - a.downvotes);
+      const diffB = b.upvotes - b.downvotes - (b.upvotes - b.downvotes);
+    
+      if (diffA !== diffB) {
+        return diffA - diffB;
+      } else {
+        return Math.random() - 0.5;
+      }
+    }
+    
+    newDataArr.sort(randomSort);
 
     console.log(newDataArr);
 

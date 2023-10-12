@@ -24,7 +24,7 @@ export default function ImageLayout(data) {
   const router = useRouter();
   const pathname = usePathname();
   const searchParams = useSearchParams();
-  const [numImages, setNumImages] = useState(12);
+  const [numImages, setNumImages] = useState(13);
 
   const girls = data.dataArr;
   const length = girls.length;
@@ -34,9 +34,8 @@ export default function ImageLayout(data) {
   const [change, setChange] = useState(false);
   const [upvoted, setupvoted] = useState(false);
   const [downvoted, setDownvoted] = useState(false);
-  var ads = 0;
-  var val = 3;
   const [adsFullScreen, setAdsFullScreen] = useState(0);
+  var ads = 0;
 
   const createQueryString = useCallback(
     (name, value) => {
@@ -59,10 +58,10 @@ export default function ImageLayout(data) {
         const innerHeight = window.innerHeight;
         const scrollTop = document.documentElement.scrollTop;
   
-        const hasReachedBottom = offsetHeight - (innerHeight + scrollTop) <= 15;
+        const hasReachedBottom = offsetHeight - (innerHeight + scrollTop) <= 25;
 
         if(hasReachedBottom){
-        setNumImages(numImages + 12);
+        setNumImages(numImages + 13);
         }
       };
   
@@ -101,17 +100,17 @@ export default function ImageLayout(data) {
     }
 
 
-    if(numImages > 16){
+    if(numImages > 13){
       setTimeout(() => {
       const handleScroll = () => {
         const offsetHeight = document.documentElement.offsetHeight;
         const innerHeight = window.innerHeight;
         const scrollTop = document.documentElement.scrollTop;
   
-        const hasReachedBottom = offsetHeight - (innerHeight + scrollTop) <= 5;
+        const hasReachedBottom = offsetHeight - (innerHeight + scrollTop) <= 25;
 
         if(hasReachedBottom){
-        setNumImages(numImages + 12);
+        setNumImages(numImages + 13);
         }
       };
   
@@ -121,14 +120,13 @@ export default function ImageLayout(data) {
     }
 
   return (
-    <div class="columns-2 md:columns-4 gap-2">
+    <div class="max-sm:grid max-sm:grid-cols-2 md:columns-4 gap-2">
       {dataArr.slice(0, numImages).map((item, index) => {
-        if(index - ads > val){
+        if(index % 7 == 0){
           ads = index;
-          val = [val == 4 ? 3 : 4];
           return (
-            <div key={index} class="my-2 cursor-pointer">
-          <iframe class="max-w-full rounded-lg" src="//a.magsrv.com/iframe.php?idzone=5100036&size=325x250" width="325" height="250" scrolling="no" marginwidth="0" marginheight="0" frameborder="0"></iframe>
+            <div key={index} class={`md:my-2 col-span-2 rounded-lg cursor-pointer ${index == 0 ? "hidden" : ""}`} style={{height: 250, width: '100%', backgroundColor: '#ffffff'}}>
+          <iframe class="max-w-full mx-auto" src="//a.magsrv.com/iframe.php?idzone=5100036&size=300x250" width={300} height={250} scrolling="no" marginwidth="0" marginheight="0" frameborder="0"></iframe>
           </div>);
         }else{
         return (
@@ -142,7 +140,7 @@ export default function ImageLayout(data) {
             <img
               loading="lazy"
               style={{backgroundColor: 'rgba(255,255,255,.15)'}}
-              class="h-auto mb-2 max-w-full rounded-lg"
+              class="h-auto md:mb-2 max-w-full rounded-lg"
               src={process.env.API + item.image}
             />
           </a>

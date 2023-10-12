@@ -34,6 +34,8 @@ export default function ImageLayout(data) {
   const [change, setChange] = useState(false);
   const [upvoted, setupvoted] = useState(false);
   const [downvoted, setDownvoted] = useState(false);
+  var ads = 0;
+  const [adsFullScreen, setAdsFullScreen] = useState(0);
 
   const createQueryString = useCallback(
     (name, value) => {
@@ -120,6 +122,13 @@ export default function ImageLayout(data) {
   return (
     <div class="grid grid-cols-2 md:grid-cols-4 gap-2">
       {dataArr.slice(0, numImages).map((item, index) => {
+        if(Math.random() < 0.45 && index - ads >= 6){
+          ads = index;
+          return (
+            <div class="grid gap-4 cursor-pointer">
+          <iframe class="h-full max-w-full rounded-lg" src="//a.magsrv.com/iframe.php?idzone=5100036&size=300x250" width="300" height="250" scrolling="no" marginwidth="0" marginheight="0" frameborder="0"></iframe>
+          </div>);
+        }else{
         return (
           <a
             onClick={() => {
@@ -134,7 +143,7 @@ export default function ImageLayout(data) {
               src={process.env.API + item.image}
             />
           </a>
-        );
+        );}
       })}
       {photoView ? (
         <div class="fixed z-10 left-0 top-0 h-full w-full overflow-hidden backdrop-blur-lg">

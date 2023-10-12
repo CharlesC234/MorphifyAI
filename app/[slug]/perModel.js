@@ -11,6 +11,7 @@ export default function PerModel({ newDataArr, modelIndex, data }) {
   const pathname = usePathname();
   return (
     <div class="mt-0" style={{ backgroundColor: "#000000" }}>
+      <iframe class="mt-4 mx-auto md:hidden" src="//a.magsrv.com/iframe.php?idzone=5100030&size=300x100" width="300" height="100" scrolling="no" marginwidth="0" marginheight="0" frameborder="0"></iframe>
       <img
         style={{
           objectFit: "cover",

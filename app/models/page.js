@@ -5,7 +5,7 @@ import Models from "./models";
 
 async function getModels() {
   const res = await fetch(
-    process.env.API + "/api/models?populate[0]=profile_pic",
+    process.env.API + "/api/models?populate[0]=profile_pic&",
     { cache: "no-cache" }
   );
   if (!res.ok) {

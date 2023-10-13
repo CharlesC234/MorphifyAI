@@ -1,12 +1,7 @@
 "use client";
-import styles from "../app/page.module.css";
 import "bootstrap/dist/css/bootstrap.css";
 import "../app/globals.css";
-import useSWR from "swr";
 import { useState, useEffect } from "react";
-import { usePathname, useSearchParams } from "next/navigation";
-import { useRouter } from "next/navigation";
-import { useCallback } from "react";
 import {
   FiArrowLeft,
   FiArrowRight,
@@ -14,16 +9,45 @@ import {
   FiArrowUp,
 } from "react-icons/fi";
 import { IoIosClose } from "react-icons/io";
+import Image from "next/image";
+
+function useWindowSize() {
+  // Initialize state with undefined width/height so server and client renders match
+  // Learn more here: https://joshwcomeau.com/react/the-perils-of-rehydration/
+  const [windowSize, setWindowSize] = useState({
+    width: undefined,
+    height: undefined,
+  });
+
+  useEffect(() => {
+    // only execute all the code below in client side
+    // Handler to call on window resize
+    function handleResize() {
+      // Set window width/height to state
+      setWindowSize({
+        width: window.innerWidth,
+        height: window.innerHeight,
+      });
+    }
+    
+    // Add event listener
+    window.addEventListener("resize", handleResize);
+     
+    // Call handler right away so state gets updated with initial window size
+    handleResize();
+    
+    // Remove event listener on cleanup
+    return () => window.removeEventListener("resize", handleResize);
+  }, []); // Empty array ensures that effect is only run on mount
+  return windowSize;
+}
+
 
 export default function ImageLayout(data) {
-  var dataArr = data.dataArr;
 
+  var dataArr = data.dataArr;
   const [photoView, setPhotoView] = useState(false);
   const [index, setIndex] = useState(1);
-  const [close, setClose] = useState(false);
-  const router = useRouter();
-  const pathname = usePathname();
-  const searchParams = useSearchParams();
   const [numImages, setNumImages] = useState(13);
 
   const girls = data.dataArr;
@@ -31,21 +55,13 @@ export default function ImageLayout(data) {
   const [focused, setFocused] = useState(false);
   const [upvotes, setupvotes] = useState(girls[index].upvotes);
   const [downvotes, setdownvotes] = useState(girls[index].downvotes);
-  const [change, setChange] = useState(false);
   const [upvoted, setupvoted] = useState(false);
   const [downvoted, setDownvoted] = useState(false);
-  const [adsFullScreen, setAdsFullScreen] = useState(0);
-  var ads = 0;
-
-  const createQueryString = useCallback(
-    (name, value) => {
-      const params = new URLSearchParams(searchParams);
-      params.set(name, value);
-
-      return params.toString();
-    },
-    [searchParams]
-  );
+  const size = useWindowSize();
+  const width = size.width;
+  const height = size.height;
+  var ads = [width < 600 ? 7 : 4];
+  
 
   function selectPhoto(index) {
     setIndex(index);
@@ -58,7 +74,7 @@ export default function ImageLayout(data) {
         const innerHeight = window.innerHeight;
         const scrollTop = document.documentElement.scrollTop;
   
-        const hasReachedBottom = offsetHeight - (innerHeight + scrollTop) <= 25;
+        const hasReachedBottom = offsetHeight - (innerHeight + scrollTop) <= 500;
 
         if(hasReachedBottom){
         setNumImages(numImages + 13);
@@ -69,36 +85,33 @@ export default function ImageLayout(data) {
       return () => window.removeEventListener("scroll", handleScroll);
     }, []);
 
+
     useEffect(() => {
       setupvotes(girls[index].upvotes);
       setdownvotes(girls[index].downvotes);
-      setChange(false);
     }, [index]);
+
 
     function addIndex() {
       if (index >= length - 1) {
         setIndex(0);
-        setupvoted(false);
-        setDownvoted(false);
       } else {
         setIndex(index + 1);
-        setupvoted(false);
-        setDownvoted(false);
       }
+      setupvoted(false);
+      setDownvoted(false);
     }
   
     function subtractIndex() {
       if (index <= 0) {
         setIndex(length - 1);
-        setupvoted(false);
-        setDownvoted(false);
       } else {
         setIndex(index - 1);
-        setupvoted(false);
-        setDownvoted(false);
       }
+      setupvoted(false);
+      setDownvoted(false);
     }
-
+    
 
     if(numImages > 13){
       setTimeout(() => {
@@ -107,7 +120,7 @@ export default function ImageLayout(data) {
         const innerHeight = window.innerHeight;
         const scrollTop = document.documentElement.scrollTop;
   
-        const hasReachedBottom = offsetHeight - (innerHeight + scrollTop) <= 25;
+        const hasReachedBottom = offsetHeight - (innerHeight + scrollTop) <= 500;
 
         if(hasReachedBottom){
         setNumImages(numImages + 13);
@@ -118,12 +131,12 @@ export default function ImageLayout(data) {
       return () => window.removeEventListener("scroll", handleScroll);
     }, 1000)
     }
+  
 
   return (
     <div class="max-sm:grid max-sm:grid-cols-2 md:columns-4 gap-2">
       {dataArr.slice(0, numImages).map((item, index) => {
-        if(index % 7 == 0){
-          ads = index;
+        if(index % ads == 0){
           return (
             <div key={index} class={`md:my-2 col-span-2 rounded-lg cursor-pointer ${index == 0 ? "hidden" : ""}`} style={{height: 250, width: '100%', backgroundColor: '#ffffff'}}>
           <iframe class="max-w-full mx-auto" src="//a.magsrv.com/iframe.php?idzone=5100036&size=300x250" width={300} height={250} scrolling="no" marginwidth="0" marginheight="0" frameborder="0"></iframe>
@@ -137,10 +150,13 @@ export default function ImageLayout(data) {
             key={index}
             class="cursor-pointer"
           >
-            <img
-              loading="lazy"
+            <Image
               style={{backgroundColor: 'rgba(255,255,255,.15)'}}
               class="h-auto md:mb-2 max-w-full rounded-lg"
+              width={400}
+              height={300}
+              placeholder="blur"
+              blurDataURL={item.blurhash}
               src={process.env.API + item.image}
             />
           </a>
@@ -211,9 +227,13 @@ export default function ImageLayout(data) {
             class={`relative mt-1 overflow-hidden ${focused ? "p-0" : "p-3"}`}
           >
             <a onClick={() => setFocused(!focused)}>
-              <img
-                class="h-auto w-auto my-auto"
+              <Image
+                class="my-auto"
+                width={width}
+                height={height}
                 style={{ borderRadius: 15 }}
+                placeholder="blur"
+                blurDataURL={girls[index].blurhash}
                 src={process.env.API + girls[index].image}
                 alt=""
               />
@@ -246,8 +266,6 @@ export default function ImageLayout(data) {
                       }
                     )
                       .then((response) => response.json())
-                      .then((data) => {
-                      })
                       .catch((error) => {
                         console.error("Error updating model:", error);
                       });
@@ -268,8 +286,6 @@ export default function ImageLayout(data) {
                       }
                     )
                       .then((response) => response.json())
-                      .then((data) => {
-                      })
                       .catch((error) => {
                         console.error("Error updating model:", error);
                       });
@@ -303,8 +319,6 @@ export default function ImageLayout(data) {
                       }
                     )
                       .then((response) => response.json())
-                      .then((data) => {
-                      })
                       .catch((error) => {
                         console.error("Error updating model:", error);
                       });
@@ -325,8 +339,6 @@ export default function ImageLayout(data) {
                       }
                     )
                       .then((response) => response.json())
-                      .then((data) => {
-                      })
                       .catch((error) => {
                         console.error("Error updating model:", error);
                       });

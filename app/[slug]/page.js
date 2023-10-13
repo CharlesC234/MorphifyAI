@@ -60,18 +60,19 @@ export default async function modelPage({ searchParams }) {
       i < data.data[modelIndex].attributes.free_images.data.length;
       i++
     ) {
-      newDataArr.push({
-        display_name: data.data[modelIndex].attributes.display_name,
-        profile_pic:
-          data.data[modelIndex].attributes.profile_pic.data.attributes.url,
-        image:
-          data.data[modelIndex].attributes.free_images.data[i].attributes.url,
-        imgid: data.data[modelIndex].attributes.free_images.data[i].id,
-        id: data.data[modelIndex].id,
-        upvotes: null,
-        downvotes: null,
-        postid: null,
-      });
+        newDataArr.push({
+          display_name: data.data[modelIndex].attributes.display_name,
+          profile_pic:
+            data.data[modelIndex].attributes.profile_pic.data.attributes.url,
+          image:
+            data.data[modelIndex].attributes.free_images.data[i].attributes.url,
+          blurhash: data[modelIndex].attributes.free_images.data[i].attributes.placeholder,
+          imgid: data.data[modelIndex].attributes.free_images.data[i].id,
+          id: data.data[modelIndex].id,
+          upvotes: null,
+          downvotes: null,
+          postid: null,
+        });
     }
 
     for (let i = 0; i < newDataArr.length; i++) {

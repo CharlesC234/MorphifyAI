@@ -2,12 +2,8 @@ import "bootstrap/dist/css/bootstrap.css";
 import "./globals.css";
 import React from "react";
 import Explore from "./Explore/page";
-import Popup from "@/components/Popup";
-import EnterEmail from "@/components/EnterEmail";
-import Navbar from "@/components/layout/Navbar";
 import { revalidateTag } from "next/cache";
 import { headers } from "next/headers";
-import { revalidatePath } from "next/cache";
 
 async function getData() {
   const res = await fetch(
@@ -44,6 +40,7 @@ async function getPostData() {
   return res.json();
 }
 
+
 export default async function Home({ searchParams, children }) {
   //get data
   const data = await getData();
@@ -73,32 +70,34 @@ export default async function Home({ searchParams, children }) {
     var thisData = data.data;
     for (let i = 0; i < thisData.length; i++) {
       for (let j = 0; j < thisData[i].attributes.free_images.data.length; j++) {
-        newDataArr.push({
-          display_name: thisData[i].attributes.display_name,
-          profile_pic: thisData[i].attributes.profile_pic.data.attributes.url,
-          image: thisData[i].attributes.free_images.data[j].attributes.url,
-          imgid: thisData[i].attributes.free_images.data[j].id,
-          id: thisData[i].id,
-          upvotes: null,
-          downvotes: null,
-          postid: null,
-        });
+          newDataArr.push({
+            display_name: thisData[i].attributes.display_name,
+            profile_pic: thisData[i].attributes.profile_pic.data.attributes.url,
+            image: thisData[i].attributes.free_images.data[j].attributes.url,
+            blurhash: thisData[i].attributes.free_images.data[j].attributes.placeholder,
+            imgid: thisData[i].attributes.free_images.data[j].id,
+            id: thisData[i].id,
+            upvotes: null,
+            downvotes: null,
+            postid: null,
+        })
       }
     }
   } else {
     var thisData = cats.data[catSelected - 1].attributes.models.data;
     for (let i = 0; i < thisData.length; i++) {
       for (let j = 0; j < thisData[i].attributes.free_images.data.length; j++) {
-        newDataArr.push({
-          display_name: thisData[i].attributes.display_name,
-          profile_pic: thisData[i].attributes.profile_pic.data.attributes.url,
-          image: thisData[i].attributes.free_images.data[j].attributes.url,
-          imgid: thisData[i].attributes.free_images.data[j].id,
-          id: thisData[i].id,
-          upvotes: null,
-          downvotes: null,
-          postid: null,
-        });
+          newDataArr.push({
+            display_name: thisData[i].attributes.display_name,
+            profile_pic: thisData[i].attributes.profile_pic.data.attributes.url,
+            image: thisData[i].attributes.free_images.data[j].attributes.url,
+            blurhash: thisData[i].attributes.free_images.data[j].attributes.placeholder,
+            imgid: thisData[i].attributes.free_images.data[j].id,
+            id: thisData[i].id,
+            upvotes: null,
+            downvotes: null,
+            postid: null,
+          });
       }
     }
   }

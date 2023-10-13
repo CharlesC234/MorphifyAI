@@ -12,7 +12,7 @@ const inter = Inter({ subsets: ["latin"] });
 
 export const metadata = {
   title: "xpixels.io",
-  description: "Your #1 destination for everything AI",
+  description: "Generate Perfection",
 };
 
 export default function RootLayout({ children }) {

@@ -14,16 +14,6 @@ export default function EnterEmail({ emails }) {
   const [userEmail, setUserEmail] = useState(null);
   const [buttonMsg, setButtonMsg] = useState("Subscribe");
 
-  const createQueryString = useCallback(
-    (name, value) => {
-      const params = new URLSearchParams(searchParams);
-      params.set(name, value);
-
-      return params.toString();
-    },
-    [searchParams]
-  );
-
   var visible = searchParams.get("ee");
 
   function handleEmailInput(e) {

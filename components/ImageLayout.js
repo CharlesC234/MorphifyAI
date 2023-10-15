@@ -154,6 +154,7 @@ export default function ImageLayout(data) {
               style={{backgroundColor: 'rgba(255,255,255,.15)'}}
               class="h-auto md:mb-2 max-w-full rounded-lg"
               width={400}
+              quality={100}
               height={300}
               placeholder="blur"
               blurDataURL={item.blurhash}
@@ -233,6 +234,7 @@ export default function ImageLayout(data) {
                 height={height}
                 style={{ borderRadius: 15 }}
                 placeholder="blur"
+                quality={100}
                 blurDataURL={girls[index].blurhash}
                 src={process.env.API + girls[index].image}
                 alt=""

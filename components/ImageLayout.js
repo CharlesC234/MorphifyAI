@@ -52,6 +52,8 @@ export default function ImageLayout(data) {
 
   const girls = data.dataArr;
   const length = girls.length;
+
+  console.log(index);
   const [focused, setFocused] = useState(false);
   const [upvotes, setupvotes] = useState(girls[index].upvotes);
   const [downvotes, setdownvotes] = useState(girls[index].downvotes);
@@ -60,11 +62,15 @@ export default function ImageLayout(data) {
   const size = useWindowSize();
   const width = size.width;
   const height = size.height;
-  var ads = [width < 600 ? 8 : 5];
+  var ads = [width < 600 ? 7 : 5];
   
 
   function selectPhoto(index) {
+    if(dataArr[index] == "Ad"){
+      setIndex(index + 1);
+    }else{
     setIndex(index);
+    }
     setPhotoView(true);
   }
   
@@ -94,7 +100,9 @@ export default function ImageLayout(data) {
 
     function addIndex() {
       if (index >= length - 1) {
-        setIndex(0);
+        setIndex(1);
+      }else if(dataArr[index + 1] == "Ad"){
+        setIndex(index + 2);
       } else {
         setIndex(index + 1);
       }
@@ -103,9 +111,11 @@ export default function ImageLayout(data) {
     }
   
     function subtractIndex() {
-      if (index <= 0) {
+      if (index <= 1) {
         setIndex(length - 1);
-      } else {
+      }else if(dataArr[index - 1] == "Ad"){
+        setIndex(index - 2);
+      }else {
         setIndex(index - 1);
       }
       setupvoted(false);
@@ -131,12 +141,13 @@ export default function ImageLayout(data) {
       return () => window.removeEventListener("scroll", handleScroll);
     }, 1000)
     }
+
   
 
   return (
     <div class="max-sm:grid max-sm:grid-cols-2 md:columns-4 gap-2">
       {dataArr.slice(0, numImages).map((item, index) => {
-        if(index % ads == 0 && index != 0){
+        if(item == "Ad"){
           return (
             <div key={index} class={`md:my-2 col-span-2 rounded-lg cursor-pointer ${index == 0 ? "hidden" : ""}`} style={{height: 250, width: '100%', backgroundColor: '#ffffff'}}>
           <iframe class="max-w-full mx-auto" src="//a.magsrv.com/iframe.php?idzone=5100036&size=300x250" width={300} height={250} scrolling="no" marginwidth="0" marginheight="0" frameborder="0"></iframe>
@@ -293,7 +304,6 @@ export default function ImageLayout(data) {
                       });
                     setupvotes(upvotes + 1);
                     setupvoted(true);
-                    setChange(true);
                     girls[index].upvotes = girls[index].upvotes + 1;
                   }
                 }}

@@ -160,6 +160,16 @@ export default async function Home({ searchParams, children }) {
   
   newDataArr.sort(randomSort);
 
+  for(let i = 0; i < newDataArr.length; i++){
+    if(i % 7 == 0){
+      newDataArr.splice(i, 0, "Ad");
+    }
+  }
+
+  console.log(newDataArr[6]);
+  console.log(newDataArr[7]);
+    console.log(newDataArr[8]);
+
   return (
     <Explore
       sp={searchParams}

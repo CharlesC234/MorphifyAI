@@ -124,6 +124,12 @@ export default async function modelPage({ searchParams }) {
     
     newDataArr.sort(randomSort);
 
+    for(let i = 0; i< newDataArr.length; i++){
+      if(i % 7 == 0){
+        newDataArr.splice(i, 0, "Ad");
+      }
+    }
+
 
     return (
       <PerModel newDataArr={newDataArr} modelIndex={modelIndex} data={data} sp={searchParams}/>

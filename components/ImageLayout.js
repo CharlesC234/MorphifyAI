@@ -60,7 +60,7 @@ export default function ImageLayout(data) {
   const size = useWindowSize();
   const width = size.width;
   const height = size.height;
-  var ads = [width < 600 ? 7 : 4];
+  var ads = [width < 600 ? 8 : 5];
   
 
   function selectPhoto(index) {
@@ -74,7 +74,7 @@ export default function ImageLayout(data) {
         const innerHeight = window.innerHeight;
         const scrollTop = document.documentElement.scrollTop;
   
-        const hasReachedBottom = offsetHeight - (innerHeight + scrollTop) <= 500;
+        const hasReachedBottom = offsetHeight - (innerHeight + scrollTop) <= 750;
 
         if(hasReachedBottom){
         setNumImages(numImages + 13);
@@ -120,7 +120,7 @@ export default function ImageLayout(data) {
         const innerHeight = window.innerHeight;
         const scrollTop = document.documentElement.scrollTop;
   
-        const hasReachedBottom = offsetHeight - (innerHeight + scrollTop) <= 500;
+        const hasReachedBottom = offsetHeight - (innerHeight + scrollTop) <= 750;
 
         if(hasReachedBottom){
         setNumImages(numImages + 13);
@@ -136,7 +136,7 @@ export default function ImageLayout(data) {
   return (
     <div class="max-sm:grid max-sm:grid-cols-2 md:columns-4 gap-2">
       {dataArr.slice(0, numImages).map((item, index) => {
-        if(index % ads == 0){
+        if(index % ads == 0 && index != 0){
           return (
             <div key={index} class={`md:my-2 col-span-2 rounded-lg cursor-pointer ${index == 0 ? "hidden" : ""}`} style={{height: 250, width: '100%', backgroundColor: '#ffffff'}}>
           <iframe class="max-w-full mx-auto" src="//a.magsrv.com/iframe.php?idzone=5100036&size=300x250" width={300} height={250} scrolling="no" marginwidth="0" marginheight="0" frameborder="0"></iframe>

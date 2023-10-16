@@ -166,10 +166,6 @@ export default async function Home({ searchParams, children }) {
     }
   }
 
-  console.log(newDataArr[6]);
-  console.log(newDataArr[7]);
-    console.log(newDataArr[8]);
-
   return (
     <Explore
       sp={searchParams}

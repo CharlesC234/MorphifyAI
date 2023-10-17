@@ -155,9 +155,9 @@ export default function ImageLayout(data) {
             <Image
               style={{backgroundColor: 'rgba(255,255,255,.15)'}}
               class="h-auto md:mb-2 max-w-full rounded-lg"
-              width={400}
+              width={width}
               quality={100}
-              height={300}
+              height={height}
               placeholder="blur"
               blurDataURL={item.blurhash}
               src={process.env.API + item.image}

@@ -24,6 +24,7 @@ export default async function ModelsServer() {
       profile_pic: data.data[i].attributes.profile_pic.data.attributes.url,
     });
   }
+  models.sort((a, b) => a.display_name.localeCompare(b.display_name));
 
   return <Models models={models} />;
 }

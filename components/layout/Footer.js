@@ -9,9 +9,12 @@ export default function Footer() {
         <hr class="my-10 border-gray-700" />
         <div class="flex flex-col items-center text-center">
           <a href="#">
-            <h1 class="text-xl mb-1 font-extrabold text-transparent bg-clip-text bg-pink-500">
+            <h1 class="text-2xl mb-1 font-extrabold text-transparent bg-clip-text bg-pink-500">
               xpixels.io
             </h1>
+            <p class="text-sm text-gray-500 text-left max-sm:text-center mt-1 max-sm:w-full">
+            Generate Perfection.
+          </p>
           </a>
         </div>
 

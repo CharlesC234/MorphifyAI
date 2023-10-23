@@ -2,8 +2,8 @@
 import "bootstrap/dist/css/bootstrap.css";
 import "./globals.css";
 import React from "react";
-import Popup from "@/components/Popup";
-import EnterEmail from "@/components/EnterEmail";
+import Popup from "../components/Popup";
+import EnterEmail from "../components/EnterEmail";
 
 async function getEmails() {
   const res = await fetch(process.env.API + "/api/emails?");

@@ -62,7 +62,6 @@ export default function ImageLayout(data) {
   const size = useWindowSize();
   const width = size.width;
   const height = size.height;
-  var ads = [width < 600 ? 7 : 5];
   
 
   function selectPhoto(index) {
@@ -164,9 +163,9 @@ export default function ImageLayout(data) {
             <Image
               style={{backgroundColor: 'rgba(255,255,255,.15)'}}
               class="h-auto md:mb-2 max-w-full rounded-lg"
-              width={400}
+              width={500}
               quality={100}
-              height={300}
+              height={500}
               placeholder="blur"
               blurDataURL={item.blurhash}
               src={process.env.API + item.image}
@@ -241,8 +240,8 @@ export default function ImageLayout(data) {
             <a onClick={() => setFocused(!focused)}>
               <Image
                 class="my-auto"
-                width={width}
-                height={height}
+                width={500}
+                height={500}
                 style={{ borderRadius: 15 }}
                 placeholder="blur"
                 quality={100}
@@ -280,7 +279,6 @@ export default function ImageLayout(data) {
                     )
                       .then((response) => response.json())
                       .catch((error) => {
-                        console.error("Error updating model:", error);
                       });
                     setupvotes(upvotes - 1);
                     setupvoted(false);
@@ -300,7 +298,6 @@ export default function ImageLayout(data) {
                     )
                       .then((response) => response.json())
                       .catch((error) => {
-                        console.error("Error updating model:", error);
                       });
                     setupvotes(upvotes + 1);
                     setupvoted(true);
@@ -332,7 +329,6 @@ export default function ImageLayout(data) {
                     )
                       .then((response) => response.json())
                       .catch((error) => {
-                        console.error("Error updating model:", error);
                       });
                     setdownvotes(downvotes - 1);
                     setDownvoted(false);
@@ -352,7 +348,6 @@ export default function ImageLayout(data) {
                     )
                       .then((response) => response.json())
                       .catch((error) => {
-                        console.error("Error updating model:", error);
                       });
                     setdownvotes(downvotes + 1);
                     setDownvoted(true);

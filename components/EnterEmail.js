@@ -4,6 +4,7 @@ import { useEffect, useState } from "react";
 import { usePathname, useSearchParams } from "next/navigation";
 import { useRouter } from "next/navigation";
 import { useCallback } from "react";
+import { FaPatreon } from "react-icons/fa6"; 
 
 export default function EnterEmail({ emails }) {
   const router = useRouter();
@@ -80,7 +81,7 @@ export default function EnterEmail({ emails }) {
                   class="text-5xl font-semibold leading-normal text-neutral-800 dark:text-neutral-200 mt-3"
                   id="exampleModalComponentsLabel"
                 >
-                  Enter Email
+                  Premium
                 </h1>
                 <button
                   type="button"
@@ -110,40 +111,31 @@ export default function EnterEmail({ emails }) {
                 style={{ opacity: 0.85 }}
                 class="px-4 font-medium mt-3 h-auto pb-0 mb-4"
               >
-                Enter your email to stay up to date on updates and new models!
+                <ul class="list-disc ml-4">
+                <li>Already a member? Activate you membership with our site below.</li>
+                <li>If not, click below to see our memberships, and come back to activate.</li>
+                </ul>
               </div>
-              <div class="input-group mb-4">
-                <input
-                  class="form-control ms-4 ps-3 py-2 fs-7 w-auto"
-                  type="search"
-                  placeholder="Enter Your Email"
-                  aria-label="Search"
-                  onBlur={handleEmailInput}
-                  style={{
-                    borderTopLeftRadius: 7.5,
-                    borderBottomLeftRadius: 7.5,
-                    fontWeight: "600",
-                    color: "#ffffff",
-                    backgroundColor: "rgba(255, 255, 255, .1)",
-                    borderWidth: 0,
-                  }}
-                />
-                <div class="input-group-append me-4">
+              <div
+                class="flex-shrink-0 flex-wrap items-center justify-start rounded-b-md px-4 pb-4 pt-0 mt-0">
                   <button
-                    style={{
-                      borderBottomLeftRadius: 0,
-                      borderTopLeftRadius: 0,
-                      borderTopRightRadius: 7.5,
-                      borderBottomRightRadius: 7.5,
-                    }}
-                    onClick={handleButtonPress}
-                    disabled={buttonDisabled}
-                    class="px-3 border-transparent bg-pink-500 text-slate-800 text-s font-semibold py-2"
-                    type="button"
-                  >
-                    {buttonMsg}
-                  </button>
-                </div>
+                  type="button"
+                  class="ml-1 flex text-xl font-semibold inline-block rounded bg-pink-500 ps-3 pe-4 pb-2 pt-2.5 leading-normal text-slate-800 shadow-[0_4px_9px_-4px_#3b71ca] transition duration-150 ease-in-out hover:bg-primary-600 hover:shadow-[0_8px_9px_-4px_rgba(59,113,202,0.3),0_4px_18px_0_rgba(59,113,202,0.2)] focus:bg-primary-600 focus:shadow-[0_8px_9px_-4px_rgba(59,113,202,0.3),0_4px_18px_0_rgba(59,113,202,0.2)] focus:outline-none focus:ring-0 active:bg-primary-700 active:shadow-[0_8px_9px_-4px_rgba(59,113,202,0.3),0_4px_18px_0_rgba(59,113,202,0.2)] dark:shadow-[0_4px_9px_-4px_rgba(59,113,202,0.5)] dark:hover:shadow-[0_8px_9px_-4px_rgba(59,113,202,0.2),0_4px_18px_0_rgba(59,113,202,0.1)] dark:focus:shadow-[0_8px_9px_-4px_rgba(59,113,202,0.2),0_4px_18px_0_rgba(59,113,202,0.1)] dark:active:shadow-[0_8px_9px_-4px_rgba(59,113,202,0.2),0_4px_18px_0_rgba(59,113,202,0.1)]"
+                  data-te-ripple-init
+                  onClick={() => handleSignIn()}
+                  data-te-ripple-color="light">
+                    <FaPatreon class="me-3 ms-0 mt-1" size={24}/>
+                  Activate My Membership
+                </button>
+                <button
+                  type="button"
+                  class="ml-1 mt-2.5 flex text-xl font-semibold inline-block rounded bg-pink-500 ps-3 pe-4 pb-2 pt-2.5 leading-normal text-slate-800 shadow-[0_4px_9px_-4px_#3b71ca] transition duration-150 ease-in-out hover:bg-primary-600 hover:shadow-[0_8px_9px_-4px_rgba(59,113,202,0.3),0_4px_18px_0_rgba(59,113,202,0.2)] focus:bg-primary-600 focus:shadow-[0_8px_9px_-4px_rgba(59,113,202,0.3),0_4px_18px_0_rgba(59,113,202,0.2)] focus:outline-none focus:ring-0 active:bg-primary-700 active:shadow-[0_8px_9px_-4px_rgba(59,113,202,0.3),0_4px_18px_0_rgba(59,113,202,0.2)] dark:shadow-[0_4px_9px_-4px_rgba(59,113,202,0.5)] dark:hover:shadow-[0_8px_9px_-4px_rgba(59,113,202,0.2),0_4px_18px_0_rgba(59,113,202,0.1)] dark:focus:shadow-[0_8px_9px_-4px_rgba(59,113,202,0.2),0_4px_18px_0_rgba(59,113,202,0.1)] dark:active:shadow-[0_8px_9px_-4px_rgba(59,113,202,0.2),0_4px_18px_0_rgba(59,113,202,0.1)]"
+                  data-te-ripple-init
+                  onClick={() => router.replace("https://www.patreon.com/xpixels/membership")}
+                  data-te-ripple-color="light">
+                    <FaPatreon class="me-3 ms-0 mt-1" size={24}/>
+                  See Our Membership Options
+                </button>
               </div>
             </div>
           </div>

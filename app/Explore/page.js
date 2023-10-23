@@ -3,15 +3,19 @@ import "bootstrap/dist/css/bootstrap.css";
 import "../globals.css";
 import React, { useCallback } from "react";
 import { useState, useEffect } from "react";
-import ImageLayout from "@/components/ImageLayout";
+import ImageLayout from "../../components/ImageLayout";
 import { usePathname, useSearchParams } from "next/navigation";
 import { useRouter } from "next/navigation";
 
-export default function Explore({ categories, newDataArr }) {
+export default function Explore({ categories, newDataArr, accessToken }) {
   const router = useRouter();
   const pathname = usePathname();
   const searchParams = useSearchParams();
   const [clicked, setClicked] = useState(0);
+
+  if(accessToken){
+    localStorage.setItem('Token', accessToken);
+  }
 
   const createQueryString = useCallback(
     (name, value) => {

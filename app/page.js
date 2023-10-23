@@ -41,11 +41,36 @@ async function getPostData() {
 }
 
 
-export default async function Home({ searchParams, children }) {
+const getPatreonAccessToken = async (code) => {
+  try {
+    const response = await fetch('https://www.patreon.com/api/oauth2/token', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/x-www-form-urlencoded',
+      },
+      body: `code=${code}&grant_type=authorization_code&client_id=${process.env.PATREON_CLIENT_ID}&client_secret=${process.env.PATREON_CLIENT_SECRET}&redirect_uri=http://localhost:3000`,
+    });
+
+    const data = await response.json();
+    return data.access_token;
+  } catch (error) {
+    throw error;
+  }
+};
+
+export default async function Home({ searchParams, children}) {
   //get data
   const data = await getData();
   const cats = await getCats();
   const posts = await getPostData();
+  var code;
+  var accessToken;
+
+  if(searchParams.code){
+  code = searchParams.code;
+  accessToken = await getPatreonAccessToken(code);
+  }
+
 
   const headersList = headers();
   const pathname = headersList.get("x-invoke-path");
@@ -133,7 +158,6 @@ export default async function Home({ searchParams, children }) {
           newDataArr[i].postid = data.id;
         })
         .catch((error) => {
-          console.error("Error updating model:", error);
         });
     }
   }
@@ -172,6 +196,7 @@ export default async function Home({ searchParams, children }) {
 
   return (
     <Explore
+      accessToken={accessToken}
       sp={searchParams}
       categories={categories}
       data={data}

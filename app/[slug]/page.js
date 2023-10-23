@@ -106,7 +106,6 @@ export default async function modelPage({ searchParams }) {
             newDataArr[i].postid = data.id;
           })
           .catch((error) => {
-            console.error("Error updating model:", error);
           });
       }
     }

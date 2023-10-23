@@ -1,11 +1,8 @@
 "use client";
-import Navbar from "@/components/layout/Navbar";
 import "bootstrap/dist/css/bootstrap.css";
 import { usePathname } from "next/navigation";
-import useSWR from "swr";
 import "../globals.css";
-import { useEffect } from "react";
-import ImageLayout from "@/components/ImageLayout";
+import ImageLayout from "../../components/ImageLayout";
 
 export default function PerModel({ newDataArr, modelIndex, data }) {
   const pathname = usePathname();
@@ -72,11 +69,17 @@ export default function PerModel({ newDataArr, modelIndex, data }) {
             </h1>
           </div>
         </div>
+        <div class="w-full flex content-center">
+        <button class="bg-pink-500 rounded w-fit px-3 py-3 text-lg text-black font-bold mx-auto mt-4">Generate More Images</button>
+        </div>
         <div
           class="container max-sm:px-0"
-          style={{ backgroundColor: "#000000", marginTop: "4.5rem" }}
+          style={{ backgroundColor: "#000000", marginTop: "2.5rem" }}
         >
           <ImageLayout dataArr={newDataArr} />
+        </div>
+        <div class="w-full flex content-center">
+        <button class="bg-pink-500 rounded w-fit px-3 py-3 text-lg text-black font-bold mx-auto mt-4">Generate More Images</button>
         </div>
       </div>
     </div>

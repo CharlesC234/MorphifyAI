@@ -1,12 +1,12 @@
-import Navbar from "@/components/layout/Navbar";
 import "./globals.css";
 import { Inter } from "next/font/google";
-import Popup from "@/components/Popup";
 import Search from "./search";
-import EnterEmail from "@/components/EnterEmail";
 import Email from "./email";
-import Footer from "@/components/layout/Footer";
+import Footer from "../components/layout/Footer";
 import Script from "next/script";
+import { getServerSession } from "next-auth/next"
+import Provider from "./context/client-provider"
+import { authOptions } from "./api/auth/[...nextauth]/route.ts"
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -15,7 +15,9 @@ export const metadata = {
   description: "Generate Perfection",
 };
 
-export default function RootLayout({ children }) {
+export default async function RootLayout({ children, searchParams }) {
+  console.log(searchParams);
+  const session = await getServerSession(authOptions)
   return (
     <html lang="en">
       <head>
@@ -30,10 +32,12 @@ export default function RootLayout({ children }) {
         />
       </head>
       <body className={inter.className}>
+      <Provider session={session}>
         <Email />
         <Search />
         {children}
         <Footer />
+        </Provider>
       </body>
     </html>
   );

@@ -2,18 +2,41 @@
 import "bootstrap/dist/css/bootstrap.css";
 import { usePathname, useSearchParams } from "next/navigation";
 import { useRouter } from "next/navigation";
-import { useCallback, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import { FiArrowLeft, FiArrowRight } from "react-icons/fi";
+import { SessionProvider, signIn, signOut, useSession } from "next-auth/react";
+import {IoPersonCircle} from "react-icons/io5"
+import { getUserData } from "../../serverComponents/patreon";
 
 export default function Navbar({ searchArr }) {
+
   const [showSearch, setShowSearch] = useState(false);
   const [border, setBorder] = useState(1.5);
   const [radius, setRadius] = useState(20);
   const [hidden, setHidden] = useState(true);
+  const [dropdown, setdropdown] = useState(false);
+  const [userData, setUserData] = useState({attributes: {first_name: ""}});
 
   const router = useRouter();
   const pathname = usePathname();
   const searchParams = useSearchParams();
+
+  const handleSignIn = async () => {
+    await signIn("patreon");
+  };
+
+  const handleSignOut = async () => {
+    localStorage.setItem("Token", null);
+    setUserData(null)
+  }
+
+  useEffect(() => {
+    if(localStorage.getItem('Token') && localStorage.getItem('Token') != null){
+    getUserData(localStorage.getItem('Token')).then((res) => {
+      setUserData(res);
+    });
+    }
+  })
 
   const createQueryString = useCallback(
     (name, value) => {
@@ -108,7 +131,7 @@ export default function Navbar({ searchArr }) {
               <a
                 href={"/"}
                 class={`nav-link max-sm:py-1 hover:text-pink-500 text-lg font-semibold ${
-                  pathname == "/" ? "text-pink-500" : "text-white opacity-85"
+                  pathname == "/" ? "text-pink-500" : "text-white opacity-75"
                 }`}
                 aria-current="page"
               >
@@ -122,7 +145,7 @@ export default function Navbar({ searchArr }) {
                   pathname == "/models" ||
                   (pathname != "/" && pathname != "/legal")
                     ? "text-pink-500"
-                    : "text-white opacity-85"
+                    : "text-white opacity-75"
                 }`}
                 aria-current="page"
               >
@@ -130,26 +153,37 @@ export default function Navbar({ searchArr }) {
               </a>
             </li>
             <li class="nav-item px-1">
+              <a
+                href={"/generate"}
+                class={`nav-link max-sm:py-1 text-lg hover:text-pink-500 font-semibold ${
+                  pathname == "/generate" 
+                    ? "text-pink-500"
+                    : "text-white opacity-75"
+                }`}
+                aria-current="page"
+              >
+                Generate
+              </a>
+            </li>
+            {/* <li class="nav-item px-1">
               <button
                 class="nav-link max-sm:py-1 text-lg hover:text-pink-500 text-white font-semibold opacity-85"
-                onClick={() => {
-                  router.push(pathname + "?" + createQueryString("ee", "true"));
-                }}
+                onClick={() => handlePremium()}
               >
                 <h1 class="text-lg mb-1 text-transparent bg-clip-text bg-white">
-                  Early Access
+                  Premium
                 </h1>
               </button>
-            </li>
+            </li> */}
           </ul>
           <div
             class="relative sm:w-100 md:w-5/12"
             style={{ marginBottom: ".25rem" }}
           >
             <input
-              class="form-control ps-4 py-2 font-semibold text-md py-2 focus:bg-zinc-800 focus:border-zinc-600 bg-zinc-800 border-zinc-600 text-white"
+              class="form-control ps-4 py-2 me-2 font-semibold text-md py-2 focus:bg-zinc-800 focus:border-zinc-600 bg-zinc-800 border-zinc-600 text-white"
               type="search"
-              placeholder="Find models by name"
+              placeholder="Search models by name"
               onFocus={() => {
                 setShowSearch(true);
                 setRadius(0);
@@ -233,6 +267,49 @@ export default function Navbar({ searchArr }) {
                 );
               })}
             </div>
+          </div>
+          <button
+                onClick={() => setdropdown(!dropdown)}
+                class="nav-link flex max-sm:py-1 text-lg hover:text-pink-500 text-white font-semibold opacity-85 mb-1.5 ml-4 max-sm:ml-0 max-sm:mb-0 max-sm:mt-2"
+              >
+                <IoPersonCircle
+                size={42}
+                color={"rgb(236 72 153)"}
+                />
+                <div class="my-auto">
+              <h5 class="text-lg font-semibold ml-2 opacity-75">{[userData ? userData.attributes.full_name : "Accounts"]}</h5>
+              </div>
+              </button>
+              <div id="dropdown" class={`max-sm:w-11/12 absolute mt-2 top-100 max-sm:left-0 max-sm:right-100 ms-3 right-0 z-5 divide-y divide-gray-100 rounded-lg shadow w-60 ${dropdown ? "" : "hidden"}`}
+              style={{backgroundColor: 'rgba(33,37,41)', marginRight: '7.5rem'}}>
+              <ul class="py-2 text-sm text-gray-700 dark:text-gray-200" aria-labelledby="dropdownDefaultButton">
+              <li>
+                  <button onClick={() => {handleSignIn()}} class={`w-100 text-left font-bold block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white 
+                  ${userData ? "hidden" : ""}`}>Sign In</button>
+                </li>
+                <li>
+                  <button onClick={() => {handleSignIn()}} class={`w-100 text-left font-bold block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white 
+                  ${userData ? "hidden" : ""}`}>Create Account</button>
+                </li>
+              <li>
+              <a
+                href={"https://www.patreon.com/xpixels/membership"}
+                class={`font-bold block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white w-100 text-left ${userData ? "" : "hidden"}`}>Manage Subscriptions</a>
+                <button
+                class={`font-bold block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white w-100 text-left ${userData ? "hidden" : ""}`}
+                 onClick={() => {router.push(
+                  pathname + "?" + createQueryString("ee", true)
+                )}}>Manage Subscriptions</button>
+                </li>
+                <li>
+                  <a href={"/models"} class={`w-100 text-left font-bold block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white 
+                  ${userData ? "" : "hidden"}`}>My Models</a>
+                </li>
+                <li>
+                  <button onClick={() => {handleSignOut()}} class={`w-100 text-left font-bold block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white 
+                  ${userData ? "" : "hidden"}`}>Sign out</button>
+                </li>
+              </ul>
           </div>
         </div>
       </div>

@@ -70,7 +70,7 @@ export default function PerModel({ newDataArr, modelIndex, data }) {
           </div>
         </div>
         <div class="w-full flex content-center">
-        <button class="bg-pink-500 rounded w-fit px-3 py-3 text-lg text-black font-bold mx-auto mt-4">Generate More Images</button>
+        <button class="bg-pink-500 rounded w-fit px-3 py-3 text-xl text-black font-bold mx-auto mt-4">Generate More Images</button>
         </div>
         <div
           class="container max-sm:px-0"
@@ -79,7 +79,7 @@ export default function PerModel({ newDataArr, modelIndex, data }) {
           <ImageLayout dataArr={newDataArr} />
         </div>
         <div class="w-full flex content-center">
-        <button class="bg-pink-500 rounded w-fit px-3 py-3 text-lg text-black font-bold mx-auto mt-4">Generate More Images</button>
+        <button class="bg-pink-500 rounded w-fit px-3 py-3 text-xl text-black font-bold mx-auto mt-4">Generate More Images</button>
         </div>
       </div>
     </div>

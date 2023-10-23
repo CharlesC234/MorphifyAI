@@ -25,5 +25,7 @@ export default async function ModelsServer() {
     });
   }
 
+  models.sort((a, b) => a.display_name.localeCompare(b.display_name));
+
   return <Models models={models} />;
 }

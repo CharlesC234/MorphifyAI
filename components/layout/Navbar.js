@@ -117,7 +117,7 @@ export default function Navbar({ searchArr }) {
           </h1>
         </a>
         <button
-          class="navbar-toggler"
+          class="navbar-toggler outline outline-2"
           type="button"
           onClick={() => {
             setHidden(!hidden);
@@ -277,7 +277,7 @@ export default function Navbar({ searchArr }) {
                 color={"rgb(236 72 153)"}
                 />
                 <div class="my-auto">
-              <h5 class="text-lg font-semibold ml-2 opacity-75">{[userData ? userData.attributes.full_name : "Accounts"]}</h5>
+              <h5 class="text-lg font-semibold ml-2 opacity-75">{[userData ? userData.attributes.full_name : "Account"]}</h5>
               </div>
               </button>
               <div id="dropdown" class={`max-sm:w-11/12 absolute mt-2 top-100 max-sm:left-0 max-sm:right-100 ms-3 right-0 z-5 divide-y divide-gray-100 rounded-lg shadow w-60 ${dropdown ? "" : "hidden"}`}
@@ -299,7 +299,7 @@ export default function Navbar({ searchArr }) {
                 class={`font-bold block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white w-100 text-left ${userData ? "hidden" : ""}`}
                  onClick={() => {router.push(
                   pathname + "?" + createQueryString("ee", true)
-                )}}>Manage Subscriptions</button>
+                )}}>Premium</button>
                 </li>
                 <li>
                   <a href={"/models"} class={`w-100 text-left font-bold block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white 

@@ -70,6 +70,7 @@ export default async function Home({ searchParams, children }) {
     var thisData = data.data;
     for (let i = 0; i < thisData.length; i++) {
       for (let j = 0; j < thisData[i].attributes.free_images.data.length; j++) {
+        if(!thisData[i].attributes.Premium){
           newDataArr.push({
             display_name: thisData[i].attributes.display_name,
             profile_pic: thisData[i].attributes.profile_pic.data.attributes.url,
@@ -82,11 +83,13 @@ export default async function Home({ searchParams, children }) {
             postid: null,
         })
       }
+      }
     }
   } else {
     var thisData = cats.data[catSelected - 1].attributes.models.data;
     for (let i = 0; i < thisData.length; i++) {
       for (let j = 0; j < thisData[i].attributes.free_images.data.length; j++) {
+        if(!thisData[i].attributes.Premium){
           newDataArr.push({
             display_name: thisData[i].attributes.display_name,
             profile_pic: thisData[i].attributes.profile_pic.data.attributes.url,
@@ -98,6 +101,7 @@ export default async function Home({ searchParams, children }) {
             downvotes: null,
             postid: null,
           });
+        }
       }
     }
   }

@@ -60,6 +60,7 @@ export default async function modelPage({ searchParams }) {
       i < data.data[modelIndex].attributes.free_images.data.length;
       i++
     ) {
+      if(!data.data[modelIndex].attributes.Premium){
         newDataArr.push({
           display_name: data.data[modelIndex].attributes.display_name,
           profile_pic:
@@ -73,6 +74,7 @@ export default async function modelPage({ searchParams }) {
           downvotes: null,
           postid: null,
         });
+      }
     }
 
     for (let i = 0; i < newDataArr.length; i++) {

@@ -130,7 +130,7 @@ export default function Navbar({ searchArr }) {
             <li class="nav-item px-1">
               <a
                 href={"/"}
-                class={`nav-link max-sm:py-1 hover:text-pink-500 text-lg font-semibold ${
+                class={`nav-link max-sm:py-0.5 hover:text-pink-500 text-lg font-semibold ${
                   pathname == "/" ? "text-pink-500" : "text-white opacity-75"
                 }`}
                 aria-current="page"
@@ -141,7 +141,7 @@ export default function Navbar({ searchArr }) {
             <li class="nav-item px-1">
               <a
                 href={"/models"}
-                class={`nav-link max-sm:py-1 text-lg hover:text-pink-500 font-semibold ${
+                class={`nav-link max-sm:py-0.5 text-lg hover:text-pink-500 font-semibold ${
                   pathname == "/models" ||
                   (pathname != "/" && pathname != "/legal")
                     ? "text-pink-500"
@@ -177,7 +177,7 @@ export default function Navbar({ searchArr }) {
             </li> */}
           </ul>
           <div
-            class="relative sm:w-100 md:w-5/12"
+            class="relative sm:w-100 md:w-5/12 max-sm:mt-3" 
             style={{ marginBottom: ".25rem" }}
           >
             <input
@@ -277,10 +277,10 @@ export default function Navbar({ searchArr }) {
                 color={"rgb(236 72 153)"}
                 />
                 <div class="my-auto">
-              <h5 class="text-lg font-semibold ml-2 opacity-75">{[userData ? userData.attributes.full_name : "Account"]}</h5>
+              <h5 class="text-lg font-semibold ml-2 opacity-75">{[userData ? userData.attributes.full_name : "Premium"]}</h5>
               </div>
               </button>
-              <div id="dropdown" class={`max-sm:w-11/12 absolute mt-2 top-100 max-sm:left-0 max-sm:right-100 ms-3 right-0 z-5 divide-y divide-gray-100 rounded-lg shadow w-60 ${dropdown ? "" : "hidden"}`}
+              <div id="dropdown" class={`max-sm:w-11/12 absolute md:mt-2 max-sm:mt-3 top-100 max-sm:left-0 max-sm:right-100 ms-3 right-0 z-5 divide-y divide-gray-100 rounded-lg shadow w-60 ${dropdown ? "" : "hidden"}`}
               style={{backgroundColor: 'rgba(33,37,41)', marginRight: '7.5rem'}}>
               <ul class="py-2 text-sm text-gray-700 dark:text-gray-200" aria-labelledby="dropdownDefaultButton">
               <li>
@@ -299,7 +299,7 @@ export default function Navbar({ searchArr }) {
                 class={`font-bold block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white w-100 text-left ${userData ? "hidden" : ""}`}
                  onClick={() => {router.push(
                   pathname + "?" + createQueryString("ee", true)
-                )}}>Premium</button>
+                )}}>Manage Subscriptions</button>
                 </li>
                 <li>
                   <a href={"/models"} class={`w-100 text-left font-bold block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white 

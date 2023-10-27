@@ -4,6 +4,7 @@ import React from "react";
 import Explore from "./Explore/page";
 import { revalidateTag } from "next/cache";
 import { headers } from "next/headers";
+import { getUserData } from "../serverComponents/patreon";
 
 async function getData() {
   const res = await fetch(
@@ -40,6 +41,16 @@ async function getPostData() {
   return res.json();
 }
 
+async function getUserDataStrapi(){
+  const res = await fetch(process.env.API + "/api/patreon-users?populate=*", {
+    cache: "no-store",
+  });
+  if (!res.ok) {
+    throw new Error("Failed to fetch data");
+  }
+  return res.json();
+}
+
 
 const getPatreonAccessToken = async (code) => {
   try {
@@ -63,12 +74,35 @@ export default async function Home({ searchParams, children}) {
   const data = await getData();
   const cats = await getCats();
   const posts = await getPostData();
+  const strapiUserData = await getUserDataStrapi();
   var code;
   var accessToken;
 
   if(searchParams.code){
   code = searchParams.code;
   accessToken = await getPatreonAccessToken(code);
+  if(!strapiUserData.data.some(element => element.Patreon_Access_Token === accessToken)){
+  await getUserData(accessToken).then((res) => {
+    fetch(process.env.API + `/api/patreon-users`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        data: { 
+          First_Name: res.attributes.first_name, 
+          Last_Name: res.attributes.last_name,
+          Email: res.attributes.email,
+          Patreon_Access_Token: accessToken,
+          Premium: false,
+          Generations: 0,
+        },
+      }),
+    })
+      .then((response) => response.json())
+      .catch((error) => {
+      });
+  })}
   }
 
 

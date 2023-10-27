@@ -19,7 +19,7 @@ export async function checkPatreonMembership(accessToken){
 
   export async function getUserData(accessToken) {
     try {
-      const response = await fetch(encodeURI('https://www.patreon.com/api/oauth2/v2/identity?fields[user]=first_name,email,full_name'), {
+      const response = await fetch(encodeURI('https://www.patreon.com/api/oauth2/v2/identity?fields[user]=first_name,last_name,email,full_name'), {
         headers: {
           Authorization: `Bearer ${accessToken}`,
         },

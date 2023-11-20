@@ -1,5 +1,6 @@
 export async function POST() {
-  const res = await fetch(process.env.SD_API, {
+  console.log("called");
+  await fetch(process.env.SD_API, {
     method: "POST",
     withCredentials: true,
     credentials: "include",
@@ -18,16 +19,13 @@ export async function POST() {
         steps: 50,
       },
     }),
-  });
-
-  // The return value is *not* serialized
-  // You can return Date, Map, Set, etc.
-
-  if (!res.ok) {
-    // This will activate the closest `error.js` Error Boundary
-    console.log(res);
-    throw new Error("Failed to fetch data");
-  }
-
-  return res.json();
+  }).then((res) => {
+    if (!res.ok) {
+      // This will activate the closest `error.js` Error Boundary
+      throw new Error("Failed to fetch data");
+    }
+    console.log("here: " + JSON.stringify(res));
+  
+    return res.json();
+  })
 }

@@ -3,7 +3,7 @@ import "bootstrap/dist/css/bootstrap.css";
 import "../globals.css";
 import React, { useCallback } from "react";
 import { useState, useEffect } from "react";
-import ImageLayout from "@/components/ImageLayout";
+import ImageLayout from "../../components/ImageLayout";
 import { usePathname, useSearchParams } from "next/navigation";
 import { useRouter } from "next/navigation";
 

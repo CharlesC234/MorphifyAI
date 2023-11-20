@@ -6,7 +6,7 @@ import { useCallback, useEffect, useState } from "react";
 import { FiArrowLeft, FiArrowRight } from "react-icons/fi";
 import { SessionProvider, signIn, signOut, useSession } from "next-auth/react";
 import {IoPersonCircle} from "react-icons/io5"
-import { getUserData } from "../../serverComponents/patreon";
+import { getUserData, getUserDataStrapi } from "../../serverComponents/patreon";
 
 export default function Navbar({ searchArr }) {
 
@@ -15,7 +15,7 @@ export default function Navbar({ searchArr }) {
   const [radius, setRadius] = useState(20);
   const [hidden, setHidden] = useState(true);
   const [dropdown, setdropdown] = useState(false);
-  const [userData, setUserData] = useState({attributes: {first_name: ""}});
+  const [userData, setUserData] = useState({attributes: {First_Name: "premium"}});
 
   const router = useRouter();
   const pathname = usePathname();
@@ -32,8 +32,8 @@ export default function Navbar({ searchArr }) {
 
   useEffect(() => {
     if(localStorage.getItem('Token') && localStorage.getItem('Token') != null){
-    getUserData(localStorage.getItem('Token')).then((res) => {
-      setUserData(res);
+    getUserDataStrapi(localStorage.getItem('Token')).then((res) => {
+      setUserData(res.data[0]);
     });
     }
   })
@@ -143,7 +143,7 @@ export default function Navbar({ searchArr }) {
                 href={"/models"}
                 class={`nav-link max-sm:py-0.5 text-lg hover:text-pink-500 font-semibold ${
                   pathname == "/models" ||
-                  (pathname != "/" && pathname != "/legal")
+                  (pathname != "/" && pathname != "/legal" && pathname != "/generate")
                     ? "text-pink-500"
                     : "text-white opacity-75"
                 }`}
@@ -277,7 +277,7 @@ export default function Navbar({ searchArr }) {
                 color={"rgb(236 72 153)"}
                 />
                 <div class="my-auto">
-              <h5 class="text-lg font-semibold ml-2 opacity-75">{[userData ? userData.attributes.full_name : "Premium"]}</h5>
+              <h5 class="text-lg font-semibold ml-2 opacity-75">{userData.attributes.First_Name} {userData.attributes.Last_Name}</h5>
               </div>
               </button>
               <div id="dropdown" class={`max-sm:w-11/12 absolute md:mt-2 max-sm:mt-3 top-100 max-sm:left-0 max-sm:right-100 ms-3 right-0 z-5 divide-y divide-gray-100 rounded-lg shadow w-60 ${dropdown ? "" : "hidden"}`}

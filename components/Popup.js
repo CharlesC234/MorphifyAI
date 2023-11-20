@@ -15,7 +15,6 @@ export default function Popup({emails}) {
 
     const handleSignIn = async () => {
       await signIn("patreon").then((res) => {
-        console.log(res);
       })
     };
 

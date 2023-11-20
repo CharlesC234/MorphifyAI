@@ -5,6 +5,7 @@ import Explore from "./Explore/page";
 import { revalidateTag } from "next/cache";
 import { headers } from "next/headers";
 import { getUserData } from "../serverComponents/patreon";
+import { getUserDataStrapi } from "../serverComponents/patreon";
 
 async function getData() {
   const res = await fetch(
@@ -34,16 +35,6 @@ async function getPostData() {
   const res = await fetch(process.env.API + "/api/posts?populate=*", {
     cache: "no-store",
     next: { tags: ["postdata"] },
-  });
-  if (!res.ok) {
-    throw new Error("Failed to fetch data");
-  }
-  return res.json();
-}
-
-async function getUserDataStrapi(){
-  const res = await fetch(process.env.API + "/api/patreon-users?populate=*", {
-    cache: "no-store",
   });
   if (!res.ok) {
     throw new Error("Failed to fetch data");
@@ -223,10 +214,6 @@ export default async function Home({ searchParams, children}) {
       newDataArr.splice(i, 0, "Ad");
     }
   }
-
-  console.log(newDataArr[6]);
-  console.log(newDataArr[7]);
-    console.log(newDataArr[8]);
 
   return (
     <Explore

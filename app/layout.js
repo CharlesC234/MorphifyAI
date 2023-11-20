@@ -16,7 +16,6 @@ export const metadata = {
 };
 
 export default async function RootLayout({ children, searchParams }) {
-  console.log(searchParams);
   const session = await getServerSession(authOptions)
   return (
     <html lang="en">

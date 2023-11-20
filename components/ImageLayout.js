@@ -53,7 +53,6 @@ export default function ImageLayout(data) {
   const girls = data.dataArr;
   const length = girls.length;
 
-  console.log(index);
   const [focused, setFocused] = useState(false);
   const [upvotes, setupvotes] = useState(girls[index].upvotes);
   const [downvotes, setdownvotes] = useState(girls[index].downvotes);

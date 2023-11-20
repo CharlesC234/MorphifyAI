@@ -30,12 +30,20 @@ export async function checkPatreonMembership(accessToken){
       }
   
       const data = await response.json();
-      console.log(data.data);
       return data.data;
     } catch (error) {
-      console.error(error);
       return null;
     }
+  }
+
+  export async function getUserDataStrapi(){
+    const res = await fetch(process.env.API + "/api/patreon-users?populate=*", {
+      cache: "no-store",
+    });
+    if (!res.ok) {
+      throw new Error("Failed to fetch data");
+    }
+    return res.json();
   }
   
   

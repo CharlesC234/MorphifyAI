@@ -23,7 +23,7 @@ export default async function RootLayout({ children, searchParams }) {
         <Script
           strategy="lazyOnload"
           src="https://static.cloudflareinsights.com/beacon.min.js"
-          data-cf-beacon='{"token": "06437586e39741fb9a3aac42441f03d7"}'
+          data-cf-beacon='{"Token": "06437586e39741fb9a3aac42441f03d7"}'
         ></Script>
         <meta
           name="6a97888e-site-verification"

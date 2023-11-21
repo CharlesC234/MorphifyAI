@@ -9,13 +9,12 @@ import {IoPersonCircle} from "react-icons/io5"
 import { getUserData, getUserDataStrapi } from "../../serverComponents/patreon";
 
 export default function Navbar({ searchArr }) {
-
+  const [userData, setUserData] = useState({attributes: {First_Name: "premium"}});
   const [showSearch, setShowSearch] = useState(false);
   const [border, setBorder] = useState(1.5);
   const [radius, setRadius] = useState(20);
   const [hidden, setHidden] = useState(true);
   const [dropdown, setdropdown] = useState(false);
-  const [userData, setUserData] = useState({attributes: {First_Name: "premium"}});
 
   const router = useRouter();
   const pathname = usePathname();
@@ -26,17 +25,22 @@ export default function Navbar({ searchArr }) {
   };
 
   const handleSignOut = async () => {
-    localStorage.setItem("Token", null);
-    setUserData(null)
+    localStorage.setItem('AccessToken', null); 
+    setUserData({attributes: {First_Name: "premium"}})
   }
 
   useEffect(() => {
-    if(localStorage.getItem('Token') && localStorage.getItem('Token') != null){
-    getUserDataStrapi(localStorage.getItem('Token')).then((res) => {
+    if(localStorage.getItem('AccessToken') && userData.attributes.First_Name == "premium"){
+      console.log("here: " + localStorage.getItem('AccessToken'))
+      getUserDataStrapi(localStorage.getItem('AccessToken')).then((res) => {
+        console.log(res.data);
+      if(res.data[0].attributes){
       setUserData(res.data[0]);
+      console.log("updated");
+      }
     });
     }
-  })
+  }, [])
 
   const createQueryString = useCallback(
     (name, value) => {
@@ -285,29 +289,29 @@ export default function Navbar({ searchArr }) {
               <ul class="py-2 text-sm text-gray-700 dark:text-gray-200" aria-labelledby="dropdownDefaultButton">
               <li>
                   <button onClick={() => {handleSignIn()}} class={`w-100 text-left font-bold block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white 
-                  ${userData ? "hidden" : ""}`}>Sign In</button>
+                  ${userData.attributes.First_Name != "premium" ? "hidden" : ""}`}>Sign In</button>
                 </li>
                 <li>
                   <button onClick={() => {handleSignIn()}} class={`w-100 text-left font-bold block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white 
-                  ${userData ? "hidden" : ""}`}>Create Account</button>
+                  ${userData.attributes.First_Name != "premium" ? "hidden" : ""}`}>Create Account</button>
                 </li>
               <li>
               <a
                 href={"https://www.patreon.com/xpixels/membership"}
-                class={`font-bold block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white w-100 text-left ${userData ? "" : "hidden"}`}>Manage Subscriptions</a>
+                class={`font-bold block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white w-100 text-left ${userData.attributes.First_Name != "premium" ? "" : "hidden"}`}>Manage Subscriptions</a>
                 <button
-                class={`font-bold block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white w-100 text-left ${userData ? "hidden" : ""}`}
+                class={`font-bold block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white w-100 text-left ${userData.attributes.First_Name != "premium" ? "hidden" : ""}`}
                  onClick={() => {router.push(
                   pathname + "?" + createQueryString("ee", true)
                 )}}>Manage Subscriptions</button>
                 </li>
                 <li>
                   <a href={"/models"} class={`w-100 text-left font-bold block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white 
-                  ${userData ? "" : "hidden"}`}>My Models</a>
+                  ${userData.attributes.First_Name != "premium" ? "" : "hidden"}`}>My Models</a>
                 </li>
                 <li>
                   <button onClick={() => {handleSignOut()}} class={`w-100 text-left font-bold block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white 
-                  ${userData ? "" : "hidden"}`}>Sign out</button>
+                  ${userData.attributes.First_Name != "premium" ? "" : "hidden"}`}>Sign out</button>
                 </li>
               </ul>
           </div>

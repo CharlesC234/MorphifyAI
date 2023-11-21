@@ -43,7 +43,7 @@ async function getPostData() {
 }
 
 
-const getPatreonAccessToken = async (code) => {
+async function getPatreonAccessToken(code) {
   try {
     const response = await fetch('https://www.patreon.com/api/oauth2/token', {
       method: 'POST',
@@ -54,11 +54,13 @@ const getPatreonAccessToken = async (code) => {
     });
 
     const data = await response.json();
+    console.log("here: " + data.access_token);
     return data.access_token;
   } catch (error) {
     throw error;
   }
-};
+}
+
 
 export default async function Home({ searchParams, children}) {
   //get data
@@ -67,33 +69,36 @@ export default async function Home({ searchParams, children}) {
   const posts = await getPostData();
   const strapiUserData = await getUserDataStrapi();
   var code;
-  var accessToken;
+  let accessToken = null;
 
   if(searchParams.code){
   code = searchParams.code;
-  accessToken = await getPatreonAccessToken(code);
-  if(!strapiUserData.data.some(element => element.Patreon_Access_Token === accessToken)){
-  await getUserData(accessToken).then((res) => {
-    fetch(process.env.API + `/api/patreon-users`, {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({
-        data: { 
-          First_Name: res.attributes.first_name, 
-          Last_Name: res.attributes.last_name,
-          Email: res.attributes.email,
-          Patreon_Access_Token: accessToken,
-          Premium: false,
-          Generations: 0,
-        },
-      }),
-    })
-      .then((response) => response.json())
-      .catch((error) => {
-      });
-  })}
+  console.log(code);
+  await getPatreonAccessToken(code).then(async (res)=> {
+    accessToken = res;
+    console.log(accessToken)
+    if(!strapiUserData.data.some(element => element.Patreon_Access_Token === accessToken)){
+      await getUserData(accessToken).then((res) => {
+        fetch(process.env.API + `/api/patreon-users`, {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({
+            data: { 
+              First_Name: res.attributes.first_name, 
+              Last_Name: res.attributes.last_name,
+              Email: res.attributes.email,
+              Patreon_Access_Token: accessToken,
+              Premium: false,
+              Generations: 0,
+            },
+          }),
+        })
+          .then((response) => response.json())
+          .catch((error) => {
+          });
+      })}});
   }
 
 

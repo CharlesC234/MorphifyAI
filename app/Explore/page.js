@@ -13,9 +13,11 @@ export default function Explore({ categories, newDataArr, accessToken }) {
   const searchParams = useSearchParams();
   const [clicked, setClicked] = useState(0);
 
-  if(accessToken){
-    localStorage.setItem('Token', accessToken);
-  }
+  console.log("hello: " + localStorage.getItem('AccessToken'));
+    if(accessToken){
+      localStorage.setItem('AccessToken', accessToken);
+    }
+
 
   const createQueryString = useCallback(
     (name, value) => {

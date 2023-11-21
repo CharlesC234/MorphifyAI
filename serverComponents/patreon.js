@@ -29,17 +29,20 @@ export async function checkPatreonMembership(accessToken){
         throw new Error('Error fetching Patreon user info');
       }
   
-      const data = await response.json();
+      const data = await response.json(); // await the JSON parsing
+      console.log("data: ", data.data);
       return data.data;
     } catch (error) {
+      console.error(error);
       return null;
     }
   }
+  
 
-  export async function getUserDataStrapi(){
-    const res = await fetch(process.env.API + "/api/patreon-users?populate=*", {
+  export async function getUserDataStrapi(accessToken){
+    const res = await fetch(process.env.API + `/api/patreon-users?populate=*&filters[Patreon_Access_Token][$eq]=${accessToken}`, {
       cache: "no-store",
-    });
+    })
     if (!res.ok) {
       throw new Error("Failed to fetch data");
     }

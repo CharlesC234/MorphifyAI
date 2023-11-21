@@ -24,7 +24,7 @@ export default function Popup({emails}) {
     const [buttonMsg, setButtonMsg] = useState("Subscribe");
 
     useEffect(() => {
-        let token = localStorage.getItem('Token');
+        let token = localStorage.getItem('AccessToken');
               if(!token){
                 if(searchParams.get("code")){
                   router.replace("/");

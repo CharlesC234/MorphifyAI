@@ -6,17 +6,16 @@ import { useState, useEffect } from "react";
 
 export default function Generate({fields}) {
   const [page, setPage] = useState("TOS");
-  const sendRequest = async () => {
-    await fetch("/generate/api", { method: "POST" }).then((res) => {
-      console.log("data here: " + JSON.stringify(res));
-    });
+  async function sendRequest() {
+    const data = await fetch("/generate/api", { method: "POST" });
+    console.log(data);
   }
 
   return (
     <div class="container">
       <div style={{height: 25}}/>
       {fields.map((item) => {
-        return <div style={{width: '80%', minWidth: 200}}>
+        return <div style={{width: '80%', minWidth: 350}}>
           <h2 class="mt-5 text-2xl font-bold" style={{opacity: .8}}>{item.attributes.FieldName}</h2>
           <div class="flex flex-wrap mt-4">
           {item.attributes.Option.map((itemInner, index) => {

@@ -25,7 +25,7 @@ export default function Popup({emails}) {
 
     useEffect(() => {
         let token = localStorage.getItem('AccessToken');
-              if(!token){
+              if(!token || token == "null"){
                 if(searchParams.get("code")){
                   router.replace("/");
                 }

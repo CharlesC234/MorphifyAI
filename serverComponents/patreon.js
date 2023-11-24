@@ -30,7 +30,6 @@ export async function checkPatreonMembership(accessToken){
       }
   
       const data = await response.json(); // await the JSON parsing
-      console.log("data: ", data.data);
       return data.data;
     } catch (error) {
       console.error(error);

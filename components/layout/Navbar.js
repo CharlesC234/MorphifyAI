@@ -31,12 +31,9 @@ export default function Navbar({ searchArr }) {
 
   useEffect(() => {
     if(localStorage.getItem('AccessToken') && userData.attributes.First_Name == "premium"){
-      console.log("here: " + localStorage.getItem('AccessToken'))
       getUserDataStrapi(localStorage.getItem('AccessToken')).then((res) => {
-        console.log(res.data);
       if(res.data[0].attributes){
       setUserData(res.data[0]);
-      console.log("updated");
       }
     });
     }

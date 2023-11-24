@@ -54,7 +54,6 @@ async function getPatreonAccessToken(code) {
     });
 
     const data = await response.json();
-    console.log("here: " + data.access_token);
     return data.access_token;
   } catch (error) {
     throw error;
@@ -73,10 +72,8 @@ export default async function Home({ searchParams, children}) {
 
   if(searchParams.code){
   code = searchParams.code;
-  console.log(code);
   await getPatreonAccessToken(code).then(async (res)=> {
     accessToken = res;
-    console.log(accessToken)
     if(!strapiUserData.data.some(element => element.Patreon_Access_Token === accessToken)){
       await getUserData(accessToken).then((res) => {
         fetch(process.env.API + `/api/patreon-users`, {

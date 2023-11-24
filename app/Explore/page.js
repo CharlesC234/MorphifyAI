@@ -13,9 +13,9 @@ export default function Explore({ categories, newDataArr, accessToken }) {
   const searchParams = useSearchParams();
   const [clicked, setClicked] = useState(0);
 
-  console.log("hello: " + localStorage.getItem('AccessToken'));
     if(accessToken){
       localStorage.setItem('AccessToken', accessToken);
+      router.replace("/");
     }
 
 

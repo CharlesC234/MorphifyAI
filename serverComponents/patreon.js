@@ -30,6 +30,7 @@ export async function checkPatreonMembership(accessToken){
       }
   
       const data = await response.json(); // await the JSON parsing
+      console.log(data.data);
       return data.data;
     } catch (error) {
       console.error(error);
@@ -38,8 +39,8 @@ export async function checkPatreonMembership(accessToken){
   }
   
 
-  export async function getUserDataStrapi(accessToken){
-    const res = await fetch(process.env.API + `/api/patreon-users?populate=*&filters[Patreon_Access_Token][$eq]=${accessToken}`, {
+  export async function getUserDataStrapi(pid){
+    const res = await fetch(process.env.API + `/api/patreon-users?populate=*&filters[pid][$eq]=${pid}`, {
       cache: "no-store",
     })
     if (!res.ok) {

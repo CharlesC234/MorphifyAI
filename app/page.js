@@ -66,36 +66,39 @@ export default async function Home({ searchParams, children}) {
   const data = await getData();
   const cats = await getCats();
   const posts = await getPostData();
-  const strapiUserData = await getUserDataStrapi();
   var code;
   let accessToken = null;
+  let pid = null;
 
   if(searchParams.code){
   code = searchParams.code;
   await getPatreonAccessToken(code).then(async (res)=> {
     accessToken = res;
-    if(!strapiUserData.data.some(element => element.Patreon_Access_Token === accessToken)){
-      await getUserData(accessToken).then((res) => {
-        fetch(process.env.API + `/api/patreon-users`, {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify({
-            data: { 
-              First_Name: res.attributes.first_name, 
-              Last_Name: res.attributes.last_name,
-              Email: res.attributes.email,
-              Patreon_Access_Token: accessToken,
-              Premium: false,
-              Generations: 0,
+    await getUserData(accessToken).then(async(UserData) => {
+      console.log(UserData);
+      console.log(accessToken);
+      pid = UserData.id;
+        await getUserDataStrapi(UserData.id).then((res) => {
+          if(res.data.length == 0){
+          fetch(process.env.API + `/api/patreon-users`, {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json",
             },
-          }),
+            body: JSON.stringify({
+              data: { 
+                First_Name: UserData.attributes.first_name, 
+                Last_Name: UserData.attributes.last_name,
+                Email: UserData.attributes.email,
+                Patreon_Access_Token: accessToken,
+                Premium: false,
+                Generations: 0,
+                pid: UserData.id,
+              },
+            }),
+          })}
         })
-          .then((response) => response.json())
-          .catch((error) => {
-          });
-      })}});
+    })});
   }
 
 
@@ -219,6 +222,7 @@ export default async function Home({ searchParams, children}) {
 
   return (
     <Explore
+      pid={pid}
       accessToken={accessToken}
       sp={searchParams}
       categories={categories}

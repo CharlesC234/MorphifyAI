@@ -7,14 +7,15 @@ import ImageLayout from "../../components/ImageLayout";
 import { usePathname, useSearchParams } from "next/navigation";
 import { useRouter } from "next/navigation";
 
-export default function Explore({ categories, newDataArr, accessToken }) {
+export default function Explore({ categories, newDataArr, accessToken, pid }) {
   const router = useRouter();
   const pathname = usePathname();
   const searchParams = useSearchParams();
   const [clicked, setClicked] = useState(0);
 
-    if(accessToken){
+    if(pid){
       localStorage.setItem('AccessToken', accessToken);
+      localStorage.setItem('pid', pid);
       router.replace("/");
     }
 

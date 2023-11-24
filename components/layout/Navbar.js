@@ -26,12 +26,13 @@ export default function Navbar({ searchArr }) {
 
   const handleSignOut = async () => {
     localStorage.setItem('AccessToken', null); 
+    localStorage.setItem('pid', null); 
     setUserData({attributes: {First_Name: "premium"}})
   }
 
   useEffect(() => {
     if(localStorage.getItem('AccessToken') && userData.attributes.First_Name == "premium"){
-      getUserDataStrapi(localStorage.getItem('AccessToken')).then((res) => {
+      getUserDataStrapi(localStorage.getItem('pid')).then((res) => {
       if(res.data[0].attributes){
       setUserData(res.data[0]);
       }

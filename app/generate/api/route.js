@@ -1,6 +1,6 @@
 export async function POST() {
   console.log("called");
-  await fetch(process.env.SD_API, {
+  const res = await fetch(process.env.SD_API, {
     method: "POST",
     withCredentials: true,
     credentials: "include",
@@ -19,13 +19,10 @@ export async function POST() {
         steps: 50,
       },
     }),
-  }).then((res) => {
+  })
     if (!res.ok) {
       // This will activate the closest `error.js` Error Boundary
       throw new Error("Failed to fetch data");
     }
-    console.log("here: " + JSON.stringify(res));
-  
     return res.json();
-  })
 }

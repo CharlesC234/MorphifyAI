@@ -9,7 +9,7 @@ import {IoPersonCircle} from "react-icons/io5"
 import { getUserData, getUserDataStrapi } from "../../serverComponents/patreon";
 
 export default function Navbar({ searchArr }) {
-  const [userData, setUserData] = useState({attributes: {First_Name: "premium"}});
+  const [userData, setUserData] = useState({attributes: {First_Name: "Account"}});
   const [showSearch, setShowSearch] = useState(false);
   const [border, setBorder] = useState(1.5);
   const [radius, setRadius] = useState(20);
@@ -27,11 +27,11 @@ export default function Navbar({ searchArr }) {
   const handleSignOut = async () => {
     localStorage.setItem('AccessToken', null); 
     localStorage.setItem('pid', null); 
-    setUserData({attributes: {First_Name: "premium"}})
+    setUserData({attributes: {First_Name: "Account"}})
   }
 
   useEffect(() => {
-    if(localStorage.getItem('AccessToken') && userData.attributes.First_Name == "premium"){
+    if(localStorage.getItem('AccessToken') && userData.attributes.First_Name == "Account"){
       getUserDataStrapi(localStorage.getItem('pid')).then((res) => {
       if(res.data[0].attributes){
       setUserData(res.data[0]);

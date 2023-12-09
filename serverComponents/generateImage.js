@@ -1,4 +1,7 @@
-export async function POST() {
+"use server";
+
+export async function sendImage(prompt) {
+  if (!prompt) prompt = "1girl";
   const res = await fetch(process.env.SD_API, {
     method: "POST",
     withCredentials: true,
@@ -9,8 +12,7 @@ export async function POST() {
     },
     body: JSON.stringify({
       input: {
-        prompt:
-          "1girl, 18 years old, beautiful japanese woman, famous japanese idol, kawaii,",
+        prompt: prompt,
         negative_prompt: "FastNegativeV2, bad-hands-5,",
         width: 720,
         height: 1080,
@@ -28,5 +30,7 @@ export async function POST() {
     throw new Error("Failed to fetch data");
   }
 
-  return res.json();
+  const final = await res.json();
+
+  return final;
 }

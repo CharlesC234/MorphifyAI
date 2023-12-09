@@ -1,26 +1,23 @@
 import "bootstrap/dist/css/bootstrap.css";
 import "../globals.css";
-import { headers } from "next/headers";
-import { revalidateTag } from "next/cache";
+
 import Generate from "./generate";
 
 async function getFields() {
-    const res = await fetch(
-      process.env.API +
-        "/api/fields?populate=*",
-      { cache: "no-cache" }
-    );
-    if (!res.ok) {
-      throw new Error("Failed to fetch data");
-    }
-    return res.json();
+  const res = await fetch(process.env.API + "/api/fields?populate=*", {
+    cache: "no-cache",
+  });
+  if (!res.ok) {
+    throw new Error("Failed to fetch data");
   }
+  return res.json();
+}
 
-export default async function generatePage({}){
-    const fields = await getFields();
-    return(
+export default async function generatePage({}) {
+  const fields = await getFields();
+  return (
     <div>
-    <Generate fields={fields.data}/>
+      <Generate fields={fields.data} />
     </div>
-    );
+  );
 }

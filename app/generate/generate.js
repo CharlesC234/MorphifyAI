@@ -8,10 +8,16 @@ import { use, useState } from "react";
 export default function Generate({ fields }) {
   const [img, setImg] = useState("");
   const [loading, setLoading] = useState(false);
+  var makeArr = [];
+  for(let i = 0; i < fields.length; i++){
+    makeArr.push({Field: fields[i].attributes.FieldName, Option: fields[i].attributes.Option[0].OptionTitle})
+  }
+  const [selected, setSelected] = useState(makeArr);
+  const [refresh, setRefresh] = useState(false);
   return (
     <div class="container">
       <div style={{ height: 25 }} />
-      {fields.map((item) => {
+      {fields.map((item, outerIndex) => {
         return (
           <div
             style={{ width: "80%", minWidth: 350 }}
@@ -25,6 +31,16 @@ export default function Generate({ fields }) {
                 return (
                   <button
                     key={index}
+                    onClick={() => {
+                      var temp = selected;
+                      for(let i = 0; i <= selected.length; i++){
+                        if(i == outerIndex){
+                          temp[i].Option = itemInner.OptionTitle;
+                        }
+                        setSelected(temp);
+                        setRefresh(!refresh);
+                      }
+                    }}
                     data-toggle="button"
                     style={{
                       paddingLeft: 17.5,
@@ -36,7 +52,7 @@ export default function Generate({ fields }) {
                     }}
                     class={`me-3 mb-3 whitespace-nowrap flex md:hover:bg-pink-500
               ${
-                index == 0
+                selected[outerIndex].Option == itemInner.OptionTitle
                   ? "fw-bold bg-pink-500 outline outline-2 outline-pink-500 text-black"
                   : "bg-black outline outline-2 outline-offset-0 outline-pink-500 text-pink-500"
               }`}
@@ -52,11 +68,16 @@ export default function Generate({ fields }) {
 
       <form
         action={async (formData) => {
-          setImg(await createImage(formData));
+          var prompt = "A very attractive girl, with ";
+          for(let i = 0; i < selected.length; i++){
+            prompt = prompt + selected[i].Field + ": " + selected[i].Option + ", ";
+          }
+          prompt = prompt + "posting fully nude for a high quality Instagram photo";
+          console.log(prompt);
+          setImg(await createImage(formData, prompt ));
         }}
       >
-        <input placeholder="enter prompt here" type="text" name="prompt" />
-        <button type="submit" class="btn btn-primary">
+        <button type="submit" class="btn text-xl py-4 px-5 mt-4 me-3 mb-3 whitespace-nowrap flex md:hover:bg-pink-500 fw-bold bg-pink-500 outline outline-2 outline-pink-500 text-black">
           Generate
         </button>
       </form>

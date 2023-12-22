@@ -4,8 +4,7 @@ import { redirect } from "next/navigation";
 
 import { sendImage } from "../../serverComponents/generateImage";
 
-export default async function createImage(formData) {
-  const prompt = formData.get("prompt");
+export default async function createImage(formData, prompt) {
 
   const result = await sendImage(prompt);
 

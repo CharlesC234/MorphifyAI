@@ -11,7 +11,7 @@ async function getData() {
   const res = await fetch(
     process.env.API +
       "/api/models?populate[0]=profile_pic&populate[1]=free_images&random=true",
-    { cache: "no-cache"}
+    { cache: "no-cache" }
   );
   if (!res.ok) {
     throw new Error("Failed to fetch data");
@@ -42,13 +42,12 @@ async function getPostData() {
   return res.json();
 }
 
-
 async function getPatreonAccessToken(code) {
   try {
-    const response = await fetch('https://www.patreon.com/api/oauth2/token', {
-      method: 'POST',
+    const response = await fetch("https://www.patreon.com/api/oauth2/token", {
+      method: "POST",
       headers: {
-        'Content-Type': 'application/x-www-form-urlencoded',
+        "Content-Type": "application/x-www-form-urlencoded",
       },
       body: `code=${code}&grant_type=authorization_code&client_id=${process.env.PATREON_CLIENT_ID}&client_secret=${process.env.PATREON_CLIENT_SECRET}&redirect_uri=http://localhost:3000`,
     });
@@ -60,8 +59,7 @@ async function getPatreonAccessToken(code) {
   }
 }
 
-
-export default async function Home({ searchParams, children}) {
+export default async function Home({ searchParams, children }) {
   //get data
   const data = await getData();
   const cats = await getCats();
@@ -70,37 +68,38 @@ export default async function Home({ searchParams, children}) {
   let accessToken = null;
   let pid = null;
 
-  if(searchParams.code){
-  code = searchParams.code;
-  await getPatreonAccessToken(code).then(async (res)=> {
-    accessToken = res;
-    await getUserData(accessToken).then(async(UserData) => {
-      console.log(UserData);
-      console.log(accessToken);
-      pid = UserData.id;
+  if (searchParams.code) {
+    code = searchParams.code;
+    await getPatreonAccessToken(code).then(async (res) => {
+      accessToken = res;
+      await getUserData(accessToken).then(async (UserData) => {
+        console.log(UserData);
+        console.log(accessToken);
+        pid = UserData.id;
         await getUserDataStrapi(UserData.id).then((res) => {
-          if(res.data.length == 0){
-          fetch(process.env.API + `/api/patreon-users`, {
-            method: "POST",
-            headers: {
-              "Content-Type": "application/json",
-            },
-            body: JSON.stringify({
-              data: { 
-                First_Name: UserData.attributes.first_name, 
-                Last_Name: UserData.attributes.last_name,
-                Email: UserData.attributes.email,
-                Patreon_Access_Token: accessToken,
-                Premium: false,
-                Generations: 0,
-                pid: UserData.id,
+          if (res.data.length == 0) {
+            fetch(process.env.API + `/api/patreon-users`, {
+              method: "POST",
+              headers: {
+                "Content-Type": "application/json",
               },
-            }),
-          })}
-        })
-    })});
+              body: JSON.stringify({
+                data: {
+                  First_Name: UserData.attributes.first_name,
+                  Last_Name: UserData.attributes.last_name,
+                  Email: UserData.attributes.email,
+                  Patreon_Access_Token: accessToken,
+                  Premium: false,
+                  Generations: 0,
+                  pid: UserData.id,
+                },
+              }),
+            });
+          }
+        });
+      });
+    });
   }
-
 
   const headersList = headers();
   const pathname = headersList.get("x-invoke-path");
@@ -118,41 +117,42 @@ export default async function Home({ searchParams, children}) {
     catSelected = searchParams.sort;
   }
 
-
   const newDataArr = [];
 
   if (catSelected == 0) {
     var thisData = data.data;
     for (let i = 0; i < thisData.length; i++) {
       for (let j = 0; j < thisData[i].attributes.free_images.data.length; j++) {
-          newDataArr.push({
-            display_name: thisData[i].attributes.display_name,
-            profile_pic: thisData[i].attributes.profile_pic.data.attributes.url,
-            image: thisData[i].attributes.free_images.data[j].attributes.url,
-            blurhash: thisData[i].attributes.free_images.data[j].attributes.placeholder,
-            imgid: thisData[i].attributes.free_images.data[j].id,
-            id: thisData[i].id,
-            upvotes: null,
-            downvotes: null,
-            postid: null,
-        })
+        newDataArr.push({
+          display_name: thisData[i].attributes.display_name,
+          profile_pic: thisData[i].attributes.profile_pic.data.attributes.url,
+          image: thisData[i].attributes.free_images.data[j].attributes.url,
+          blurhash:
+            thisData[i].attributes.free_images.data[j].attributes.placeholder,
+          imgid: thisData[i].attributes.free_images.data[j].id,
+          id: thisData[i].id,
+          upvotes: null,
+          downvotes: null,
+          postid: null,
+        });
       }
     }
   } else {
     var thisData = cats.data[catSelected - 1].attributes.models.data;
     for (let i = 0; i < thisData.length; i++) {
       for (let j = 0; j < thisData[i].attributes.free_images.data.length; j++) {
-          newDataArr.push({
-            display_name: thisData[i].attributes.display_name,
-            profile_pic: thisData[i].attributes.profile_pic.data.attributes.url,
-            image: thisData[i].attributes.free_images.data[j].attributes.url,
-            blurhash: thisData[i].attributes.free_images.data[j].attributes.placeholder,
-            imgid: thisData[i].attributes.free_images.data[j].id,
-            id: thisData[i].id,
-            upvotes: null,
-            downvotes: null,
-            postid: null,
-          });
+        newDataArr.push({
+          display_name: thisData[i].attributes.display_name,
+          profile_pic: thisData[i].attributes.profile_pic.data.attributes.url,
+          image: thisData[i].attributes.free_images.data[j].attributes.url,
+          blurhash:
+            thisData[i].attributes.free_images.data[j].attributes.placeholder,
+          imgid: thisData[i].attributes.free_images.data[j].id,
+          id: thisData[i].id,
+          upvotes: null,
+          downvotes: null,
+          postid: null,
+        });
       }
     }
   }
@@ -187,8 +187,7 @@ export default async function Home({ searchParams, children}) {
           newDataArr[i].downvotes = 0;
           newDataArr[i].postid = data.id;
         })
-        .catch((error) => {
-        });
+        .catch((error) => {});
     }
   }
 
@@ -204,18 +203,18 @@ export default async function Home({ searchParams, children}) {
   function randomSort(a, b) {
     const diffA = b.upvotes - b.downvotes - (a.upvotes - a.downvotes);
     const diffB = b.upvotes - b.downvotes - (b.upvotes - b.downvotes);
-  
+
     if (diffA !== diffB) {
       return diffA - diffB;
     } else {
       return Math.random() - 0.5;
     }
   }
-  
+
   newDataArr.sort(randomSort);
 
-  for(let i = 0; i < newDataArr.length; i++){
-    if(i % 7 == 0){
+  for (let i = 0; i < newDataArr.length; i++) {
+    if (i % 7 == 0) {
       newDataArr.splice(i, 0, "Ad");
     }
   }

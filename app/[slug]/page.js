@@ -60,19 +60,21 @@ export default async function modelPage({ searchParams }) {
       i < data.data[modelIndex].attributes.free_images.data.length;
       i++
     ) {
-        newDataArr.push({
-          display_name: data.data[modelIndex].attributes.display_name,
-          profile_pic:
-            data.data[modelIndex].attributes.profile_pic.data.attributes.url,
-          image:
-            data.data[modelIndex].attributes.free_images.data[i].attributes.url,
-          blurhash: data.data[modelIndex].attributes.free_images.data[i].attributes.placeholder,
-          imgid: data.data[modelIndex].attributes.free_images.data[i].id,
-          id: data.data[modelIndex].id,
-          upvotes: null,
-          downvotes: null,
-          postid: null,
-        });
+      newDataArr.push({
+        display_name: data.data[modelIndex].attributes.display_name,
+        profile_pic:
+          data.data[modelIndex].attributes.profile_pic.data.attributes.url,
+        image:
+          data.data[modelIndex].attributes.free_images.data[i].attributes.url,
+        blurhash:
+          data.data[modelIndex].attributes.free_images.data[i].attributes
+            .placeholder,
+        imgid: data.data[modelIndex].attributes.free_images.data[i].id,
+        id: data.data[modelIndex].id,
+        upvotes: null,
+        downvotes: null,
+        postid: null,
+      });
     }
 
     for (let i = 0; i < newDataArr.length; i++) {
@@ -105,33 +107,36 @@ export default async function modelPage({ searchParams }) {
             newDataArr[i].downvotes = 0;
             newDataArr[i].postid = data.id;
           })
-          .catch((error) => {
-          });
+          .catch((error) => {});
       }
     }
 
     function randomSort(a, b) {
       const diffA = b.upvotes - b.downvotes - (a.upvotes - a.downvotes);
       const diffB = b.upvotes - b.downvotes - (b.upvotes - b.downvotes);
-    
+
       if (diffA !== diffB) {
         return diffA - diffB;
       } else {
         return Math.random() - 0.5;
       }
     }
-    
+
     newDataArr.sort(randomSort);
 
-    for(let i = 0; i< newDataArr.length; i++){
-      if(i % 7 == 0){
+    for (let i = 0; i < newDataArr.length; i++) {
+      if (i % 7 == 0) {
         newDataArr.splice(i, 0, "Ad");
       }
     }
 
-
     return (
-      <PerModel newDataArr={newDataArr} modelIndex={modelIndex} data={data} sp={searchParams}/>
+      <PerModel
+        newDataArr={newDataArr}
+        modelIndex={modelIndex}
+        data={data}
+        sp={searchParams}
+      />
     );
   } else {
     return (
@@ -139,7 +144,7 @@ export default async function modelPage({ searchParams }) {
         className="container"
         style={{ backgroundColor: "#000000", height: 1000 }}
       >
-        <h1 class="pt-4" style={{ color: "#ffffff" }}>
+        <h1 className="pt-4" style={{ color: "#ffffff" }}>
           404 - Page Not Found
         </h1>
       </div>

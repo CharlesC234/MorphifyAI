@@ -11,10 +11,10 @@ export default function Legal() {
   const [page, setPage] = useState("TOS");
 
   return (
-    <div class="container">
-      <div class="flex md:mt-10 max-sm:flex-col max-sm:px-1 max-sm:mt-8 md:flex-row">
-        <div class="w-fit mt-1 me-32">
-          <div class="flex-column">
+    <div className="container">
+      <div className="flex md:mt-10 max-sm:flex-col max-sm:px-1 max-sm:mt-8 md:flex-row">
+        <div className="w-fit mt-1 me-32">
+          <div className="flex-column">
             <button
               data-toggle="button"
               style={{
@@ -28,7 +28,7 @@ export default function Legal() {
               onClick={() => {
                 setPage("TOS");
               }}
-              class={`mb-2 whitespace-nowrap flex md:hover:bg-zinc-700 
+              className={`mb-2 whitespace-nowrap flex md:hover:bg-zinc-700 
                 ${page == "TOS" ? "bg-pink-500 text-black" : "bg-zinc-800 "}`}
             >
               Terms Of Service
@@ -46,7 +46,7 @@ export default function Legal() {
               onClick={() => {
                 setPage("PP");
               }}
-              class={`mb-2 whitespace-nowrap flex md:hover:bg-zinc-700 
+              className={`mb-2 whitespace-nowrap flex md:hover:bg-zinc-700 
               ${
                 page == "PP"
                   ? "bg-pink-500 text-black"
@@ -68,7 +68,7 @@ export default function Legal() {
               onClick={() => {
                 setPage("C");
               }}
-              class={`whitespace-nowrap flex md:hover:bg-zinc-700 ${
+              className={`whitespace-nowrap flex md:hover:bg-zinc-700 ${
                 page == "C"
                   ? "bg-pink-500 text-black"
                   : "bg-zinc-800 text-white"
@@ -78,14 +78,14 @@ export default function Legal() {
             </button>
           </div>
         </div>
-        <div class="w-fit max-sm:mt-7">
+        <div className="w-fit max-sm:mt-7">
           {/* TERMS OF SERVICE*/}
           {/* TERMS OF SERVICE*/}
           {/* TERMS OF SERVICE*/}
           {/* TERMS OF SERVICE*/}
           {/* TERMS OF SERVICE*/}
 
-          <div class={`${page == "TOS" ? "" : "hidden"}`}>
+          <div className={`${page == "TOS" ? "" : "hidden"}`}>
             <div className="mx-auto max-w-5xl pe-10 ">
               <h1 className="text-4xl font-bold mb-4">Terms of Service</h1>
               <p className="text-sm font-bold mb-2 ml-1">
@@ -289,7 +289,7 @@ export default function Legal() {
           {/* PRIVACY POLICY*/}
           {/* PRIVACY POLICY*/}
 
-          <div class={`${page == "PP" ? "" : "hidden"}`}>
+          <div className={`${page == "PP" ? "" : "hidden"}`}>
             <div className="mx-auto max-w-5xl pe-10 ">
               <h1 className="text-4xl font-bold mb-4">Privacy Policy</h1>
               <p className="text-sm font-bold mb-2 ml-1">
@@ -543,7 +543,7 @@ export default function Legal() {
           {/* COOKIES POLICY*/}
           {/* COOKIES POLICY*/}
 
-          <div class={`${page == "C" ? "" : "hidden"}`}>
+          <div className={`${page == "C" ? "" : "hidden"}`}>
             <div className="mx-auto max-w-5xl pe-10 ">
               <h1 className="text-4xl font-bold mb-4">Cookies Policy</h1>
               <p className="text-sm font-bold mb-2 ml-1">

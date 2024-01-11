@@ -59,10 +59,6 @@ export default function ImageLayout(data) {
   const size = useWindowSize();
   const width = size.width;
   const height = size.height;
-  
-  
-
-
 
   function selectPhoto(index) {
     if (dataArr[index] == "Ad") {
@@ -140,26 +136,26 @@ export default function ImageLayout(data) {
   }
 
   return (
-    <div class="max-sm:grid max-sm:grid-cols-2 md:columns-4 gap-2">
+    <div className="max-sm:grid max-sm:grid-cols-2 md:columns-4 gap-2">
       {dataArr.slice(0, numImages).map((item, index) => {
         if (item == "Ad") {
           return (
             <div
               key={index}
-              class={`md:my-2 col-span-2 rounded-lg cursor-pointer ${
+              className={`md:my-2 col-span-2 rounded-lg cursor-pointer ${
                 index == 0 ? "hidden" : ""
               }`}
               style={{ height: 250, width: "100%", backgroundColor: "#ffffff" }}
             >
               <iframe
-                class="max-w-full mx-auto"
+                className="max-w-full mx-auto"
                 src="//a.magsrv.com/iframe.php?idzone=5100036&size=300x250"
                 width={300}
                 height={250}
                 scrolling="no"
-                marginwidth="0"
-                marginheight="0"
-                frameborder="0"
+                marginWidth="0"
+                marginHeight="0"
+                frameBorder="0"
               ></iframe>
             </div>
           );
@@ -170,11 +166,11 @@ export default function ImageLayout(data) {
                 selectPhoto(index);
               }}
               key={index}
-              class="cursor-pointer"
+              className="cursor-pointer"
             >
               <Image
                 style={{ backgroundColor: "rgba(255,255,255,.15)" }}
-                class="h-auto md:mb-2 max-w-full rounded-lg"
+                className="h-auto md:mb-2 max-w-full rounded-lg"
                 width={500}
                 quality={100}
                 height={500}
@@ -188,19 +184,19 @@ export default function ImageLayout(data) {
         }
       })}
       {photoView ? (
-        <div class="fixed z-10 left-0 top-0 h-full w-full overflow-hidden backdrop-blur-lg">
+        <div className="fixed z-10 left-0 top-0 h-full w-full overflow-hidden backdrop-blur-lg">
           <button
-            class="fixed z-4 h-full w-full"
+            className="fixed z-4 h-full w-full"
             onClick={() => {
               setPhotoView(false);
               setupvoted(false);
               setDownvoted(false);
             }}
           />
-          <div class="grid grid-cols-3 max-sm:grid-cols-2 items-center h-full w-full">
+          <div className="grid grid-cols-3 max-sm:grid-cols-2 items-center h-full w-full">
             <button
               onClick={() => subtractIndex()}
-              class={`z-40 max-sm:h-full max-sm:w-full max-sm:opacity-0 rounded-full p-3 mx-auto ${
+              className={`z-40 max-sm:h-full max-sm:w-full max-sm:opacity-0 rounded-full p-3 mx-auto ${
                 focused ? "opacity-0" : "md:opacity-100"
               }`}
               style={{ backgroundColor: "rgba(0,0,0,.2)" }}
@@ -209,19 +205,19 @@ export default function ImageLayout(data) {
             </button>
 
             <div
-              class={`relative h-fit w-fit mx-auto my-auto grid grid-rows-1 items-center max-sm:absolute max-sm:p-0 ${
+              className={`relative h-fit w-fit mx-auto my-auto grid grid-rows-1 items-center max-sm:absolute max-sm:p-0 ${
                 focused ? "md:p-0" : "2xl:p-10"
               }`}
             >
-              <div class="w-fit mt-0">
-                <div class={`flex mb-0 mt-3 ${focused ? "hidden" : ""}`}>
+              <div className="w-fit mt-0">
+                <div className={`flex mb-0 mt-3 ${focused ? "hidden" : ""}`}>
                   <a
                     href={"/" + girls[index].display_name}
-                    class="md:ms-2 z-50 my-auto md:w-20 max-sm:w-24 max-sm:ms-4"
+                    className="md:ms-2 z-50 my-auto md:w-20 max-sm:w-24 max-sm:ms-4"
                     style={{ overflow: "hidden" }}
                   >
                     <img
-                      class="block object-cover aspect-square"
+                      className="block object-cover aspect-square"
                       style={{ borderRadius: "100%" }}
                       src={process.env.API + girls[index].profile_pic}
                       alt=""
@@ -229,11 +225,11 @@ export default function ImageLayout(data) {
                   </a>
                   <a
                     href={"/" + girls[index].display_name}
-                    class="ms-2 z-50 ms-3 my-auto"
+                    className="ms-2 z-50 ms-3 my-auto"
                     style={{ width: "80%" }}
                   >
                     <h1
-                      class="text-3xl my-auto font-bold"
+                      className="text-3xl my-auto font-bold"
                       style={{ width: "100%" }}
                     >
                       {girls[index].display_name}
@@ -245,7 +241,7 @@ export default function ImageLayout(data) {
                       setupvoted(false);
                       setDownvoted(false);
                     }}
-                    class="rounded-full z-50 me-3 mx-auto my-auto"
+                    className="rounded-full z-50 me-3 mx-auto my-auto"
                     style={{
                       backgroundColor: "rgba(0,0,0,.2)",
                       padding: ".35rem",
@@ -255,13 +251,13 @@ export default function ImageLayout(data) {
                   </button>
                 </div>
                 <div
-                  class={`relative mt-1 overflow-hidden ${
+                  className={`relative mt-1 overflow-hidden ${
                     focused ? "p-0" : "p-3"
                   }`}
                 >
                   <a onClick={() => setFocused(!focused)}>
                     <Image
-                      class="my-auto"
+                      className="my-auto"
                       width={500}
                       height={500}
                       style={{ borderRadius: 15 }}
@@ -273,7 +269,7 @@ export default function ImageLayout(data) {
                     />
                   </a>
                   <div
-                    class={`absolute flex w-fit mb-3 pe-4 ${
+                    className={`absolute flex w-fit mb-3 pe-4 ${
                       focused ? "opacity-0" : "opacity-100"
                     }`}
                     style={{
@@ -328,7 +324,7 @@ export default function ImageLayout(data) {
                           girls[index].upvotes = girls[index].upvotes + 1;
                         }
                       }}
-                      class={`z-50 p-3 mx-auto`}
+                      className={`z-50 p-3 mx-auto`}
                     >
                       <FiArrowUp
                         size={27.5}
@@ -337,7 +333,7 @@ export default function ImageLayout(data) {
                         }
                       />
                     </button>
-                    <h1 class="my-auto font-semibold">{upvotes}</h1>
+                    <h1 className="my-auto font-semibold">{upvotes}</h1>
                     <button
                       onClick={() => {
                         if (downvoted) {
@@ -383,7 +379,7 @@ export default function ImageLayout(data) {
                           girls[index].downvotes = girls[index].downvotes + 1;
                         }
                       }}
-                      class="z-50 p-3 mx-auto"
+                      className="z-50 p-3 mx-auto"
                     >
                       <FiArrowDown
                         size={27.5}
@@ -392,7 +388,7 @@ export default function ImageLayout(data) {
                         }
                       />
                     </button>
-                    <h1 class="my-auto font-semibold">{downvotes}</h1>
+                    <h1 className="my-auto font-semibold">{downvotes}</h1>
                   </div>
                 </div>
               </div>
@@ -400,7 +396,7 @@ export default function ImageLayout(data) {
 
             <button
               onClick={() => addIndex()}
-              class={`z-40 max-sm:h-full max-sm:opacity-0 max-sm:w-full rounded-full p-3 mx-auto ${
+              className={`z-40 max-sm:h-full max-sm:opacity-0 max-sm:w-full rounded-full p-3 mx-auto ${
                 focused ? "opacity-0" : "md:opacity-100"
               }`}
               style={{ backgroundColor: "rgba(0,0,0,.2)" }}

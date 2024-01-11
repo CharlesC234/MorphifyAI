@@ -30,31 +30,31 @@ export default function Explore({ categories, newDataArr, accessToken, pid }) {
   );
 
   return (
-    <div class="max-sm:px-0" style={{ backgroundColor: "#000000" }}>
-      <div class="container" style={{ backgroundColor: "#000000" }}>
+    <div className="max-sm:px-0" style={{ backgroundColor: "#000000" }}>
+      <div className="container" style={{ backgroundColor: "#000000" }}>
         <iframe
-          class="mt-4 mx-auto max-sm:hidden rounded"
+          className="mt-4 mx-auto max-sm:hidden rounded"
           src="//a.magsrv.com/iframe.php?idzone=5100010&size=900x250"
           width="900"
           height="250"
           scrolling="no"
-          marginwidth="0"
-          marginheight="0"
-          frameborder="0"
+          marginWidth="0"
+          marginHeight="0"
+          frameBorder="0"
         ></iframe>
         <iframe
-          class="mt-4 mx-auto md:hidden rounded"
+          className="mt-4 mx-auto md:hidden rounded"
           src="//a.magsrv.com/iframe.php?idzone=5100030&size=300x100"
           width="300"
           height="100"
           scrolling="no"
-          marginwidth="0"
-          marginheight="0"
-          frameborder="0"
+          marginWidth="0"
+          marginHeight="0"
+          frameBorder="0"
         ></iframe>
 
         <h4
-          class="fw-bold ms-1"
+          className="fw-bold ms-1"
           style={{
             color: "#ffffff",
             fontSize: "1.35rem",
@@ -65,14 +65,14 @@ export default function Explore({ categories, newDataArr, accessToken, pid }) {
           Categories:
         </h4>
         <ul
-          class=" w-full flex overflow-auto no-scrollbar py-3"
+          className=" w-full flex overflow-auto no-scrollbar py-3"
           style={{ backgroundColor: "#000000" }}
         >
           {categories.map((item, index) => {
             return (
               <li
                 key={index}
-                class={`py-1 w-fit ${index == 0 ? "pe-1" : "px-1"}`}
+                className={`py-1 w-fit ${index == 0 ? "pe-1" : "px-1"}`}
               >
                 <button
                   data-toggle="button"
@@ -90,7 +90,7 @@ export default function Explore({ categories, newDataArr, accessToken, pid }) {
                     paddingTop: 7.5,
                     borderRadius: 10,
                   }}
-                  class={`whitespace-nowrap flex md:hover:bg-zinc-700
+                  className={`whitespace-nowrap flex md:hover:bg-zinc-700
                 ${clicked == index ? "bg-pink-500 text-black" : "bg-zinc-800"}`}
                 >
                   {" "}
@@ -101,7 +101,7 @@ export default function Explore({ categories, newDataArr, accessToken, pid }) {
           })}
         </ul>
       </div>
-      <div class="container mt-4" style={{ backgroundColor: "#000000" }}>
+      <div className="container mt-4" style={{ backgroundColor: "#000000" }}>
         <ImageLayout dataArr={newDataArr} />
       </div>
     </div>

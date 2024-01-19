@@ -32,19 +32,20 @@ export default function Models({ models }) {
             <a
               key={index}
               href={item.display_name}
-              className={`grid-col-1 md:mt-0 md:mb-10 ${
+              className={`aspect-square grid-col-1 px-0 md:mt-0 md:mb-7 ${
                 index == 0 ? "mt-0" : "mt-11"
               }`}
             >
-              <div className="flex flex-wrap">
+              <div className="aspect-square justify-center" style={{width: '100%'}}>
+              <div className="aspect-square mx-auto" style={{width: '85%', height: '85%', position: 'relative'}}>
                 <Image
                   alt="gallery"
-                  width={200}
-                  height={200}
-                  className="block object-cover object-center aspect-square"
+                  fill={true}
+                  className="aspect-square"
                   style={{ borderRadius: "100%" }}
                   src={process.env.API + item.profile_pic}
                 />
+                </div>
                 <h2
                   className="mt-4 md:text-3xl text-4xl"
                   style={{

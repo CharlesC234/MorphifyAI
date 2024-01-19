@@ -15,7 +15,7 @@ export const metadata = {
   description: "Generate Perfection",
 };
 
-export default async function RootLayout({ children, searchParams }) {
+export default async function RootLayout({ children }) {
   const session = await getServerSession(authOptions)
   return (
     <html lang="en">

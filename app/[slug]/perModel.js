@@ -3,9 +3,24 @@ import "bootstrap/dist/css/bootstrap.css";
 import { usePathname } from "next/navigation";
 import "../globals.css";
 import ImageLayout from "../../components/ImageLayout";
+import { useSearchParams } from "next/navigation";
+import { useRouter } from "next/navigation";
+import { useCallback, useEffect, useState } from "react";
 
-export default function PerModel({ newDataArr, modelIndex, data }) {
+export default function PerModel({ newDataArr, modelIndex, data, fields}) {
   const pathname = usePathname();
+  const router = useRouter();
+  const searchParams = useSearchParams();
+  const createQueryString = useCallback(
+    (name, value) => {
+      const params = new URLSearchParams(searchParams);
+      params.set(name, value);
+
+      return params.toString();
+    },
+    [searchParams]
+  );
+
   return (
     <div className="mt-0" style={{ backgroundColor: "#000000" }}>
       <iframe
@@ -13,20 +28,12 @@ export default function PerModel({ newDataArr, modelIndex, data }) {
         src="//a.magsrv.com/iframe.php?idzone=5100010&size=900x250"
         width="900"
         height="250"
-        scrolling="no"
-        marginWidth="0"
-        marginHeight="0"
-        frameBorder="0"
       ></iframe>
       <iframe
         className="mt-4 mx-auto md:hidden rounded"
         src="//a.magsrv.com/iframe.php?idzone=5100030&size=300x100"
         width="300"
         height="100"
-        scrolling="no"
-        marginWidth="0"
-        marginHeight="0"
-        frameBorder="0"
       ></iframe>
       <img
         style={{
@@ -88,8 +95,9 @@ export default function PerModel({ newDataArr, modelIndex, data }) {
           </div>
         </div>
         <div className="w-full flex content-center">
-          <button className="bg-pink-500 rounded w-fit px-3 py-3 text-xl text-black font-bold mx-auto mt-4">
-            Generate More Images
+        <button className="bg-pink-500 rounded-lg w-fit px-3 py-3 text-xl text-black font-bold mx-auto mt-4"
+        onClick={() => {router.push(pathname + "?" + createQueryString("gen", true));}}>
+            Generate More Images of {pathname.slice(1)}
           </button>
         </div>
         <div
@@ -99,8 +107,9 @@ export default function PerModel({ newDataArr, modelIndex, data }) {
           <ImageLayout dataArr={newDataArr} />
         </div>
         <div className="w-full flex content-center">
-          <button className="bg-pink-500 rounded w-fit px-3 py-3 text-xl text-black font-bold mx-auto mt-4">
-            Generate More Images
+        <button className="bg-pink-500 rounded-lg w-fit px-3 py-3 text-xl text-black font-bold mx-auto mt-4"
+        onClick={() => {router.push(pathname + "?" + createQueryString("gen", true));}}>
+            Generate More Images of {pathname.slice(1)}
           </button>
         </div>
       </div>

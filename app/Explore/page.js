@@ -7,18 +7,11 @@ import ImageLayout from "../../components/ImageLayout";
 import { usePathname, useSearchParams } from "next/navigation";
 import { useRouter } from "next/navigation";
 
-export default function Explore({ categories, newDataArr, accessToken, pid }) {
+export default function Explore({ categories, newDataArr, accessToken, pid, firstSignIn }) {
   const router = useRouter();
   const pathname = usePathname();
   const searchParams = useSearchParams();
   const [clicked, setClicked] = useState(0);
-
-  if (pid) {
-    localStorage.setItem("AccessToken", accessToken);
-    localStorage.setItem("pid", pid);
-    router.replace("/");
-  }
-
   const createQueryString = useCallback(
     (name, value) => {
       const params = new URLSearchParams(searchParams);
@@ -29,6 +22,16 @@ export default function Explore({ categories, newDataArr, accessToken, pid }) {
     [searchParams]
   );
 
+  if (pid) {
+    localStorage.setItem("AccessTokenDiscord", accessToken);
+    localStorage.setItem("pid", pid);
+    if(firstSignIn){
+      router.replace("/?wd=true");
+    }else{
+      router.replace("/");
+    }
+    }
+
   return (
     <div className="max-sm:px-0" style={{ backgroundColor: "#000000" }}>
       <div className="container" style={{ backgroundColor: "#000000" }}>
@@ -37,20 +40,12 @@ export default function Explore({ categories, newDataArr, accessToken, pid }) {
           src="//a.magsrv.com/iframe.php?idzone=5100010&size=900x250"
           width="900"
           height="250"
-          scrolling="no"
-          marginWidth="0"
-          marginHeight="0"
-          frameBorder="0"
         ></iframe>
         <iframe
           className="mt-4 mx-auto md:hidden rounded"
           src="//a.magsrv.com/iframe.php?idzone=5100030&size=300x100"
           width="300"
           height="100"
-          scrolling="no"
-          marginWidth="0"
-          marginHeight="0"
-          frameBorder="0"
         ></iframe>
 
         <h4

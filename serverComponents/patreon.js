@@ -1,25 +1,8 @@
 "use server";
-export async function checkPatreonMembership(accessToken){
-    try {
-      await fetch('https://www.patreon.com/api/oauth2/api/current_user/memberships', {
-        headers: {
-          Authorization: `Bearer ${accessToken}`,
-        },
-      }).then((res) => {
-            // Check if the user is a patron of your page
-      const memberships = res.data.data;
-      const isPatron = memberships.some(membership => membership.relationship_ids.campaign === process.env.PATREON_CAMPAIGN_ID);
-  
-      return isPatron;
-      })
-    } catch (error) {
-      return false;
-    }
-  };
 
   export async function getUserData(accessToken) {
     try {
-      const response = await fetch(encodeURI('https://www.patreon.com/api/oauth2/v2/identity?fields[user]=first_name,last_name,email,full_name'), {
+      const response = await fetch(encodeURI('https://discord.com/api/oauth2/@me'), {
         headers: {
           Authorization: `Bearer ${accessToken}`,
         },
@@ -30,8 +13,7 @@ export async function checkPatreonMembership(accessToken){
       }
   
       const data = await response.json(); // await the JSON parsing
-      console.log(data.data);
-      return data.data;
+      return data.user;
     } catch (error) {
       console.error(error);
       return null;
@@ -40,7 +22,7 @@ export async function checkPatreonMembership(accessToken){
   
 
   export async function getUserDataStrapi(pid){
-    const res = await fetch(process.env.API + `/api/patreon-users?populate=*&filters[pid][$eq]=${pid}`, {
+    const res = await fetch(process.env.API + `/api/discord-users?populate=*&filters[pid][$eq]=${pid}`, {
       cache: "no-store",
     })
     if (!res.ok) {

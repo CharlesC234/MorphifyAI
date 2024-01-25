@@ -42,14 +42,14 @@ async function getPostData() {
   return res.json();
 }
 
-async function getPatreonAccessToken(code) {
+async function getDiscordAccessToken(code) {
   try {
-    const response = await fetch("https://www.patreon.com/api/oauth2/token", {
+    const response = await fetch("https://discord.com/api/oauth2/token", {
       method: "POST",
       headers: {
         "Content-Type": "application/x-www-form-urlencoded",
       },
-      body: `code=${code}&grant_type=authorization_code&client_id=${process.env.PATREON_CLIENT_ID}&client_secret=${process.env.PATREON_CLIENT_SECRET}&redirect_uri=http://localhost:3000`,
+      body: `code=${code}&grant_type=authorization_code&client_id=${process.env.DISCORD_CLIENT_ID}&client_secret=${process.env.DISCORD_CLIENT_SECRET}&redirect_uri=http://localhost:3000`,
     });
 
     const data = await response.json();
@@ -59,7 +59,7 @@ async function getPatreonAccessToken(code) {
   }
 }
 
-export default async function Home({ searchParams, children }) {
+export default async function Home({ searchParams }) {
   //get data
   const data = await getData();
   const cats = await getCats();
@@ -67,31 +67,30 @@ export default async function Home({ searchParams, children }) {
   var code;
   let accessToken = null;
   let pid = null;
+  let firstSignIn = false;
 
   if (searchParams.code) {
     code = searchParams.code;
-    await getPatreonAccessToken(code).then(async (res) => {
+    await getDiscordAccessToken(code).then(async (res) => {
       accessToken = res;
       await getUserData(accessToken).then(async (UserData) => {
-        console.log(UserData);
-        console.log(accessToken);
         pid = UserData.id;
-        await getUserDataStrapi(UserData.id).then((res) => {
+        await getUserDataStrapi(pid).then((res) => {
           if (res.data.length == 0) {
-            fetch(process.env.API + `/api/patreon-users`, {
+            firstSignIn = true;
+            fetch(process.env.API + `/api/discord-users`, {
               method: "POST",
               headers: {
                 "Content-Type": "application/json",
               },
               body: JSON.stringify({
                 data: {
-                  First_Name: UserData.attributes.first_name,
-                  Last_Name: UserData.attributes.last_name,
-                  Email: UserData.attributes.email,
-                  Patreon_Access_Token: accessToken,
+                  User_Name: UserData.username,
+                  Email: null,
+                  Discord_Access_Token: accessToken,
                   Premium: false,
-                  Generations: 0,
-                  pid: UserData.id,
+                  Generations: 1,
+                  pid: pid,
                 },
               }),
             });
@@ -228,6 +227,7 @@ export default async function Home({ searchParams, children }) {
       data={data}
       cats={cats}
       newDataArr={newDataArr}
+      firstSignIn={firstSignIn}
     />
   );
 }

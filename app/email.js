@@ -3,7 +3,8 @@ import "bootstrap/dist/css/bootstrap.css";
 import "./globals.css";
 import React from "react";
 import Popup from "../components/Popup";
-import EnterEmail from "../components/EnterEmail";
+import Paywall from "../components/Paywall";
+import WelcomeDiscord from "../components/WelcomeDiscord";
 
 async function getEmails() {
   const res = await fetch(process.env.API + "/api/emails?");
@@ -23,7 +24,8 @@ export default async function Email() {
   return (
     <>
       <Popup emails={emails} />
-      <EnterEmail emails={emails} />
+      <Paywall emails={emails} />
+      <WelcomeDiscord emails={emails}/>
     </>
   );
 }

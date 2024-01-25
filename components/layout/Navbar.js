@@ -10,7 +10,7 @@ import { getUserData, getUserDataStrapi } from "../../serverComponents/patreon";
 
 export default function Navbar({ searchArr }) {
   const [userData, setUserData] = useState({
-    attributes: { First_Name: "Account" },
+    attributes: { User_Name: "Account" },
   });
   const [showSearch, setShowSearch] = useState(false);
   const [border, setBorder] = useState(1.5);
@@ -23,23 +23,26 @@ export default function Navbar({ searchArr }) {
   const searchParams = useSearchParams();
 
   const handleSignIn = async () => {
-    await signIn("patreon");
+    await signIn("discord");
   };
 
   const handleSignOut = async () => {
-    localStorage.setItem("AccessToken", null);
+    localStorage.setItem("AccessTokenDiscord", null);
     localStorage.setItem("pid", null);
-    setUserData({ attributes: { First_Name: "Account" } });
+    localStorage.setItem("UserNameDiscord", "")
+    setUserData({ attributes: { User_Name: "Account" } });
+    router.refresh();
   };
 
   useEffect(() => {
     if (
-      localStorage.getItem("AccessToken") &&
-      userData.attributes.First_Name == "Account"
+      localStorage.getItem("AccessTokenDiscord") &&
+      userData.attributes.User_Name == "Account"
     ) {
       getUserDataStrapi(localStorage.getItem("pid")).then((res) => {
         if (res.data[0].attributes) {
           setUserData(res.data[0]);
+          localStorage.setItem("UserNameDiscord", res.data[0].attributes.User_Name);
         }
       });
     }
@@ -137,7 +140,7 @@ export default function Navbar({ searchArr }) {
             <li className="nav-item px-1">
               <a
                 href={"/"}
-                className={`nav-link max-sm:py-0.5 hover:text-pink-500 text-lg font-semibold ${
+                className={`nav-link max-sm:py-0.5 hover:text-pink-500 text-xl font-semibold ${
                   pathname == "/" ? "text-pink-500" : "text-white opacity-75"
                 }`}
                 aria-current="page"
@@ -148,7 +151,7 @@ export default function Navbar({ searchArr }) {
             <li className="nav-item px-1">
               <a
                 href={"/models"}
-                className={`nav-link max-sm:py-0.5 text-lg hover:text-pink-500 font-semibold ${
+                className={`nav-link max-sm:py-0.5 text-xl hover:text-pink-500 font-semibold ${
                   pathname == "/models" ||
                   (pathname != "/" &&
                     pathname != "/legal" &&
@@ -164,7 +167,7 @@ export default function Navbar({ searchArr }) {
             <li className="nav-item px-1">
               <a
                 href={"/generate"}
-                className={`nav-link max-sm:py-1 text-lg hover:text-pink-500 font-semibold ${
+                className={`nav-link max-sm:py-1 text-xl hover:text-pink-500 font-semibold ${
                   pathname == "/generate"
                     ? "text-pink-500"
                     : "text-white opacity-75"
@@ -186,7 +189,7 @@ export default function Navbar({ searchArr }) {
             </li> */}
           </ul>
           <div
-            className="relative sm:w-100 md:w-5/12 max-sm:mt-3"
+            className="relative sm:w-100 md:w-5/12 max-sm:mt-5"
             style={{ marginBottom: ".25rem" }}
           >
             <input
@@ -278,13 +281,19 @@ export default function Navbar({ searchArr }) {
             </div>
           </div>
           <button
-            onClick={() => setdropdown(!dropdown)}
+            onClick={() => {
+              if(userData.attributes.User_Name == "Account"){
+                handleSignIn();
+              }else{
+              setdropdown(!dropdown)
+              }
+            }}
             className="nav-link flex max-sm:py-1 text-lg hover:text-pink-500 text-white font-semibold opacity-85 mb-1.5 ml-4 max-sm:ml-0 max-sm:mb-0 max-sm:mt-2"
           >
             <IoPersonCircle size={42} color={"rgb(236 72 153)"} />
             <div className="my-auto">
-              <h5 className="text-lg font-semibold ml-2 opacity-75">
-                {userData.attributes.First_Name} {userData.attributes.Last_Name}
+              <h5 className="text-xl font-semibold ml-2 opacity-75">
+                {[userData.attributes.User_Name == "Account" && localStorage.getItem("UserNameDiscord") ? localStorage.getItem("UserNameDiscord") : userData.attributes.User_Name]}
               </h5>
             </div>
           </button>
@@ -300,57 +309,19 @@ export default function Navbar({ searchArr }) {
               aria-labelledby="dropdownDefaultButton"
             >
               <li>
-                <button
-                  onClick={() => {
-                    handleSignIn();
-                  }}
-                  className={`w-100 text-left font-bold block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white 
-                  ${
-                    userData.attributes.First_Name != "premium" ? "hidden" : ""
-                  }`}
-                >
-                  Sign In
-                </button>
-              </li>
-              <li>
-                <button
-                  onClick={() => {
-                    handleSignIn();
-                  }}
-                  className={`w-100 text-left font-bold block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white 
-                  ${
-                    userData.attributes.First_Name != "premium" ? "hidden" : ""
-                  }`}
-                >
-                  Create Account
-                </button>
-              </li>
-              <li>
                 <a
-                  href={"https://www.patreon.com/xpixels/membership"}
-                  className={`font-bold block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white w-100 text-left ${
-                    userData.attributes.First_Name != "premium" ? "" : "hidden"
-                  }`}
+                  href={"https://xpixels.gumroad.com/l/ppski"}
+                  className={`font-bold block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white w-100 text-left`}
                 >
-                  Manage Subscriptions
+                  Premium
                 </a>
-                <button
-                  className={`font-bold block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white w-100 text-left ${
-                    userData.attributes.First_Name != "premium" ? "hidden" : ""
-                  }`}
-                  onClick={() => {
-                    router.push(pathname + "?" + createQueryString("ee", true));
-                  }}
-                >
-                  Manage Subscriptions
-                </button>
               </li>
               <li>
                 <a
                   href={"/models"}
                   className={`w-100 text-left font-bold block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white 
                   ${
-                    userData.attributes.First_Name != "premium" ? "" : "hidden"
+                    userData.attributes.User_Name != "Account" ? "" : "hidden"
                   }`}
                 >
                   My Models
@@ -363,7 +334,7 @@ export default function Navbar({ searchArr }) {
                   }}
                   className={`w-100 text-left font-bold block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white 
                   ${
-                    userData.attributes.First_Name != "premium" ? "" : "hidden"
+                    userData.attributes.User_Name != "Account" ? "" : "hidden"
                   }`}
                 >
                   Sign out

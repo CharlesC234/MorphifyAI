@@ -1,7 +1,9 @@
 "use client";
-
-import { use, useState } from "react";
+import { getUserData, getUserDataStrapi } from "../../serverComponents/patreon";
 import * as fal from "@fal-ai/serverless-client";
+import { usePathname, useSearchParams } from "next/navigation";
+import { useRouter } from "next/navigation";
+import { useCallback, useEffect, useState } from "react";
 
 fal.config({
   proxyUrl: "/api/fal/proxy",
@@ -80,16 +82,45 @@ const getRandomOptionForAttribute = (attribute, index) => {
 
 
 
-
 export default function Generate({ fields }) {
+
+  const router = useRouter();
+  const pathname = usePathname();
+  const searchParams = useSearchParams();
+  const createQueryString = useCallback(
+    (name, value) => {
+      const params = new URLSearchParams(searchParams);
+      params.set(name, value);
+
+      return params.toString();
+    },
+    [searchParams]
+  );
+
+  const [userData, setUserData] = useState({attributes: {Premium: false, Generations: 0}});
+  const [generations, setGenerations] = useState(0);
+
+  useEffect(() => {
+    if (
+      localStorage.getItem("AccessTokenDiscord") && localStorage.getItem("pid")
+    ) {
+      getUserDataStrapi(localStorage.getItem("pid")).then((res) => {
+        if (res.data[0].attributes) {
+          setUserData(res.data[0]);
+          setGenerations(res.data[0].attributes.Generations)
+        }
+      });
+    }
+  }, []);
+
   const [img1, setImg1] = useState(
-    "http://farm5.staticflickr.com/4112/5170590074_066e255655_o.jpg"
+    "/"
   );
   const [img2, setImg2] = useState(
-    "http://farm5.staticflickr.com/4112/5170590074_066e255655_o.jpg"
+    "/"
   );
   const [img3, setImg3] = useState(
-    "http://farm5.staticflickr.com/4112/5170590074_066e255655_o.jpg"
+    "/"
   );
   const [loading, setLoading] = useState(false);
   var makeArr = [];
@@ -99,13 +130,18 @@ export default function Generate({ fields }) {
       Option: fields[i].attributes.Option[0].OptionTitle,
     });
   }
-  const [selected, setSelected] = useState(makeArr);
+  const [selected, setSelected] = useState(makeArr.slice(0,-2));
+  const [selectedPost, setSelectedPost] = useState(makeArr.slice(-2));
   const [refresh, setRefresh] = useState(false);
+  const [totalPercent, setTotalPercent] = useState(0);  
+  const [selectedModel, setSelectedModel] = useState(1);
+  const percentEach = [0,0,0];
 
   async function generateImage() {
 
     try {
       setLoading(true);
+      setTotalPercent(0);
       const imageUrl = [];
 
       for(let i = 0; i < 3; i++){
@@ -114,15 +150,13 @@ export default function Generate({ fields }) {
         for (let i = 0; i < selected.length; i++) {
           prompt = prompt + selected[i].Field + ":" + selected[i].Option + ";";
         }
-        prompt = prompt + "Testing length of prompt if 77 tokens or more..............";
-        console.log(prompt);
 
         const formatPrompt = prompt.toString();
         const res = await fal.subscribe("110602490-lora", {
         input: {
           model_name: "SG161222/RealVisXL_V3.0_Turbo",
           model_architecture: "sdxl",
-          num_inference_steps: 8,
+          num_inference_steps: 10,
           guidance_scale: 2,
           image_size: {
             width: 1080,
@@ -131,6 +165,7 @@ export default function Generate({ fields }) {
           prompt: formatPrompt,
         },
         logs: true,
+
         onQueueUpdate: (update) => {
           if (update.status === "IN_PROGRESS") {
             update.logs.map((log) => log.message).forEach(console.log);
@@ -151,13 +186,14 @@ export default function Generate({ fields }) {
   return (
     <div className="container">
       <div>
-        {fields.map((item, outerIndex) => {
+        <div style={{height: 40}}/>
+        {fields.slice(0,-2).map((item, outerIndex) => {
           return (
             <div
-              style={{ width: "80%", minWidth: 350 }}
+              style={{ width: "80%", minWidth: 350, maxWidth: 1000 }}
               key={item.attributes.FieldName}
             >
-              <h2 className="mt-5 text-2xl font-bold" style={{ opacity: 0.8 }}>
+              <h2 className="mt-4 text-2xl font-bold" style={{ opacity: 0.8 }}>
                 {item.attributes.FieldName}
               </h2>
               <div className="flex flex-wrap mt-4">
@@ -202,31 +238,122 @@ export default function Generate({ fields }) {
       </div>
 
       <div className="sticky">
+        {userData.attributes.Premium ? 
         <button
           onClick={() => generateImage()}
           className="btn text-xl py-4 px-5 mt-4 me-3 mb-3 whitespace-nowrap flex md:hover:bg-pink-500 fw-bold bg-pink-500 outline outline-2 outline-pink-500 text-black"
         >
-          Generate
+          GENERATE NO PAYMENT
         </button>
-        <script src="https://gumroad.com/js/gumroad.js"></script>
-        <a class="gumroad-button" href="https://xpixels.gumroad.com/l/ppski?userid=1" data-gumroad-overlay-checkout="true">Buy on</a>
-        {loading ? <div className="spinner-simple mt-2" style={{width: 100, height: 100}}></div> : 
+        : <>
+        {generations > 0 ?  <button
+          onClick={() => {
+            generateImage();
+            fetch(process.env.API + `/api/discord-users/${userData.id}`, {
+              method: "PUT",
+              headers: {
+                "Content-Type": "application/json",
+              },
+              body: JSON.stringify({
+                data: {
+                  Generations: generations - 1,
+                },
+              }),
+            });
+            setGenerations(generations - 1);
+          }}
+          className="btn text-xl py-4 px-5 mt-4 me-3 mb-3 whitespace-nowrap flex md:hover:bg-pink-500 fw-bold bg-pink-500 outline outline-2 outline-pink-500 text-black"
+        >
+          GENERATE NO PAYMENT
+        </button>
+        :
+                <button
+                className={`btn text-xl py-4 px-5 mt-4 me-3 mb-3 whitespace-nowrap flex md:hover:bg-pink-500 fw-bold bg-pink-500 outline outline-2 outline-pink-500 text-black`}
+                onClick={() => {
+                  router.push(pathname + "?" + createQueryString("ee", true));
+                }}
+              >
+                GENERATE
+              </button>}</>
+           }
+        {loading ? 
+        // <div style={{display: 'flex', flexDirection: 'row'}}>
+        // <h2 className="mt-4 me-4">{totalPercent}%</h2>
+        // <div className="outline outline-2 outline-pink-500 mt-4" style={{width: '50%', height: 20, borderRadius: 10, overflow: 'hidden'}}>
+        // <div className="bg-pink-500" style={{width: `${totalPercent}%`, height: 20}}></div> 
+        // </div>
+        // </div>
+        <div className="spinner-simple mt-4" style={{width: 100, height: 100}}></div>
+        : 
+        <>{!loading && img1 == "/" ? <></>: 
         <div>
-          <h2 className="mt-5 text-3xl font-bold" style={{ opacity: 0.8 }}>
+          <h2 className="mt-5 text-2xl font-bold mb-4" style={{ opacity: 0.8 }}>
                 Select A Model
           </h2>
-        <div className="w-100 grid grid-cols-3 gap-5 mt-4">
-          <div className="aspect-square w-100 grid-col-1">
-          <img className="mt-3 aspect-square w-100" src={img1} style={{borderRadius: '100%', objectFit: 'cover'}} /> 
+        <div className="w-100 grid grid-cols-3 gap-3 mt-4 mb-5">
+          <button style={{borderRadius: '100%'}} className={`aspect-square w-100 grid-col-1 justify-center ${selectedModel == 1 ? "bg-pink-500" : ""}`} onClick={() => setSelectedModel(1)}>
+          <img className="aspect-square mx-auto" src={img1} style={{width: '97.5%', borderRadius: '100%', objectFit: 'cover', borderWidth: 5, borderColor: '#000000', backgroundColor: '#000000'}} /> 
+          </button>
+          <button style={{borderRadius: '100%'}} className={`aspect-square w-100 grid-col-1 justify-center ${selectedModel == 2 ? "bg-pink-500" : ""}`} onClick={() => setSelectedModel(2)}>
+          <img className="aspect-square mx-auto" src={img2} style={{width: '97.5%', borderRadius: '100%', objectFit: 'cover', borderWidth: 5, borderColor: '#000000', backgroundColor: '#000000'}} /> 
+          </button>
+          <button style={{borderRadius: '100%'}} className={`aspect-square w-100 grid-col-1 justify-center ${selectedModel == 3 ? "bg-pink-500" : ""}`} onClick={() => setSelectedModel(3)}>
+          <img className="aspect-square mx-auto" src={img3} style={{width: '97.5%', borderRadius: '100%', objectFit: 'cover', borderWidth: 5, borderColor: '#000000', backgroundColor: '#000000'}} /> 
+          </button>
           </div>
-          <div className="aspect-square w-100">
-          <img className="mt-3 aspect-square w-100" src={img2} style={{borderRadius: '100%', objectFit: 'cover'}} /> 
-          </div>
-          <div className="aspect-square w-100">
-          <img className="mt-3 aspect-square w-100" src={img3} style={{borderRadius: '100%', objectFit: 'cover'}} /> 
-          </div>
-          </div>
-          </div>}
+          <div>
+        {fields.slice(-2).map((item, outerIndex) => {
+          return (
+            <div
+            className="mt-4"
+              style={{ width: "80%", minWidth: 350, maxWidth: 1000 }}
+              key={item.attributes.FieldName}
+            >
+              <h2 className="mt-4 text-2xl font-bold" style={{ opacity: 0.8 }}>
+                {item.attributes.FieldName}
+              </h2>
+              <div className="flex flex-wrap mt-4">
+                {item.attributes.Option.map((itemInner, index) => {
+                  return (
+                    <button
+                      key={index}
+                      onClick={() => {
+                        var temp = selectedPost;
+                        for (let i = 0; i <= selectedPost.length; i++) {
+                          if (i == outerIndex) {
+                            temp[i].Option = itemInner.OptionTitle;
+                          }
+                          setSelectedPost(temp);
+                          setRefresh(!refresh);
+                        }
+                      }}
+                      data-toggle="button"
+                      style={{
+                        paddingLeft: 17.5,
+                        fontWeight: "600",
+                        paddingRight: 17.5,
+                        paddingBottom: 7.5,
+                        paddingTop: 7.5,
+                        borderRadius: 8.5,
+                      }}
+                      className={`me-3 mb-3 whitespace-nowrap flex md:hover:bg-pink-500
+              ${
+                selectedPost[outerIndex].Option == itemInner.OptionTitle
+                  ? "fw-bold bg-pink-500 outline outline-2 outline-pink-500 text-black"
+                  : "bg-black outline outline-2 outline-offset-0 outline-pink-500 text-pink-500"
+              }`}
+                    >
+                      {itemInner.OptionTitle}
+                    </button>
+                  );
+                })}
+              </div>
+            </div>
+          );
+        })}
+      </div>
+          </div>}</>
+        }
       </div>
     </div>
   );

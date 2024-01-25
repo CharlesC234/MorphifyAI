@@ -4,7 +4,7 @@ import { useEffect, useState } from "react";
 import { usePathname, useSearchParams } from "next/navigation";
 import { useRouter } from "next/navigation";
 import { useCallback } from "react";
-import { FaPatreon } from "react-icons/fa6";
+import { FaDiscord } from "react-icons/fa6";
 import { SessionProvider, signIn, signOut, useSession } from "next-auth/react";
 
 export default function Popup({ emails }) {
@@ -13,7 +13,7 @@ export default function Popup({ emails }) {
   const searchParams = useSearchParams();
 
   const handleSignIn = async () => {
-    await signIn("patreon").then((res) => {});
+    await signIn("discord").then((res) => {});
   };
 
   const [visible, setVisible] = useState(false);
@@ -22,12 +22,28 @@ export default function Popup({ emails }) {
   const [buttonMsg, setButtonMsg] = useState("Subscribe");
 
   useEffect(() => {
-    let token = localStorage.getItem("AccessToken");
+    let token = localStorage.getItem("AccessTokenDiscord");
     if (!token || token == "null") {
       if (searchParams.get("code")) {
         router.replace("/");
       }
-      setVisible(true);
+      const currentDateAndTime = new Date();
+      if(!localStorage.getItem("lastDate") || !localStorage.getItem("lastDate") == null){
+        localStorage.setItem("lastDate", currentDateAndTime);
+        setVisible(true);
+      }else if(localStorage.getItem("lastDate")){
+        const storedDateAndTime = new Date(localStorage.getItem("lastDate"));
+        const timeDifference = currentDateAndTime - storedDateAndTime;
+        // Calculate the time difference in hours
+        const timeDifferenceInHours = timeDifference / (1000 * 60 * 60);
+        // Check if the time difference is greater than 2 hours
+        if (timeDifferenceInHours > 2) {
+          localStorage.setItem("lastDate", currentDateAndTime);
+          setVisible(true);
+        } else {
+          setVisible(false);
+        }
+      }
     }
   }, []);
 
@@ -108,8 +124,8 @@ export default function Popup({ emails }) {
                   onClick={() => handleSignIn()}
                   data-te-ripple-color="light"
                 >
-                  <FaPatreon className="me-3 ms-0 mt-1" size={24} />
-                  Sign In With Patreon For Free!
+                  <FaDiscord className="me-3 ms-0 mt-1" size={24} />
+                  Sign In With Discord For Free!
                 </button>
                 <button
                   type="button"

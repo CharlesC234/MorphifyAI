@@ -1,6 +1,7 @@
 import "bootstrap/dist/css/bootstrap.css";
 import "../globals.css";
 
+
 import Generate from "./generate";
 
 async function getFields() {

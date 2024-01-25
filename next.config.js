@@ -10,7 +10,11 @@ const nextConfig = {
   },
   experimental: {
     serverActions: true,
-  }
+  },
+  env: {
+    API: "https://stunner-strapi-cms-production.up.railway.app",
+  },
+  reactStrictMode: false,
 };
 
 module.exports = nextConfig;

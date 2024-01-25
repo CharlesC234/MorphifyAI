@@ -11,20 +11,12 @@ export default function Models({ models }) {
         src="//a.magsrv.com/iframe.php?idzone=5100030&size=300x100"
         width="300"
         height="100"
-        scrolling="no"
-        marginWidth="0"
-        marginHeight="0"
-        frameBorder="0"
       ></iframe>
       <iframe
         className="mt-4 mx-auto max-sm:hidden rounded"
         src="//a.magsrv.com/iframe.php?idzone=5100010&size=900x250"
         width="900"
         height="250"
-        scrolling="no"
-        marginWidth="0"
-        marginHeight="0"
-        frameBorder="0"
       ></iframe>
       <div className="container grid md:grid-cols-4 md:gap-3 p-10 justify-center md:p-0 grid-cols-1 mx-auto py-2 lg:pt-12 row mt-5 md:justify-content-between ">
         {models.map((item, index) => {
@@ -37,7 +29,7 @@ export default function Models({ models }) {
               }`}
             >
               <div className="aspect-square justify-center" style={{width: '100%'}}>
-              <div className="aspect-square mx-auto" style={{width: '85%', height: '85%', position: 'relative'}}>
+              <div className="aspect-square mx-auto" style={{width: '95%', height: '95%', position: 'relative'}}>
                 <Image
                   alt="gallery"
                   fill={true}

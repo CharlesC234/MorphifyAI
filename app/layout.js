@@ -7,6 +7,7 @@ import Script from "next/script";
 import { getServerSession } from "next-auth/next"
 import Provider from "./context/client-provider"
 import { authOptions } from "./api/auth/[...nextauth]/route.ts"
+import Navbar from "../components/layout/Navbar";
 
 const inter = Inter({ subsets: ["latin"] });
 

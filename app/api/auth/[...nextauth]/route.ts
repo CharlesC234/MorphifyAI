@@ -1,16 +1,17 @@
 import NextAuth from "next-auth";
 import Providers from "next-auth/providers";
-import PatreonProvider from "next-auth/providers/patreon";
+import DiscordProvider from "next-auth/providers/discord";
 import type { AuthOptions } from "next-auth";
 
 export const authOptions: AuthOptions = {
   providers: [
-    PatreonProvider({
-      clientId: process.env.PATREON_CLIENT_ID,
-      clientSecret: process.env.PATREON_CLIENT_SECRET,
+    DiscordProvider({
+      clientId: process.env.DISCORD_CLIENT_ID,
+      clientSecret: process.env.DISCORD_CLIENT_SECRET,
       authorization: {
         params: {
           redirect_uri: "http://localhost:3000",
+          scope: "identify email guilds",
         },
       },
     }),

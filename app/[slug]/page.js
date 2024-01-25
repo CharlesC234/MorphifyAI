@@ -3,6 +3,7 @@ import "../globals.css";
 import { headers } from "next/headers";
 import PerModel from "./perModel";
 import { revalidateTag } from "next/cache";
+import GeneratePopUp from "./generatePopUp"
 
 async function getModels() {
   const res = await fetch(
@@ -20,6 +21,16 @@ async function getPostData() {
   const res = await fetch(process.env.API + "/api/posts?populate=*", {
     cache: "no-store",
     next: { tags: ["postdata"] },
+  });
+  if (!res.ok) {
+    throw new Error("Failed to fetch data");
+  }
+  return res.json();
+}
+
+async function getFields() {
+  const res = await fetch(process.env.API + "/api/fields?populate=*", {
+    cache: "no-cache",
   });
   if (!res.ok) {
     throw new Error("Failed to fetch data");
@@ -130,13 +141,20 @@ export default async function modelPage({ searchParams }) {
       }
     }
 
+    const fields = await getFields();
+
     return (
+      <div>
+      <GeneratePopUp
+      fields={fields.data}/>
       <PerModel
         newDataArr={newDataArr}
         modelIndex={modelIndex}
         data={data}
+        fields={fields.data}
         sp={searchParams}
       />
+      </div>
     );
   } else {
     return (

@@ -78,7 +78,7 @@ export default function ImageLayout(data) {
       const hasReachedBottom = offsetHeight - (innerHeight + scrollTop) <= 750;
 
       if (hasReachedBottom) {
-        setNumImages(numImages + 13);
+        setNumImages(numImages + 20);
       }
     };
 

@@ -290,7 +290,7 @@ export default function Generate({ fields }) {
           <h2 className="mt-5 text-2xl font-bold mb-4" style={{ opacity: 0.8 }}>
                 Select A Model
           </h2>
-        <div className="w-100 grid grid-cols-3 gap-3 mt-4 mb-5">
+        <div className="w-100 grid grid-rows-3 md:grid-cols-3 gap-3 mt-4 mb-5">
           <button style={{borderRadius: '100%'}} className={`aspect-square w-100 grid-col-1 justify-center ${selectedModel == 1 ? "bg-pink-500" : ""}`} onClick={() => setSelectedModel(1)}>
           <img className="aspect-square mx-auto" src={img1} style={{width: '97.5%', borderRadius: '100%', objectFit: 'cover', borderWidth: 5, borderColor: '#000000', backgroundColor: '#000000'}} /> 
           </button>

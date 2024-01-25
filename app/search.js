@@ -21,7 +21,7 @@ const getPatreonAccessToken = async (code) => {
       headers: {
         'Content-Type': 'application/x-www-form-urlencoded',
       },
-      body: `code=${code}&grant_type=authorization_code&client_id=${process.env.PATREON_CLIENT_ID}&client_secret=${process.env.PATREON_CLIENT_SECRET}&redirect_uri=https://stunner-production-c449.up.railway.app/`,
+      body: `code=${code}&grant_type=authorization_code&client_id=${process.env.PATREON_CLIENT_ID}&client_secret=${process.env.PATREON_CLIENT_SECRET}&redirect_uri=http://localhost:3000`,
     });
 
     const data = await response.json();

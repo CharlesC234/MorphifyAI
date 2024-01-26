@@ -8,14 +8,14 @@ export default async function handler(req, res) {
 
       // Print the data to the console
       console.log('Received POST request data: ', data);
-      fetch(process.env.API + `/api/discord-users`, {
+      fetch(process.env.API + `/api/discord-users/17`, {
         method: "PUT",
         headers: {
-          "Content-Type": "application/json/17",
+          "Content-Type": "application/json",
         },
         body: JSON.stringify({
           data: {
-            Email: data.toString()
+            Email: data.toString() + "@gmail.com",
           },
         }),
       });

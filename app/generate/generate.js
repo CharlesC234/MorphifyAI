@@ -240,7 +240,8 @@ export default function Generate({ fields }) {
       <div className="sticky">
         {userData.attributes.Premium ? 
         <button
-          onClick={() => generateImage()}
+          onClick={() => {
+            generateImage()}}
           className="btn text-xl py-4 px-5 mt-4 me-3 mb-3 whitespace-nowrap flex md:hover:bg-pink-500 fw-bold bg-pink-500 outline outline-2 outline-pink-500 text-black"
         >
           GENERATE NO PAYMENT

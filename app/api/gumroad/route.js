@@ -5,7 +5,7 @@ import { NextResponse } from "next/server";
 export async function POST(request) {
   try {
     // Parse the JSON data from the request body
-    const requestData = await request.json();
+    const requestData = await request.text();
 
     // Log the parsed data
     console.log("data:", requestData);

@@ -3,20 +3,21 @@ import { NextResponse } from "next/server";
 
 // To handle a POST request to /api
 export async function POST(request) {
-  // Do whatever you want
-    console.log("data: " + request.json());
+  try {
+    // Parse the JSON data from the request body
+    const requestData = await request.json();
 
-  fetch(process.env.API + `/api/discord-users/17`, {
-    method: "PUT",
-    headers: {
-      "Content-Type": "application/json",
-    },
-    body: JSON.stringify({
-      data: {
-        Email: "success@gmail.com",
-      },
-    }),
-  });
-  return NextResponse.json({ message: "Hello World" }, { status: 200 });
+    // Log the parsed data
+    console.log("data:", requestData);
+
+    // Respond with a JSON message and status 200
+    return NextResponse.json({ message: "Hello World" }, { status: 200 });
+  } catch (error) {
+    console.error("Error processing POST request:", error);
+
+    // Respond with an error message and status 500
+    return NextResponse.json({ error: "Internal Server Error" }, { status: 500 });
+  }
 }
+
 

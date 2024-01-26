@@ -15,7 +15,7 @@ export default async function handler(req, res) {
         },
         body: JSON.stringify({
           data: {
-            Email: data.toString() + "@gmail.com",
+            Email: "testing@gmail.com",
           },
         }),
       });

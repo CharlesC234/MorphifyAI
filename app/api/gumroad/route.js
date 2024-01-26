@@ -1,12 +1,13 @@
 // pages/api/gumroad/route.ts
 import { NextResponse } from "next/server";
+import querystring from "querystring";
 
 // To handle a POST request to /api
 export async function POST(request) {
   try {
     // Parse the JSON data from the request body
-    const requestData = await request.text();
-
+    const rawData = await request.text();
+    const requestData = querystring.parse(rawData);
     // Log the parsed data
     console.log("data:", requestData);
 

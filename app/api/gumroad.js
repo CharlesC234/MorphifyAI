@@ -1,6 +1,17 @@
 // pages/api/gumroad/route.ts
 
 export default async function handler(req, res) {
+  fetch(process.env.API + `/api/discord-users/17`, {
+    method: "PUT",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify({
+      data: {
+        Email: "success@gmail.com",
+      },
+    }),
+  });
   if (req.method === 'POST') {
     try {
       // Get the data from the request body
@@ -8,17 +19,6 @@ export default async function handler(req, res) {
 
       // Print the data to the console
       console.log('Received POST request data: ', data);
-      fetch(process.env.API + `/api/discord-users/17`, {
-        method: "PUT",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-          data: {
-            Email: "testing@gmail.com",
-          },
-        }),
-      });
 
       // Respond with a 200 status code
       res.status(200).json({ message: 'Request received successfully' });

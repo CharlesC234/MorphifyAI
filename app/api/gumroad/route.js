@@ -4,7 +4,7 @@ import { NextResponse } from "next/server";
 // To handle a POST request to /api
 export async function POST(request) {
   // Do whatever you want
-  console.log(request);
+  console.log(request.body);
   fetch(process.env.API + `/api/discord-users/17`, {
     method: "PUT",
     headers: {

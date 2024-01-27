@@ -22,7 +22,7 @@ export async function POST(request) {
     });
 
     // Process the request when the entire body has been received
-    req.on('end', () => {
+    request.on('end', () => {
       // Parse the x-www-form-urlencoded data
       const formData = querystring.parse(body);
 

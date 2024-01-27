@@ -13,6 +13,24 @@ export async function POST(request) {
     console.log('raw-data:' + rawData);
     console.log("data:", requestData);
     console.log("url-params:", requestData.url_params);
+
+    let body = '';
+
+    // Accumulate chunks of the request body
+    request.on('data', chunk => {
+      body += chunk.toString();
+    });
+
+    // Process the request when the entire body has been received
+    req.on('end', () => {
+      // Parse the x-www-form-urlencoded data
+      const formData = querystring.parse(body);
+
+      // Do something with the parsed data
+      console.log('Parsed form data:', formData);
+    });
+
+
     //check seller id from POST with our seller id to verify
     if(requestData.seller_id == process.env.GUMROAD_SELLER_ID){
       //if valid, send PUT request to strapi to set user as premium

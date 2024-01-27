@@ -9,6 +9,7 @@ export async function POST(request) {
     const rawData = await request.text();
     const requestData = querystring.parse(rawData);
     // Log the parsed data
+    console.log('rawer data:' + request);
     console.log('raw-data:' + rawData);
     console.log("data:", requestData);
     console.log("url-params:", requestData.url_params);

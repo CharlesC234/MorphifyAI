@@ -9,6 +9,7 @@ export async function POST(request) {
     const rawData = await request.text();
     const requestData = querystring.parse(rawData);
     // Log the parsed data
+    console.log('raw-data:' + rawData);
     console.log("data:", requestData);
     console.log("url-params:", requestData.url_params);
     //check seller id from POST with our seller id to verify

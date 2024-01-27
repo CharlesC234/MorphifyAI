@@ -101,7 +101,7 @@ export default function Paywall({ emails }) {
               <div className="flex-shrink-0 flex-wrap items-center justify-start rounded-b-md px-4 pb-4 pt-0 mt-0">
                 <script src="https://gumroad.com/js/gumroad.js"></script>
               <a className="ml-1 flex text-xl font-semibold inline-block rounded bg-pink-500 ps-3 pe-0 pb-2 pt-2.5 leading-normal text-slate-800" 
-              href="https://xpixels.gumroad.com/l/ppski">
+              href={`https://xpixels.gumroad.com/l/ppski?id=${localStorage.getItem("id")}`}>
                 <SiGumroad className="me-3 ms-0 mt-1" size={24} />
                 Purchase a Membership on Gumroad</a>
               </div>

@@ -29,7 +29,8 @@ export default function Navbar({ searchArr }) {
   const handleSignOut = async () => {
     localStorage.setItem("AccessTokenDiscord", null);
     localStorage.setItem("pid", null);
-    localStorage.setItem("UserNameDiscord", "")
+    localStorage.setItem("UserNameDiscord", "");
+    localStorage.setItem("id", null);
     setUserData({ attributes: { User_Name: "Account" } });
     router.refresh();
   };
@@ -42,6 +43,9 @@ export default function Navbar({ searchArr }) {
       getUserDataStrapi(localStorage.getItem("pid")).then((res) => {
         if (res.data[0].attributes) {
           setUserData(res.data[0]);
+          if(localStorage.getItem("id") == "null"){
+            localStorage.setItem("id", res.data[0].id);
+          }
           localStorage.setItem("UserNameDiscord", res.data[0].attributes.User_Name);
         }
       });
@@ -310,7 +314,7 @@ export default function Navbar({ searchArr }) {
             >
               <li>
                 <a
-                  href={"https://xpixels.gumroad.com/l/ppski"}
+                  href={`https://xpixels.gumroad.com/l/ppski?id=${localStorage.getItem("id")}`}
                   className={`font-bold block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white w-100 text-left`}
                 >
                   Premium

@@ -31,7 +31,7 @@ export default function Explore({ categories, newDataArr, accessToken, pid, firs
       router.replace("/");
     }
     }
-
+    console.log("pid: " + localStorage.pid);
   return (
     <div className="max-sm:px-0" style={{ backgroundColor: "#000000" }}>
       <div className="container" style={{ backgroundColor: "#000000" }}>

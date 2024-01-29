@@ -6,29 +6,14 @@ import querystring from "querystring";
 export async function POST(request) {
   try {
     // Parse the JSON data from the request body
-    const rawData = await request.text();
-    const requestData = querystring.parse(rawData);
+    const rawData = await request;
+    const requestData2 = querystring.stringify(await rawData.text());
+    const requestData = querystring.parse(await rawData.text());
     // Log the parsed data
-    console.log('rawer data:' + request);
+    console.log('requestData2:' + requestData2);
     console.log('raw-data:' + rawData);
     console.log("data:", requestData);
     console.log("url-params:", requestData.url_params);
-
-    let body = '';
-
-    // Accumulate chunks of the request body
-    request.on('data', chunk => {
-      body += chunk.toString();
-    });
-
-    // Process the request when the entire body has been received
-    request.on('end', () => {
-      // Parse the x-www-form-urlencoded data
-      const formData = querystring.parse(body);
-
-      // Do something with the parsed data
-      console.log('Parsed form data:', formData);
-    });
 
 
     //check seller id from POST with our seller id to verify

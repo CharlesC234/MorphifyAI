@@ -6,13 +6,14 @@ import querystring from "querystring";
 export async function POST(request) {
   try {
     // Parse the JSON data from the request body
-    const rawData = await request;
-    const requestData2 = querystring.stringify(await rawData.text());
-    const requestData = querystring.parse(await rawData.text());
+    const rawData = await request.text();
+    const requestData = querystring.parse(rawData);
+    const requestData2 = querystring.stringify(rawData);
     // Log the parsed data
-    console.log('requestData2:' + requestData2);
+    console.log('rawer data:' + request);
     console.log('raw-data:' + rawData);
     console.log("data:", requestData);
+    console.log("data2:", requestData2);
     console.log("url-params:", requestData.url_params);
 
 

@@ -8,32 +8,27 @@ export async function POST(request) {
     // Parse the JSON data from the request body
     const rawData = await request.text();
     const requestData = querystring.parse(rawData);
-    const requestData2 = querystring.stringify(rawData);
-    // Log the parsed data
-    console.log('rawer data:' + request);
-    console.log('raw-data:' + rawData);
+
     console.log("data:", requestData);
-    console.log("data2:", requestData2);
     console.log("url-params:", requestData.url_params);
 
 
     //check seller id from POST with our seller id to verify
     if(requestData.seller_id == process.env.GUMROAD_SELLER_ID){
+
       //if valid, send PUT request to strapi to set user as premium
-      //should put user pid as url param and verify as well as use user id in strapi?
 
-
-      // fetch(process.env.API + `/api/discord-users${requestData.}`, {
-      //   method: "PUT",
-      //   headers: {
-      //     "Content-Type": "application/json",
-      //   },
-      //   body: JSON.stringify({
-      //     data: {
-      //       Premium: false,
-      //     },
-      //   }),
-      // });
+      fetch(process.env.API + `/api/discord-users/${requestData.url_params.id}`, {
+        method: "PUT",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          data: {
+            Premium: true,
+          },
+        }),
+      });
     }
 
     // Respond with a JSON message and status 200

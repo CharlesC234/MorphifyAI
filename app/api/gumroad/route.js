@@ -10,7 +10,7 @@ export async function POST(request) {
     const requestData = querystring.parse(rawData);
 
     console.log("data:", requestData);
-    console.log("url_params[id]:", requestData.url_params[id]);
+    console.log("url_params[id]:", requestData['url_params[id]']);
 
 
     //check seller id from POST with our seller id to verify
@@ -18,7 +18,7 @@ export async function POST(request) {
 
       //if valid, send PUT request to strapi to set user as premium
 
-      fetch(process.env.API + `/api/discord-users/${requestData.url_params[id]}`, {
+      fetch(process.env.API + `/api/discord-users/${requestData['url_params[id]']}`, {
         method: "PUT",
         headers: {
           "Content-Type": "application/json",

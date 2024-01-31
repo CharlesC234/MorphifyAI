@@ -179,17 +179,23 @@ export default function WelcomeDiscord({ emails }) {
               >
                 <h2 className="font-medium text-md ms-1 mt-2">Thanks for purchasing a premium subscription!</h2>
                 <ul className="list-disc ml-4 mt-3">
-                <li className="font-medium text-sm ms-1 mt-1">
-                  It will take a few minutes to update your account, so dont worry if premium features don't work for the first 5 minutes
+                  <li className="font-medium text-sm ms-1">
+                    Enjoy unlimited generations of premade models and custom models
                   </li>
-                  <li className="font-medium text-sm ms-1 mt-2">
-                    If more than 5 minutes has gone by and you don't see a premium badge by your name, please redeem your subscription using your license key sent to your email
+                  <li className="font-medium text-sm ms-1 mt-1">
+                    Stay in the loop about new premium exclusive models weekly!
+                  </li>
+                  <li className="font-medium text-sm ms-1 mt-1">
+                    Join our premium exclusive discord server today!
+                  </li>
+                  <li className="font-medium text-sm ms-1 mt-1">
+                    Start enjoying your subscription by generating a model with the button below
                   </li>
                 </ul>
               </div>
               <div className="flex-shrink-0 flex-wrap items-center justify-start rounded-b-md px-4 pb-4 pt-0 mt-0">
               <button className="ml-1 pe-4 mb-2 flex text-xl font-semibold inline-block rounded bg-pink-500 ps-3 pe-0 pb-2 pt-2.5 leading-normal text-slate-800" 
-               onClick={() => router.push("/generate")}>Try Generating a Custom Model</button>
+               onClick={() => router.push("/generate")}>Generate a Custom Model</button>
               </div>
             </div>
           </div>

@@ -35,6 +35,18 @@ export default function Navbar({ searchArr }) {
     router.refresh();
   };
 
+
+  const createQueryString = useCallback(
+    (name, value) => {
+      const params = new URLSearchParams(searchParams);
+      params.set(name, value);
+
+      return params.toString();
+    },
+    [searchParams]
+  );
+
+
   useEffect(() => {
     if (
       localStorage.getItem("AccessTokenDiscord") &&
@@ -51,16 +63,6 @@ export default function Navbar({ searchArr }) {
       });
     }
   }, []);
-
-  const createQueryString = useCallback(
-    (name, value) => {
-      const params = new URLSearchParams(searchParams);
-      params.set(name, value);
-
-      return params.toString();
-    },
-    [searchParams]
-  );
 
   const [inputStr, setInputStr] = useState("");
 
@@ -117,6 +119,12 @@ export default function Navbar({ searchArr }) {
   }
 
   var sortedArray = sortByLevenshteinDistance(searchArr, inputStr);
+  
+
+  if(!localStorage.getItem("premWelcome") && userData.attributes.Premium){
+    router.push(pathname + "?" + createQueryString("wp", true));
+    localStorage.setItem("premWelcome", true);
+  }
 
   return (
     <nav className="navbar navbar-dark bg-dark navbar-expand-lg px-0 py-3 pb-3">

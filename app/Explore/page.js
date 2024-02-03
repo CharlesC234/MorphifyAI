@@ -6,12 +6,14 @@ import { useState, useEffect } from "react";
 import ImageLayout from "../../components/ImageLayout";
 import { usePathname, useSearchParams } from "next/navigation";
 import { useRouter } from "next/navigation";
+import { getUserDataStrapi } from "../../serverComponents/patreon";
 
-export default function Explore({ categories, newDataArr, accessToken, pid, firstSignIn }) {
+export default function Explore({ categories, newDataArr, accessToken, pid, firstSignIn}) {
   const router = useRouter();
   const pathname = usePathname();
   const searchParams = useSearchParams();
   const [clicked, setClicked] = useState(0);
+  const [premium, setPremium] = useState(true);
   const createQueryString = useCallback(
     (name, value) => {
       const params = new URLSearchParams(searchParams);
@@ -31,22 +33,37 @@ export default function Explore({ categories, newDataArr, accessToken, pid, firs
       router.replace("/");
     }
     }
-    console.log("pid: " + localStorage.pid);
+
+    useEffect(() => {
+      if(localStorage.getItem("pid") && localStorage.getItem("pid") != "null"){
+        getUserDataStrapi(localStorage.getItem("pid")).then((res) => {
+          if (res.data[0].attributes) {
+            setPremium(res.data[0].attributes.Premium);
+          }
+        });
+      }else{
+        setPremium(false);
+      }
+    })
+
   return (
     <div className="max-sm:px-0" style={{ backgroundColor: "#000000" }}>
       <div className="container" style={{ backgroundColor: "#000000" }}>
-        <iframe
-          className="mt-4 mx-auto max-sm:hidden rounded"
-          src="//a.magsrv.com/iframe.php?idzone=5100010&size=900x250"
-          width="900"
-          height="250"
-        ></iframe>
-        <iframe
-          className="mt-4 mx-auto md:hidden rounded"
-          src="//a.magsrv.com/iframe.php?idzone=5100030&size=300x100"
-          width="300"
-          height="100"
-        ></iframe>
+
+        {premium ? <></> : 
+        <>
+                <iframe
+                className="mt-4 mx-auto max-sm:hidden rounded"
+                src="//a.magsrv.com/iframe.php?idzone=5100010&size=900x250"
+                width="900"
+                height="250"
+              ></iframe>
+              <iframe
+                className="mt-4 mx-auto md:hidden rounded"
+                src="//a.magsrv.com/iframe.php?idzone=5100030&size=300x100"
+                width="300"
+                height="100"
+              ></iframe></>}
 
         <h4
           className="fw-bold ms-1"
@@ -97,7 +114,7 @@ export default function Explore({ categories, newDataArr, accessToken, pid, firs
         </ul>
       </div>
       <div className="container mt-4" style={{ backgroundColor: "#000000" }}>
-        <ImageLayout dataArr={newDataArr} />
+        <ImageLayout dataArr={newDataArr} premium={premium}/>
       </div>
     </div>
   );

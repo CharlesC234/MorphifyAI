@@ -2,10 +2,26 @@
 import "bootstrap/dist/css/bootstrap.css";
 import "../globals.css";
 import Image from "next/image";
+import { getUserDataStrapi } from "../../serverComponents/patreon";
+import { useState, useEffect } from "react";
 
 export default function Models({ models }) {
+  const [premium, setPremium] = useState(true);
+  useEffect(() => {
+    if(localStorage.getItem("pid") && localStorage.getItem("pid") != "null"){
+      getUserDataStrapi(localStorage.getItem("pid")).then((res) => {
+        if (res.data[0].attributes) {
+          setPremium(res.data[0].attributes.Premium);
+        }
+      });
+    }else{
+      setPremium(false);
+    }
+  })
   return (
     <div style={{ backgroundColor: "#000000" }}>
+      {premium ? <></> : 
+      <>
       <iframe
         className="mt-4 mx-auto md:hidden rounded"
         src="//a.magsrv.com/iframe.php?idzone=5100030&size=300x100"
@@ -18,6 +34,8 @@ export default function Models({ models }) {
         width="900"
         height="250"
       ></iframe>
+      </>
+      }
       <div className="container grid md:grid-cols-4 md:gap-3 p-10 justify-center md:p-0 grid-cols-1 mx-auto py-2 lg:pt-12 row mt-5 md:justify-content-between ">
         {models.map((item, index) => {
           return (

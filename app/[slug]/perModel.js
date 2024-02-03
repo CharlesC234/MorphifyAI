@@ -6,11 +6,13 @@ import ImageLayout from "../../components/ImageLayout";
 import { useSearchParams } from "next/navigation";
 import { useRouter } from "next/navigation";
 import { useCallback, useEffect, useState } from "react";
+import { getUserDataStrapi } from "../../serverComponents/patreon";
 
 export default function PerModel({ newDataArr, modelIndex, data, fields}) {
   const pathname = usePathname();
   const router = useRouter();
   const searchParams = useSearchParams();
+  const [premium, setPremium] = useState(true);
   const createQueryString = useCallback(
     (name, value) => {
       const params = new URLSearchParams(searchParams);
@@ -21,8 +23,22 @@ export default function PerModel({ newDataArr, modelIndex, data, fields}) {
     [searchParams]
   );
 
+  useEffect(() => {
+    if(localStorage.getItem("pid") && localStorage.getItem("pid") != "null"){
+      getUserDataStrapi(localStorage.getItem("pid")).then((res) => {
+        if (res.data[0].attributes) {
+          setPremium(res.data[0].attributes.Premium);
+        }
+      });
+    }else{
+      setPremium(false);
+    }
+  })
+
   return (
     <div className="mt-0" style={{ backgroundColor: "#000000" }}>
+      {premium ? <></> : 
+      <>
       <iframe
         className="mt-4 mx-auto max-sm:hidden rounded"
         src="//a.magsrv.com/iframe.php?idzone=5100010&size=900x250"
@@ -34,7 +50,8 @@ export default function PerModel({ newDataArr, modelIndex, data, fields}) {
         src="//a.magsrv.com/iframe.php?idzone=5100030&size=300x100"
         width="300"
         height="100"
-      ></iframe>
+      ></iframe></>
+      }
       <img
         style={{
           objectFit: "cover",
@@ -104,7 +121,7 @@ export default function PerModel({ newDataArr, modelIndex, data, fields}) {
           className="container max-sm:px-0"
           style={{ backgroundColor: "#000000", marginTop: "2.5rem" }}
         >
-          <ImageLayout dataArr={newDataArr} />
+          <ImageLayout dataArr={newDataArr} premium={premium} />
         </div>
         <div className="w-full flex content-center">
         <button className="bg-pink-500 rounded-lg w-fit px-3 py-3 text-xl text-black font-bold mx-auto mt-4"

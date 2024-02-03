@@ -1,6 +1,6 @@
 import "bootstrap/dist/css/bootstrap.css";
 import "./globals.css";
-import React from "react";
+import React, { use } from "react";
 import Explore from "./Explore/page";
 import { revalidateTag } from "next/cache";
 import { headers } from "next/headers";
@@ -211,12 +211,12 @@ export default async function Home({ searchParams }) {
   }
 
   newDataArr.sort(randomSort);
-
   for (let i = 0; i < newDataArr.length; i++) {
     if (i % 7 == 0) {
       newDataArr.splice(i, 0, "Ad");
     }
   }
+  
 
   return (
     <Explore

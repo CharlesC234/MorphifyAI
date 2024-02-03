@@ -10,6 +10,7 @@ import {
 } from "react-icons/fi";
 import { IoIosClose } from "react-icons/io";
 import Image from "next/image";
+import { getUserDataStrapi } from "../serverComponents/patreon";
 
 function useWindowSize() {
   // Initialize state with undefined width/height so server and client renders match
@@ -42,8 +43,10 @@ function useWindowSize() {
   return windowSize;
 }
 
+
 export default function ImageLayout(data) {
   var dataArr = data.dataArr;
+  var premium = data.premium;
   const [photoView, setPhotoView] = useState(false);
   const [index, setIndex] = useState(1);
   const [numImages, setNumImages] = useState(13);
@@ -139,9 +142,9 @@ export default function ImageLayout(data) {
     <div className="max-sm:grid max-sm:grid-cols-2 md:columns-4 gap-2">
       {dataArr.slice(0, numImages).map((item, index) => {
         if (item == "Ad") {
+          if(!premium){
           return (
             <div
-              key={index}
               className={`md:my-2 col-span-2 rounded-lg cursor-pointer ${
                 index == 0 ? "hidden" : ""
               }`}
@@ -159,6 +162,10 @@ export default function ImageLayout(data) {
               ></iframe>
             </div>
           );
+            }else{
+              return <></>
+            }
+  
         } else {
           return (
             <a

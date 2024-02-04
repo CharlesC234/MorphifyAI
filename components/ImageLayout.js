@@ -163,7 +163,7 @@ export default function ImageLayout(data) {
             </div>
           );
             }else{
-              return <></>
+              return <div key={index}></div>
             }
   
         } else {

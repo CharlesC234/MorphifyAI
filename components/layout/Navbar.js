@@ -10,7 +10,7 @@ import { getUserData, getUserDataStrapi } from "../../serverComponents/patreon";
 
 export default function Navbar({ searchArr }) {
   const [userData, setUserData] = useState({
-    attributes: { User_Name: "Account" },
+    attributes: { User_Name: "Sign In/up" },
   });
   const [showSearch, setShowSearch] = useState(false);
   const [border, setBorder] = useState(1.5);
@@ -31,7 +31,7 @@ export default function Navbar({ searchArr }) {
     localStorage.setItem("pid", null);
     localStorage.setItem("UserNameDiscord", "");
     localStorage.setItem("id", null);
-    setUserData({ attributes: { User_Name: "Account" } });
+    setUserData({ attributes: { User_Name: "Sign In/up" } });
     router.refresh();
   };
 
@@ -50,7 +50,7 @@ export default function Navbar({ searchArr }) {
   useEffect(() => {
     if (
       localStorage.getItem("AccessTokenDiscord") &&
-      userData.attributes.User_Name == "Account"
+      userData.attributes.User_Name == "Sign In/up"
     ) {
       getUserDataStrapi(localStorage.getItem("pid")).then((res) => {
         if (res.data[0].attributes) {
@@ -127,7 +127,7 @@ export default function Navbar({ searchArr }) {
   }
 
   return (
-    <nav className="navbar navbar-dark bg-dark navbar-expand-lg px-0 py-3 pb-3">
+    <nav className="navbar navbar-dark navbar-expand-lg px-0 py-3 pb-3" style={{backgroundColor: 'rgba(31, 41, 55, .75)'}}>
       <div className="container">
         <a
           className="navbar-brand fw-bold me-10"
@@ -205,7 +205,7 @@ export default function Navbar({ searchArr }) {
             style={{ marginBottom: ".25rem" }}
           >
             <input
-              className="form-control ps-4 py-2 me-2 font-semibold text-md py-2 focus:bg-zinc-800 focus:border-zinc-600 bg-zinc-800 border-zinc-600 text-white"
+              className="form-control mt-1 ps-4 py-2 me-2 font-semibold text-md py-2 focus:bg-slate-700 focus:border-zinc-600 border-gray-600 text-white"
               type="search"
               placeholder="Search models by name"
               onFocus={() => {
@@ -218,6 +218,7 @@ export default function Navbar({ searchArr }) {
               }}
               aria-label="Search"
               style={{
+                backgroundColor: 'rgba(31, 41, 55, 0)',
                 borderWidth: 2,
                 fontSize: 16,
                 height: 40,
@@ -294,7 +295,7 @@ export default function Navbar({ searchArr }) {
           </div>
           <button
             onClick={() => {
-              if(userData.attributes.User_Name == "Account"){
+              if(userData.attributes.User_Name == "Sign In/up"){
                 handleSignIn();
               }else{
               setdropdown(!dropdown)
@@ -305,7 +306,7 @@ export default function Navbar({ searchArr }) {
             <IoPersonCircle size={42} color={"rgb(236 72 153)"} />
             <div className="my-auto">
               <h5 className="text-xl font-semibold ml-2 opacity-75">
-                {[userData.attributes.User_Name == "Account" && localStorage.getItem("UserNameDiscord") ? localStorage.getItem("UserNameDiscord") : userData.attributes.User_Name]}
+                {[userData.attributes.User_Name == "Sign In/up" && localStorage.getItem("UserNameDiscord") ? localStorage.getItem("UserNameDiscord") : "Sign In/up"]}
               </h5>
             </div>
           </button>
@@ -333,7 +334,7 @@ export default function Navbar({ searchArr }) {
                   href={"/models"}
                   className={`w-100 text-left font-bold block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white 
                   ${
-                    userData.attributes.User_Name != "Account" ? "" : "hidden"
+                    userData.attributes.User_Name != "Sign In/up" ? "" : "hidden"
                   }`}
                 >
                   My Models
@@ -346,7 +347,7 @@ export default function Navbar({ searchArr }) {
                   }}
                   className={`w-100 text-left font-bold block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white 
                   ${
-                    userData.attributes.User_Name != "Account" ? "" : "hidden"
+                    userData.attributes.User_Name != "Sign In/up" ? "" : "hidden"
                   }`}
                 >
                   Sign out

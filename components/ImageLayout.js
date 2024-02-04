@@ -145,6 +145,7 @@ export default function ImageLayout(data) {
           if(!premium){
           return (
             <div
+              key={index}
               className={`md:my-2 col-span-2 rounded-lg cursor-pointer ${
                 index == 0 ? "hidden" : ""
               }`}

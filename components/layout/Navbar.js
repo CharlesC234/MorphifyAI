@@ -306,7 +306,7 @@ export default function Navbar({ searchArr }) {
             <IoPersonCircle size={42} color={"rgb(236 72 153)"} />
             <div className="my-auto">
               <h5 className="text-xl font-semibold ml-2 opacity-75">
-                {[userData.attributes.User_Name == "Sign In/up" && localStorage.getItem("UserNameDiscord") ? localStorage.getItem("UserNameDiscord") : "Sign In/up"]}
+                {[userData.attributes.User_Name == "Sign In/up" && localStorage.getItem("UserNameDiscord") ? localStorage.getItem("UserNameDiscord") : userData.attributes.User_Name]}
               </h5>
             </div>
           </button>

@@ -178,9 +178,9 @@ export default function ImageLayout(data) {
               <Image
                 style={{ backgroundColor: "rgba(255,255,255,.15)" }}
                 className="h-auto md:mb-0 max-w-full rounded-lg"
-                width={308}
+                width={1000}
                 quality={100}
-                height={462}
+                height={1000*1.5}
                 placeholder="blur"
                 blurDataURL={item.blurhash}
                 src={process.env.API + item.image}
@@ -265,8 +265,8 @@ export default function ImageLayout(data) {
                   <a onClick={() => setFocused(!focused)}>
                     <Image
                       className="my-auto"
-                      width={500}
-                      height={500}
+                      width={1000}
+                      height={1000*1.5}
                       style={{ borderRadius: 15 }}
                       placeholder="blur"
                       quality={100}

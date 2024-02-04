@@ -85,6 +85,7 @@ const getRandomOptionForAttribute = (attribute, index) => {
 export default function Generate({ fields }) {
 
   const router = useRouter();
+  const [page, setPage] = useState("Create");
   const pathname = usePathname();
   const searchParams = useSearchParams();
   const createQueryString = useCallback(
@@ -183,17 +184,70 @@ export default function Generate({ fields }) {
     }
   }
 
+
+
   return (
     <div className="container">
+    <div className="flex md:mt-10 max-sm:flex-col max-sm:px-1 max-sm:mt-8 md:flex-row">
+    <div className="w-fit mt-2 me-28">
+      <div className="flex-column">
+        <h2 className="text-4xl font-bold mb-4" style={{opacity: .8}}>Generate</h2>
+        <button
+          data-toggle="button"
+          style={{
+            paddingLeft: 17.5,
+            fontWeight: "700",
+            paddingRight: 17.5,
+            paddingBottom: 7.5,
+            paddingTop: 7.5,
+            borderRadius: 10,
+          }}
+          onClick={() => {
+            setPage("Create");
+          }}
+          className={`whitespace-nowrap flex md:hover:bg-pink-500
+            ${page == "Create" ? "fw-bold bg-pink-500 outline outline-2 outline-pink-500 text-black"
+            : "bg-black outline outline-2 outline-offset-0 outline-pink-500 text-pink-500"}`}
+        >
+          Create Model From Scratch
+        </button>
+        <button
+          data-toggle="button"
+          style={{
+            paddingLeft: 17.5,
+            fontWeight: "700",
+            marginTop: 13,
+            paddingRight: 17.5,
+            paddingBottom: 7.5,
+            paddingTop: 7.5,
+            borderRadius: 10,
+          }}
+          onClick={() => {
+            setPage("Upload");
+          }}
+          className={`whitespace-nowrap flex md:hover:bg-pink-500
+          ${page == "Upload" ? "fw-bold bg-pink-500 outline outline-2 outline-pink-500 text-black"
+          : "bg-black outline outline-2 outline-offset-0 outline-pink-500 text-pink-500"}`}
+        >
+          Create From Referance Images
+        </button>
+      </div>
+    </div>
+    <div className="w-fit max-sm:mt-7 mt-5">
+
+
+    <div className={`${page == "Create" ? "" : "hidden"}`}>
+            <div className="mx-auto max-w-5xl">
       <div>
-        <div style={{height: 40}}/>
+      <div className="container">  
+      <div>
         {fields.slice(0,-2).map((item, outerIndex) => {
           return (
             <div
-              style={{ width: "80%", minWidth: 350, maxWidth: 1000 }}
+              style={{ width: "100%", minWidth: 350, maxWidth: 1000 }}
               key={item.attributes.FieldName}
             >
-              <h2 className="mt-4 text-2xl font-bold" style={{ opacity: 0.8 }}>
+              <h2 className="mt-4 font-bold" style={{ opacity: .8, fontSize: 27.5 }}>
                 {item.attributes.FieldName}
               </h2>
               <div className="flex flex-wrap mt-4">
@@ -215,12 +269,14 @@ export default function Generate({ fields }) {
                       style={{
                         paddingLeft: 17.5,
                         fontWeight: "600",
+                        marginRight: 15,
+                        marginBottom: 15,
                         paddingRight: 17.5,
                         paddingBottom: 7.5,
                         paddingTop: 7.5,
                         borderRadius: 8.5,
                       }}
-                      className={`me-3 mb-3 whitespace-nowrap flex md:hover:bg-pink-500
+                      className={`whitespace-nowrap flex md:hover:bg-pink-500
               ${
                 selected[outerIndex].Option == itemInner.OptionTitle
                   ? "fw-bold bg-pink-500 outline outline-2 outline-pink-500 text-black"
@@ -356,6 +412,63 @@ export default function Generate({ fields }) {
           </div>}</>
         }
       </div>
+    </div>
+      </div>
+      </div>
+      </div>
+      <div className={`${page == "Upload" ? "" : "hidden"}`}>
+      {fields.slice(-2).map((item, outerIndex) => {
+          return (
+            <div
+            className="mt-4"
+              style={{ width: "80%", minWidth: 350, maxWidth: 1000 }}
+              key={item.attributes.FieldName}
+            >
+              <h2 className="mt-4 text-2xl font-bold" style={{ opacity: 0.8 }}>
+                {item.attributes.FieldName}
+              </h2>
+              <div className="flex flex-wrap mt-4">
+                {item.attributes.Option.map((itemInner, index) => {
+                  return (
+                    <button
+                      key={index}
+                      onClick={() => {
+                        var temp = selectedPost;
+                        for (let i = 0; i <= selectedPost.length; i++) {
+                          if (i == outerIndex) {
+                            temp[i].Option = itemInner.OptionTitle;
+                          }
+                          setSelectedPost(temp);
+                          setRefresh(!refresh);
+                        }
+                      }}
+                      data-toggle="button"
+                      style={{
+                        paddingLeft: 17.5,
+                        fontWeight: "600",
+                        paddingRight: 17.5,
+                        paddingBottom: 7.5,
+                        paddingTop: 7.5,
+                        borderRadius: 8.5,
+                      }}
+                      className={`me-3 mb-3 whitespace-nowrap flex md:hover:bg-pink-500
+              ${
+                selectedPost[outerIndex].Option == itemInner.OptionTitle
+                  ? "fw-bold bg-pink-500 outline outline-2 outline-pink-500 text-black"
+                  : "bg-black outline outline-2 outline-offset-0 outline-pink-500 text-pink-500"
+              }`}
+                    >
+                      {itemInner.OptionTitle}
+                    </button>
+                  );
+                })}
+              </div>
+            </div>
+          );
+        })}
+      </div>
+    </div>
+    </div>
     </div>
   );
 }

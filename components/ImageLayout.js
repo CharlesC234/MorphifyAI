@@ -47,11 +47,14 @@ function useWindowSize() {
 export default function ImageLayout(data) {
   var dataArr = data.dataArr;
   var premium = data.premium;
+  if(premium){
+    dataArr = dataArr.filter(i => i !== "Ad");
+  }
   const [photoView, setPhotoView] = useState(false);
   const [index, setIndex] = useState(1);
   const [numImages, setNumImages] = useState(13);
 
-  const girls = data.dataArr;
+  const girls = dataArr;
   const length = girls.length;
 
   const [focused, setFocused] = useState(false);
@@ -139,20 +142,19 @@ export default function ImageLayout(data) {
   }
 
   return (
-    <div className="max-sm:grid max-sm:grid-cols-2 md:columns-4 gap-2">
+    <div className="grid max-sm:grid max-sm:grid-cols-2 md:grid-cols-4 gap-2">
       {dataArr.slice(0, numImages).map((item, index) => {
         if (item == "Ad") {
-          if(!premium){
           return (
             <div
               key={index}
-              className={`md:my-2 col-span-2 rounded-lg cursor-pointer ${
+              className={`max-sm:col-span-2 md:my-2 md:col-span-1 rounded-lg cursor-pointer jusify-center my-auto${
                 index == 0 ? "hidden" : ""
               }`}
-              style={{ height: 250, width: "100%", backgroundColor: "#ffffff" }}
+              style={{width: "100%", backgroundColor: "#000000" }}
             >
               <iframe
-                className="max-w-full mx-auto"
+                className="max-w-full mx-auto my-auto"
                 src="//a.magsrv.com/iframe.php?idzone=5100036&size=300x250"
                 width={300}
                 height={250}
@@ -163,9 +165,6 @@ export default function ImageLayout(data) {
               ></iframe>
             </div>
           );
-            }else{
-              return <div key={index}></div>
-            }
   
         } else {
           return (
@@ -178,10 +177,10 @@ export default function ImageLayout(data) {
             >
               <Image
                 style={{ backgroundColor: "rgba(255,255,255,.15)" }}
-                className="h-auto md:mb-2 max-w-full rounded-lg"
-                width={500}
+                className="h-auto md:mb-0 max-w-full rounded-lg"
+                width={308}
                 quality={100}
-                height={500}
+                height={462}
                 placeholder="blur"
                 blurDataURL={item.blurhash}
                 src={process.env.API + item.image}

@@ -212,7 +212,7 @@ export default async function Home({ searchParams }) {
 
   newDataArr.sort(randomSort);
   for (let i = 0; i < newDataArr.length; i++) {
-    if (i % 7 == 0) {
+    if (i % 6 == 0 && i != 0) {
       newDataArr.splice(i, 0, "Ad");
     }
   }

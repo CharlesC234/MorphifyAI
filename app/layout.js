@@ -26,6 +26,8 @@ export default async function RootLayout({ children }) {
           src="https://static.cloudflareinsights.com/beacon.min.js"
           data-cf-beacon='{"Token": "06437586e39741fb9a3aac42441f03d7"}'
         ></Script>
+        <Script src="https://cdn.jsdelivr.net/npm/masonry-layout@4.2.2/dist/masonry.pkgd.min.js" integrity="sha384-GNFwBvfVxBkLMJpYMOABq3c+d3KnQxudP/mGPkzpZSTYykLBNsZEnG2D9G/X/+7D" crossorigin="anonymous" async>
+        </Script>
         <meta
           name="6a97888e-site-verification"
           content="02bb476294a0bb08b105b26439708083"

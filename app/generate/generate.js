@@ -428,6 +428,9 @@ export default function Generate({ fields }) {
       </div>
       </div>
       <div className={`${page == "Upload" ? "" : "hidden"}`}>
+      <h2 className="mt-4 text-2xl font-bold mb-2" style={{ opacity: 0.8 }}>
+                Add As Many Images As Possible For Best Result
+              </h2>
 {uploadedImages.length == 0 ? 
     <div class="flex items-center justify-center w-full mt-3">
  <label style={{backgroundColor: 'rgba(31, 41, 55, .75)'}} for="dropzone-file" class="flex flex-col items-center justify-center w-full h-64 border-2 border-gray-300 border-dashed rounded-lg cursor-pointer bg-gray-50 dark:hover:bg-bray-800 dark:bg-gray-700 hover:bg-gray-100 dark:border-gray-600 dark:hover:border-gray-500 dark:hover:bg-gray-600">
@@ -441,7 +444,7 @@ export default function Generate({ fields }) {
         <input onChange={handleChange} id="dropzone-file" type="file" multiple class="hidden" />
     </label>
 </div> :
-<div className="grid grid-cols-3 gap-3">
+<div className="grid md:grid-cols-3 max-sm:grid-cols-1 gap-3">
 {[...uploadedImages, "/"].map((item, index) => {
   if(item == "/"){
     return(
@@ -458,7 +461,9 @@ export default function Generate({ fields }) {
     </label>
 </div> );
   }else{
-   return( <img key={index} style={{width: 300, height: 300, borderRadius: '50%'}} className="mt-3" src={URL.createObjectURL(item)}></img>)
+   return( <div key={index} class="flex items-center justify-center w-full mt-3 aspect-square" style={{borderRadius: '50%'}}>
+    <img style={{borderRadius: '50%'}} className="aspect-square" src={URL.createObjectURL(item)}></img>
+    </div>)
   }
 })}
 </div>

@@ -442,10 +442,10 @@ export default function Generate({ fields }) {
     </label>
 </div> :
 <div className="grid grid-cols-3 gap-3">
-{[...uploadedImages, "/"].map((item) => {
+{[...uploadedImages, "/"].map((item, index) => {
   if(item == "/"){
     return(
-    <div class="flex items-center justify-center w-full mt-3 aspect-square" style={{borderRadius: '50%'}}>
+    <div key={index} class="flex items-center justify-center w-full mt-3 aspect-square" style={{borderRadius: '50%'}}>
     <label style={{backgroundColor: 'rgba(31, 41, 55, .75)', borderRadius: '50%'}} for="dropzone-file" class="flex flex-col items-center justify-center w-full border-2 border-gray-400 border-dashed rounded-lg cursor-pointer bg-gray-50 dark:hover:bg-bray-800 dark:bg-gray-900 hover:bg-gray-100 dark:hover:border-gray-500 dark:hover:bg-gray-600 aspect-square">
         <div class="flex flex-col items-center justify-center pt-5 pb-6">
             <svg class="w-8 h-8 mb-4 text-gray-500 dark:text-gray-400" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 20 16">
@@ -458,7 +458,7 @@ export default function Generate({ fields }) {
     </label>
 </div> );
   }else{
-   return( <img style={{width: 300, height: 300, borderRadius: '50%'}} className="mt-3" src={URL.createObjectURL(item)}></img>)
+   return( <img key={index} style={{width: 300, height: 300, borderRadius: '50%'}} className="mt-3" src={URL.createObjectURL(item)}></img>)
   }
 })}
 </div>

@@ -127,7 +127,7 @@ export default function Navbar({ searchArr }) {
   }
 
   return (
-    <nav className="navbar navbar-dark navbar-expand-lg px-0 py-3 pb-3" style={{backgroundColor: 'rgba(31, 41, 55, .75)'}}>
+    <nav className="navbar navbar-dark navbar-expand-lg px-0 py-3 pb-3" style={{backgroundColor: 'rgba(255, 255, 255, .1)'}}>
       <div className="container">
         <a
           className="navbar-brand fw-bold me-10"
@@ -179,7 +179,7 @@ export default function Navbar({ searchArr }) {
             <li className="nav-item px-1">
               <a
                 href={"/generate"}
-                className={`nav-link max-sm:py-1 text-xl hover:text-pink-500 font-semibold ${
+                className={`nav-link max-sm:py-0.5 text-xl hover:text-pink-500 font-semibold ${
                   pathname == "/generate"
                     ? "text-pink-500"
                     : "text-white opacity-75"
@@ -205,7 +205,7 @@ export default function Navbar({ searchArr }) {
             style={{ marginBottom: ".25rem" }}
           >
             <input
-              className="form-control mt-1 ps-4 py-2 me-2 font-semibold text-md py-2 focus:bg-slate-700 focus:border-zinc-600 border-gray-600 text-white"
+              className="form-control mt-1 ps-4 py-2 me-2 font-semibold text-md py-2 focus:bg-slate-700 focus:border-zinc-600 border-zinc-600 text-white"
               type="search"
               placeholder="Search models by name"
               onFocus={() => {
@@ -301,7 +301,7 @@ export default function Navbar({ searchArr }) {
               setdropdown(!dropdown)
               }
             }}
-            className="nav-link flex max-sm:py-1 text-lg hover:text-pink-500 text-white font-semibold opacity-85 mb-1.5 ml-4 max-sm:ml-0 max-sm:mb-0 max-sm:mt-2"
+            className="nav-link flex max-sm:py-1 text-lg hover:text-pink-500 text-white font-semibold opacity-85 mb-1.5 ml-4 max-sm:ml-0 max-sm:mb-0 max-sm:mt-3"
           >
             <IoPersonCircle size={42} color={"rgb(236 72 153)"} />
             <div className="my-auto">

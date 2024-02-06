@@ -53,7 +53,7 @@ export default function Explore({ categories, newDataArr, accessToken, pid, firs
         {premium ? <></> : 
         <>
                 <iframe
-                className="mt-4 mx-auto max-sm:hidden rounded"
+                className="mt-5 mx-auto max-sm:hidden rounded"
                 src="//a.magsrv.com/iframe.php?idzone=5100010&size=900x250"
                 width="900"
                 height="250"

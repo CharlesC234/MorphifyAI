@@ -127,7 +127,7 @@ export default function Navbar({ searchArr }) {
   }
 
   return (
-    <nav className="navbar navbar-dark navbar-expand-lg px-0 py-3 pb-3 bg-zinc-900" >
+    <nav className="navbar navbar-dark navbar-expand-lg px-0 py-3 pb-3 bg-zinc-900" style={{backgroundColor: '#000000', borderBottomWidth: 2, borderColor: 'rgba(255,255,255,.2)'}} >
       <div className="container">
         <a
           className="navbar-brand fw-bold me-10"
@@ -152,8 +152,8 @@ export default function Navbar({ searchArr }) {
             <li className="nav-item px-1">
               <a
                 href={"/"}
-                className={`nav-link max-sm:py-0.5 hover:text-pink-500 text-xl font-semibold ${
-                  pathname == "/" ? "text-pink-500" : "text-white opacity-75"
+                className={`nav-link max-sm:py-1 hover:text-pink-500 text-xl font-semibold ${
+                  pathname == "/" ? "text-pink-500 underline underline-offset-4 decoration-2" : "text-white opacity-80"
                 }`}
                 aria-current="page"
               >
@@ -168,8 +168,8 @@ export default function Navbar({ searchArr }) {
                   (pathname != "/" &&
                     pathname != "/legal" &&
                     pathname != "/generate")
-                    ? "text-pink-500"
-                    : "text-white opacity-75"
+                    ? "text-pink-500 underline underline-offset-4 decoration-2"
+                    : "text-white opacity-80"
                 }`}
                 aria-current="page"
               >
@@ -181,8 +181,8 @@ export default function Navbar({ searchArr }) {
                 href={"/generate"}
                 className={`nav-link max-sm:py-0.5 text-xl hover:text-pink-500 font-semibold ${
                   pathname == "/generate"
-                    ? "text-pink-500"
-                    : "text-white opacity-75"
+                    ? "text-pink-500 underline underline-offset-4 decoration-2"
+                    : "text-white opacity-80"
                 }`}
                 aria-current="page"
               >

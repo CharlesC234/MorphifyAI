@@ -101,6 +101,7 @@ export default function Generate({ fields }) {
   const [generations, setGenerations] = useState(0);
   const [uploadedImages, setUploadedImages] = useState([]);
 
+  //handler function for image uploads
   const handleChange = event => {
     if (event.target.files && event.target.files[0]) {
       const temp = [];
@@ -113,6 +114,7 @@ export default function Generate({ fields }) {
   };
 
   useEffect(() => {
+    //get user data for premium status (cannot be done server side because cookie needed for pid to fetch user data)
     if (
       localStorage.getItem("AccessTokenDiscord") && localStorage.getItem("pid")
     ) {
@@ -135,6 +137,8 @@ export default function Generate({ fields }) {
     "/"
   );
   const [loading, setLoading] = useState(false);
+
+  // makeArr for fields from strapi
   var makeArr = [];
   for (let i = 0; i < fields.length; i++) {
     makeArr.push({
@@ -149,6 +153,8 @@ export default function Generate({ fields }) {
   const [selectedModel, setSelectedModel] = useState(1);
   const percentEach = [0,0,0];
 
+
+  //generate image function for 3 profile pic images for user to choose from
   async function generateImage() {
 
     try {
@@ -202,6 +208,12 @@ export default function Generate({ fields }) {
     <div className="flex md:mt-10 max-sm:flex-col max-sm:px-1 max-sm:mt-8 md:flex-row">
     <div className="w-fit mt-2 me-28">
       <div className="flex-column">
+
+        {/* side menu, select from create model from scratch or image upload*/} 
+        {/* 
+        //
+        //
+        */}
         <h2 className="text-4xl font-bold mb-4" style={{opacity: .8}}>Generate</h2>
         <button
           data-toggle="button"
@@ -246,6 +258,12 @@ export default function Generate({ fields }) {
     </div>
     <div className="w-fit max-sm:mt-7 mt-5">
 
+
+      {/* Create from scratch tab */} 
+        {/* 
+        //
+        //
+        */}
 
     <div className={`${page == "Create" ? "" : "hidden"}`}>
             <div className="mx-auto max-w-5xl">
@@ -303,6 +321,12 @@ export default function Generate({ fields }) {
           );
         })}
       </div>
+
+      {/* diffrent generation button based on signed in, premium, and number of free generations*/} 
+        {/* 
+        //
+        //
+        */}
 
       <div className="sticky">
         {userData.attributes.Premium ? 
@@ -370,6 +394,12 @@ export default function Generate({ fields }) {
           </button>
           </div>
           <div>
+
+            {/* options for after model selected */} 
+        {/* 
+        //
+        //
+        */}
         {fields.slice(-2).map((item, outerIndex) => {
           return (
             <div
@@ -427,6 +457,13 @@ export default function Generate({ fields }) {
       </div>
       </div>
       </div>
+
+      {/* generate from image tab*/} 
+        {/* 
+        //
+        //
+        */}
+
       <div className={`${page == "Upload" ? "" : "hidden"}`}>
       <h2 className="mt-4 text-2xl font-bold mb-2" style={{ opacity: 0.8 }}>
                 Add As Many Images As Possible For Best Result

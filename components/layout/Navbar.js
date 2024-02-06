@@ -127,7 +127,7 @@ export default function Navbar({ searchArr }) {
   }
 
   return (
-    <nav className="navbar navbar-dark navbar-expand-lg px-0 py-3 pb-3 bg-zinc-900" style={{backgroundColor: '#000000', borderBottomWidth: 2, borderColor: 'rgba(255,255,255,.2)'}} >
+    <nav className="navbar navbar-dark navbar-expand-lg px-0 py-3 pb-3 bg-zinc-900" style={{backgroundColor: '#000000', borderBottomWidth: 1.5, borderColor: 'rgba(255,255,255,.25)'}} >
       <div className="container">
         <a
           className="navbar-brand fw-bold me-10"
@@ -205,7 +205,7 @@ export default function Navbar({ searchArr }) {
             style={{ marginBottom: ".25rem" }}
           >
             <input
-              className="form-control mt-1 ps-4 py-2 me-2 font-semibold text-md py-2 focus:bg-slate-700 focus:border-zinc-600 border-zinc-600 text-white"
+              className="form-control mt-1 ps-4 py-2 me-2 font-semibold text-md py-2 focus:bg-slate-700 focus:border-zinc-600 text-white"
               type="search"
               placeholder="Search models by name"
               onFocus={() => {
@@ -219,6 +219,8 @@ export default function Navbar({ searchArr }) {
               aria-label="Search"
               style={{
                 backgroundColor: 'rgba(31, 41, 55, 0)',
+                borderColor: 'rgba(255,255,255, .25)',
+                marginTop: 2,
                 borderWidth: 2,
                 fontSize: 16,
                 height: 40,

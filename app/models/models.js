@@ -4,6 +4,7 @@ import "../globals.css";
 import Image from "next/image";
 import { getUserDataStrapi } from "../../serverComponents/patreon";
 import { useState, useEffect } from "react";
+import { IoAdd } from "react-icons/io5";
 
 export default function Models({ models }) {
   const [premium, setPremium] = useState(true);
@@ -18,6 +19,10 @@ export default function Models({ models }) {
       setPremium(false);
     }
   })
+
+  if(models[0] != "/"){
+    models.unshift("/");
+  }
   return (
     <div style={{ backgroundColor: "#000000" }}>
       {premium ? <></> : 
@@ -37,7 +42,38 @@ export default function Models({ models }) {
       </>
       }
       <div className="container grid md:grid-cols-4 md:gap-3 p-10 justify-center md:p-0 grid-cols-1 mx-auto py-2 lg:pt-12 row mt-5 md:justify-content-between ">
-        {models.map((item, index) => {
+        {
+        models.map((item, index) => {
+          if(index == 0){
+            return (
+              <a
+              key={index}
+              href={"/generate"}
+              className={`aspect-square grid-col-1 px-0 md:mt-0 md:mb-7 ${
+                index == 0 ? "mt-0" : "mt-11"
+              }`}
+            >
+              <div className="aspect-square justify-center" style={{width: '100%'}}>
+              <div className="aspect-square mx-auto" style={{width: '95%', height: '95%', position: 'relative'}}>
+              <div className="flex aspect-square border-pink-500 border-dashed border-3 justify-center" style={{borderRadius: '50%'}}>
+              <IoAdd className="w-50 h-50 text-pink-500 m-auto"/>
+                </div>
+                </div>
+                <h2
+                  className="mt-4 md:text-3xl text-4xl text-pink-500"
+                  style={{
+                    fontSize: 30,
+                    fontWeight: "bold",
+                    textAlign: "center",
+                    width: "100%",
+                  }}
+                >
+                  Create Model
+                </h2>
+              </div>
+            </a>
+            )
+          }
           return (
             <a
               key={index}

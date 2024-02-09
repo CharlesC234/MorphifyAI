@@ -4,6 +4,7 @@ import * as fal from "@fal-ai/serverless-client";
 import { usePathname, useSearchParams } from "next/navigation";
 import { useRouter } from "next/navigation";
 import { useCallback, useEffect, useState } from "react";
+import {PostModel} from "../../serverComponents/post";
 
 fal.config({
   proxyUrl: "/api/fal/proxy",
@@ -128,13 +129,13 @@ export default function Generate({ fields }) {
   }, []);
 
   const [img1, setImg1] = useState(
-    "/"
+    null
   );
   const [img2, setImg2] = useState(
-    "/"
+    null
   );
   const [img3, setImg3] = useState(
-    "/"
+    null
   );
   const [loading, setLoading] = useState(false);
 
@@ -150,8 +151,9 @@ export default function Generate({ fields }) {
   const [selectedPost, setSelectedPost] = useState(makeArr.slice(-2));
   const [refresh, setRefresh] = useState(false);
   const [totalPercent, setTotalPercent] = useState(0);  
-  const [selectedModel, setSelectedModel] = useState(1);
+  const [selectedModel, setSelectedModel] = useState(0);
   const percentEach = [0,0,0];
+  const images = [];
 
 
   //generate image function for 3 profile pic images for user to choose from
@@ -160,7 +162,6 @@ export default function Generate({ fields }) {
     try {
       setLoading(true);
       setTotalPercent(0);
-      const imageUrl = [];
 
       for(let i = 0; i < 3; i++){
         var promptrand = generateRandomPersonPrompt();
@@ -190,12 +191,13 @@ export default function Generate({ fields }) {
           }
         },
       });
-      imageUrl.push(await res.images[0].url);
+      images.push(await res.images[0]);
+      console.log("here: " + await JSON.stringify(res.images[0]));
     }
       setLoading(false);
-      setImg1(imageUrl[0]);
-      setImg2(imageUrl[1]);
-      setImg3(imageUrl[2]);
+      setImg1(images[0]);
+      setImg2(images[1]);
+      setImg3(images[2]);
     } catch (e) {
       console.log(e);
     }
@@ -377,20 +379,20 @@ export default function Generate({ fields }) {
         // </div>
         <div className="spinner-simple mt-4" style={{width: 100, height: 100}}></div>
         : 
-        <>{!loading && img1 == "/" ? <></>: 
+        <>{!loading && img1 == null ? <></>: 
         <div>
           <h2 className="mt-5 text-2xl font-bold mb-4" style={{ opacity: 0.8 }}>
                 Select A Model
           </h2>
-        <div className="w-100 grid grid-rows-3 md:grid-cols-3 gap-3 mt-4 mb-5">
+        <div className="w-100 grid max-sm:grid-rows-3 md:grid-cols-3 gap-3 mt-4 mb-5">
+          <button style={{borderRadius: '100%'}} className={`aspect-square w-100 grid-col-1 justify-center ${selectedModel == 0 ? "bg-pink-500" : ""}`} onClick={() => setSelectedModel(0)}>
+          <img className="aspect-square mx-auto" src={img1.url} style={{width: '97.5%', borderRadius: '100%', objectFit: 'cover', borderWidth: 5, borderColor: '#000000', backgroundColor: '#000000'}} /> 
+          </button>
           <button style={{borderRadius: '100%'}} className={`aspect-square w-100 grid-col-1 justify-center ${selectedModel == 1 ? "bg-pink-500" : ""}`} onClick={() => setSelectedModel(1)}>
-          <img className="aspect-square mx-auto" src={img1} style={{width: '97.5%', borderRadius: '100%', objectFit: 'cover', borderWidth: 5, borderColor: '#000000', backgroundColor: '#000000'}} /> 
+          <img className="aspect-square mx-auto" src={img2.url} style={{width: '97.5%', borderRadius: '100%', objectFit: 'cover', borderWidth: 5, borderColor: '#000000', backgroundColor: '#000000'}} /> 
           </button>
           <button style={{borderRadius: '100%'}} className={`aspect-square w-100 grid-col-1 justify-center ${selectedModel == 2 ? "bg-pink-500" : ""}`} onClick={() => setSelectedModel(2)}>
-          <img className="aspect-square mx-auto" src={img2} style={{width: '97.5%', borderRadius: '100%', objectFit: 'cover', borderWidth: 5, borderColor: '#000000', backgroundColor: '#000000'}} /> 
-          </button>
-          <button style={{borderRadius: '100%'}} className={`aspect-square w-100 grid-col-1 justify-center ${selectedModel == 3 ? "bg-pink-500" : ""}`} onClick={() => setSelectedModel(3)}>
-          <img className="aspect-square mx-auto" src={img3} style={{width: '97.5%', borderRadius: '100%', objectFit: 'cover', borderWidth: 5, borderColor: '#000000', backgroundColor: '#000000'}} /> 
+          <img className="aspect-square mx-auto" src={img3.url} style={{width: '97.5%', borderRadius: '100%', objectFit: 'cover', borderWidth: 5, borderColor: '#000000', backgroundColor: '#000000'}} /> 
           </button>
           </div>
           <div>
@@ -449,6 +451,20 @@ export default function Generate({ fields }) {
             </div>
           );
         })}
+        <button
+                className={`btn text-xl py-4 px-5 mt-4 me-3 mb-3 whitespace-nowrap flex md:hover:bg-pink-500 fw-bold bg-pink-500 outline outline-2 outline-pink-500 text-black`}
+                onClick={() => {
+                  if(images.length == 0){
+                    images.push(img1);
+                    images.push(img2);
+                    images.push(img3);
+                  }
+                  console.log(images);
+                  PostModel(images[selectedModel], "Charles", false, localStorage.getItem("pid"));
+                }}
+              >
+                Generate {selectedPost[1].Option} Photos
+              </button>
       </div>
           </div>}</>
         }

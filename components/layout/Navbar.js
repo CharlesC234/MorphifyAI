@@ -127,7 +127,7 @@ export default function Navbar({ searchArr }) {
   }
 
   return (
-    <nav className="navbar navbar-dark navbar-expand-lg px-0 py-3 pb-3 bg-zinc-900" style={{backgroundColor: '#000000', borderBottomWidth: 1, borderColor: 'rgba(255,255,255,.2)'}} >
+    <nav className="navbar navbar-dark navbar-expand-lg px-0 py-3 pb-3 bg-zinc-900" style={{backgroundColor: '#000000', borderBottomWidth: 1.5, borderColor: 'rgba(255,255,255,.2)'}} >
       <div className="container">
         <a
           className="navbar-brand fw-bold me-10"

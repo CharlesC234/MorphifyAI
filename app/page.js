@@ -10,7 +10,7 @@ import { getUserDataStrapi } from "../serverComponents/patreon";
 async function getData() {
   const res = await fetch(
     process.env.API +
-      "/api/models?populate[0]=profile_pic&populate[1]=free_images&random=true",
+      "/api/models?populate[0]=profile_pic&populate[1]=free_images&random=true&filters[Public][$ne]=false",
     { cache: "no-cache" }
   );
   if (!res.ok) {
@@ -49,7 +49,7 @@ async function getDiscordAccessToken(code) {
       headers: {
         "Content-Type": "application/x-www-form-urlencoded",
       },
-      body: `code=${code}&grant_type=authorization_code&client_id=${process.env.DISCORD_CLIENT_ID}&client_secret=${process.env.DISCORD_CLIENT_SECRET}&redirect_uri=https://stunner-production-c449.up.railway.app/`,
+      body: `code=${code}&grant_type=authorization_code&client_id=${process.env.DISCORD_CLIENT_ID}&client_secret=${process.env.DISCORD_CLIENT_SECRET}&redirect_uri=http://localhost:3000`,
     });
 
     const data = await response.json();

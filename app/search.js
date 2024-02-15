@@ -5,7 +5,7 @@ import React from "react";
 import Navbar from "../components/layout/Navbar";
 
 async function getModels() {
-  const res = await fetch(process.env.API + "/api/models?populate=*", {
+  const res = await fetch(process.env.API + "/api/models?populate[0]=profile_pic&filters[Public][$ne]=false", {
     cache: "no-cache",
   });
   if (!res.ok) {

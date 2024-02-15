@@ -127,14 +127,14 @@ export default function Navbar({ searchArr }) {
   }
 
   return (
-    <nav className="navbar navbar-dark navbar-expand-lg px-0 py-3 pb-3 bg-zinc-900" style={{backgroundColor: '#000000', borderBottomWidth: 1.5, borderColor: 'rgba(255,255,255,.2)'}} >
+    <nav className="navbar navbar-dark navbar-expand-lg px-0 py-3 pb-3 bg-zinc-900" style={{backgroundColor: '#000000', borderBottomWidth: 2, borderColor: 'rgba(255,255,255,.15)'}} >
       <div className="container">
         <a
           className="navbar-brand fw-bold me-10"
           style={{ fontSize: 27.5 }}
           href="/"
         >
-          <h1 className="text-6xl mb-1 font-extrabold text-transparent bg-clip-text bg-pink-500">
+          <h1 className="text-6xl mb-0 font-extrabold text-transparent bg-clip-text bg-pink-500">
             xpixels
           </h1>
         </a>
@@ -242,7 +242,7 @@ export default function Navbar({ searchArr }) {
               }`}
             />
             <div
-              className={`z-50 shadow-xl opacity-100 bg-zinc-800 position-absolute overflow-hidden border-zinc-600 p-1 pt-3 pe-0 ${
+              className={`z-50 shadow-xl opacity-100 bg-black position-absolute overflow-hidden border-zinc-700 p-1 pt-3 pe-0 ${
                 showSearch ? "block" : "hidden"
               }`}
               style={{
@@ -303,7 +303,7 @@ export default function Navbar({ searchArr }) {
               setdropdown(!dropdown)
               }
             }}
-            className="nav-link flex max-sm:py-1 text-lg hover:text-pink-500 text-white font-semibold opacity-85 mb-1.5 ml-4 max-sm:ml-0 max-sm:mb-0 max-sm:mt-3"
+            className="nav-link flex max-sm:py-1 text-lg hover:text-pink-500 text-white font-semibold opacity-85 mb-1 ml-4 max-sm:ml-0 max-sm:mb-0 max-sm:mt-3"
           >
             <IoPersonCircle size={42} color={"rgb(236 72 153)"} />
             <div className="my-auto">
@@ -314,10 +314,10 @@ export default function Navbar({ searchArr }) {
           </button>
           <div
             id="dropdown"
-            className={`max-sm:w-11/12 absolute md:mt-2 max-sm:mt-3 top-100 max-sm:left-0 max-sm:right-100 ms-3 right-0 z-5 divide-y divide-gray-100 rounded-lg shadow w-60 ${
+            className={`max-sm:w-[23rem] absolute md:mt-0 max-sm:mt-0 top-100 max-sm:left-0 max-sm:right-100 ms-2.5 right-0 z-10 divide-y divide-gray-100 shadow w-60 ${
               dropdown ? "" : "hidden"
             }`}
-            style={{ backgroundColor: "rgba(33,37,41)", marginRight: "7.5rem" }}
+            style={{ backgroundColor: "rgba(0,0,0,1)", borderWidth: 2, borderBottomLeftRadius: 10, borderBottomRightRadius: 10, borderColor: 'rgba(255,255,255,.175)', marginRight: "7.5rem" }}
           >
             <ul
               className="py-2 text-sm text-gray-700 dark:text-gray-200"

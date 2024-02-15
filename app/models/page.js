@@ -3,9 +3,9 @@ import "bootstrap/dist/css/bootstrap.css";
 import "../globals.css";
 import Models from "./models";
 
-async function getModels() {
+async function getModelsPublic() {
   const res = await fetch(
-    process.env.API + "/api/models?populate[0]=profile_pic&",
+    process.env.API + "/api/models?populate[0]=profile_pic&filters[Public][$ne]=false",
     { cache: "no-cache" }
   );
   if (!res.ok) {
@@ -15,7 +15,7 @@ async function getModels() {
 }
 
 export default async function ModelsServer() {
-  const data = await getModels();
+  const data = await getModelsPublic();
   const models = [];
 
   for (let i = 0; i < data.data.length; i++) {

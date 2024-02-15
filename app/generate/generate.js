@@ -460,7 +460,7 @@ export default function Generate({ fields }) {
                     images.push(img3);
                   }
                   console.log(images);
-                  PostModel(images[selectedModel], "Charles", false, localStorage.getItem("pid"));
+                  PostModel(images[selectedModel], "Test12", false, localStorage.getItem("pid"));
                 }}
               >
                 Generate {selectedPost[1].Option} Photos

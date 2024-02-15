@@ -49,7 +49,7 @@ export default function Popup({ emails }) {
 
   return (
     <>
-      {visible ? (
+      {true ? (
         <div
           style={{ zIndex: 5 }}
           data-te-modal-init
@@ -125,7 +125,9 @@ export default function Popup({ emails }) {
                   data-te-ripple-color="light"
                 >
                   <FaDiscord className="me-3 ms-0 mt-1" size={24} />
-                  Sign In With Discord For Free!
+                  <p className="text-left">
+                  Sign In With Discord
+                  </p>
                 </button>
                 <button
                   type="button"

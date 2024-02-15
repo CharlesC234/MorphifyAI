@@ -49,7 +49,7 @@ export default function Popup({ emails }) {
 
   return (
     <>
-      {true ? (
+      {visible ? (
         <div
           style={{ zIndex: 5 }}
           data-te-modal-init

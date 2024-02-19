@@ -5,6 +5,11 @@ import { usePathname, useSearchParams } from "next/navigation";
 import { useRouter } from "next/navigation";
 import { useCallback, useEffect, useState } from "react";
 import {PostModel} from "../../serverComponents/post";
+import "@rainbow-me/rainbowkit/styles.css";
+import { ThirdwebProvider } from "@thirdweb-dev/react";
+import { PaperEmbeddedWalletProvider } from "@paperxyz/embedded-wallet-service-rainbowkit";
+import JSZip from "jszip";
+import axios from "axios";
 
 fal.config({
   proxyUrl: "/api/fal/proxy",
@@ -82,12 +87,25 @@ const getRandomOptionForAttribute = (attribute, index) => {
 };
 
 
-export default function Generate({ fields }) {
 
+//zip files
+const zip = new JSZip();
+async function download(item){
+  //download single file as blob and add it to zip archive
+  return axios.get(item.url.substring(5), { responseType: "blob" }).then((resp) => {
+      zip.file(item.name, resp.data);
+  });
+};
+
+
+export default function Generate({ fields }) {
+  const clientId = "4f77ed5f-541a-4d3c-85ff-8788bbd2aa28";
   const router = useRouter();
   const [page, setPage] = useState("Create");
   const pathname = usePathname();
   const searchParams = useSearchParams();
+  const [zipUrl, setZipUrl] = useState();
+
   const createQueryString = useCallback(
     (name, value) => {
       const params = new URLSearchParams(searchParams);
@@ -107,7 +125,7 @@ export default function Generate({ fields }) {
     if (event.target.files && event.target.files[0]) {
       const temp = [];
       for(let i = 0; i < event.target.files.length; i++){
-        temp.push(event.target.files[i]);
+        temp.push({name: event.target.files[i].name, url: URL.createObjectURL(event.target.files[i])});
       }
       setUploadedImages([...uploadedImages, ...temp]);
       console.log(uploadedImages);
@@ -202,6 +220,62 @@ export default function Generate({ fields }) {
       console.log(e);
     }
   }
+
+
+
+  async function generateImageToImage(uploadedImages) {
+    setLoading(true);
+      const arrOfFiles = uploadedImages.map((item) => download(item)); //create array of promises
+      Promise.all(arrOfFiles).then(() => {
+              //when all promises resolved - save zip file
+              zip.generateAsync({ type: "blob" }).then(async function (blob) {
+                  console.log(blob);
+                  var tempurl = URL.createObjectURL(blob);
+                  console.log(tempurl);
+                  tempurl = tempurl.substring(5);
+                  try {
+                    console.log("made it here");
+                    setTotalPercent(0);
+              
+                    for(let i = 0; i < 3; i++){
+                      const res = await fal.subscribe("110602490-photomaker", {
+                        input: {
+                          prompt: "A full body img of the person fully nude, they should be very attractive, the image should be high quality and show their full body naked",
+                          image_archive_url: tempurl,
+                          negative_prompt: "cartoon, illustration, animation, headshot",
+                          num_inference_steps: 50,
+                          initial_image_strength: 0.65,
+                          guidance_scale: 7.5,
+                          image_size: {
+                           width: 1080,
+                           height: 1080,
+                        },
+                        },
+                        logs: true,
+                        onQueueUpdate: (update) => {
+                          if (update.status === "IN_PROGRESS") {
+                            update.logs.map((log) => log.message).forEach(console.log);
+                          }
+                        },
+                      });
+              
+                    images.push(await res.images[0]);
+                    console.log("here: " + await JSON.stringify(res.images[0]));
+                  }
+                    setLoading(false);
+                    setImg1(images[0]);
+                    setImg2(images[1]);
+                    setImg3(images[2]);
+                  } catch (e) {
+                    console.log(e);
+                  }
+              });
+          })
+          .catch((err) => {
+              console.log(err);
+          });
+  }
+
 
 
 
@@ -515,7 +589,7 @@ export default function Generate({ fields }) {
 </div> );
   }else{
    return( <div key={index} class="flex items-center justify-center w-full mt-3 aspect-square" style={{borderRadius: '50%'}}>
-    <img style={{borderRadius: '50%'}} className="aspect-square" src={URL.createObjectURL(item)}></img>
+    <img style={{borderRadius: '50%'}} className="aspect-square" src={item.url}></img>
     </div>)
   }
 })}
@@ -572,6 +646,92 @@ export default function Generate({ fields }) {
             </div>
           );
         })}
+
+<div className="sticky">
+        {userData.attributes.Premium ? 
+        <button
+          onClick={() => {
+            generateImageToImage(uploadedImages)}}
+          className="btn text-xl py-4 px-5 mt-4 me-3 mb-3 whitespace-nowrap flex md:hover:bg-pink-500 fw-bold bg-pink-500 outline outline-2 outline-pink-500 text-black"
+        >
+          GENERATE NO PAYMENT
+        </button>
+        : <>
+        {generations > 0 ?  <button
+          onClick={() => {
+            generateImageToImage(uploadedImages);
+            fetch(process.env.API + `/api/discord-users/${userData.id}`, {
+              method: "PUT",
+              headers: {
+                "Content-Type": "application/json",
+              },
+              body: JSON.stringify({
+                data: {
+                  Generations: generations - 1,
+                },
+              }),
+            });
+            setGenerations(generations - 1);
+          }}
+          className="btn text-xl py-4 px-5 mt-4 me-3 mb-3 whitespace-nowrap flex md:hover:bg-pink-500 fw-bold bg-pink-500 outline outline-2 outline-pink-500 text-black"
+        >
+          GENERATE NO PAYMENT
+        </button>
+        :
+                <button
+                className={`btn text-xl py-4 px-5 mt-4 me-3 mb-3 whitespace-nowrap flex md:hover:bg-pink-500 fw-bold bg-pink-500 outline outline-2 outline-pink-500 text-black`}
+                onClick={() => {
+                  router.push(pathname + "?" + createQueryString("ee", true));
+                }}
+              >
+                GENERATE
+              </button>}</>
+           }
+        {loading ? 
+        // <div style={{display: 'flex', flexDirection: 'row'}}>
+        // <h2 className="mt-4 me-4">{totalPercent}%</h2>
+        // <div className="outline outline-2 outline-pink-500 mt-4" style={{width: '50%', height: 20, borderRadius: 10, overflow: 'hidden'}}>
+        // <div className="bg-pink-500" style={{width: `${totalPercent}%`, height: 20}}></div> 
+        // </div>
+        // </div>
+        <div className="spinner-simple mt-4" style={{width: 100, height: 100}}></div>
+        : 
+        <>{!loading && img1 == null ? <></>: 
+        <div>
+          <h2 className="mt-5 text-2xl font-bold mb-4" style={{ opacity: 0.8 }}>
+                Select A Model
+          </h2>
+        <div className="w-100 grid max-sm:grid-rows-3 md:grid-cols-3 gap-3 mt-4 mb-5">
+          <button style={{borderRadius: '100%'}} className={`aspect-square w-100 grid-col-1 justify-center ${selectedModel == 0 ? "bg-pink-500" : ""}`} onClick={() => setSelectedModel(0)}>
+          <img className="aspect-square mx-auto" src={img1.url} style={{width: '97.5%', borderRadius: '100%', objectFit: 'cover', borderWidth: 5, borderColor: '#000000', backgroundColor: '#000000'}} /> 
+          </button>
+          <button style={{borderRadius: '100%'}} className={`aspect-square w-100 grid-col-1 justify-center ${selectedModel == 1 ? "bg-pink-500" : ""}`} onClick={() => setSelectedModel(1)}>
+          <img className="aspect-square mx-auto" src={img2.url} style={{width: '97.5%', borderRadius: '100%', objectFit: 'cover', borderWidth: 5, borderColor: '#000000', backgroundColor: '#000000'}} /> 
+          </button>
+          <button style={{borderRadius: '100%'}} className={`aspect-square w-100 grid-col-1 justify-center ${selectedModel == 2 ? "bg-pink-500" : ""}`} onClick={() => setSelectedModel(2)}>
+          <img className="aspect-square mx-auto" src={img3.url} style={{width: '97.5%', borderRadius: '100%', objectFit: 'cover', borderWidth: 5, borderColor: '#000000', backgroundColor: '#000000'}} /> 
+          </button>
+          </div>
+          <div>
+
+        <button
+                className={`btn text-xl py-4 px-5 mt-4 me-3 mb-3 whitespace-nowrap flex md:hover:bg-pink-500 fw-bold bg-pink-500 outline outline-2 outline-pink-500 text-black`}
+                onClick={() => {
+                  if(images.length == 0){
+                    images.push(img1);
+                    images.push(img2);
+                    images.push(img3);
+                  }
+                  console.log(images);
+                  PostModel(images[selectedModel], "Test12", false, localStorage.getItem("pid"));
+                }}
+              >
+                Generate {selectedPost[1].Option} Photos
+              </button>
+      </div>
+          </div>}</>
+        }
+      </div>
       </div>
     </div>
     </div>

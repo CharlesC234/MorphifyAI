@@ -7,6 +7,11 @@ import { useCallback } from "react";
 import { FaDiscord } from "react-icons/fa6";
 import { SiGumroad } from "react-icons/si";
 import { SessionProvider, signIn, signOut, useSession } from "next-auth/react";
+import Link from "next/link";
+import { ThirdwebSDK } from "@thirdweb-dev/sdk";
+import { ConnectButton } from "@paperxyz/embedded-wallet-service-rainbowkit";
+import { renderPaperCheckoutLink } from "@paperxyz/js-client-sdk";
+import { useAccount } from "wagmi";
 
 export default function Paywall({ emails }) {
   const router = useRouter();
@@ -22,6 +27,15 @@ export default function Paywall({ emails }) {
   const handleSignIn = async () => {
     await signIn("discord");
   };
+
+  // Thirdweb Stuff
+  const sdk = new ThirdwebSDK("mumbai");
+  const contractAddress = "0xA28CB6fE47b4da5cd3D23Ca3f9d88B1D3eA9d49c";
+  const shareableLink = "https://withpaper.com/checkout/43982ab0-569f-4e92-9957-d221c7246747";
+  const minimumBalance = 1;
+  const erc1155TokenId = 0;
+
+
 
   return (
     <>
@@ -100,10 +114,24 @@ export default function Paywall({ emails }) {
               </div>
               <div className="flex-shrink-0 flex-wrap items-center justify-start rounded-b-md px-4 pb-4 pt-0 mt-0">
                 <script src="https://gumroad.com/js/gumroad.js"></script>
-              <a className="ml-1 flex text-xl font-semibold inline-block rounded bg-pink-500 ps-3 pe-0 pb-2 pt-2.5 leading-normal text-slate-800" 
+              {/* <a className="ml-1 flex text-xl font-semibold inline-block rounded bg-pink-500 ps-3 pe-0 pb-2 pt-2.5 leading-normal text-slate-800" 
               href={`https://xpixels.gumroad.com/l/ppski?id=${localStorage.getItem("id")}`}>
                 <SiGumroad className="me-3 ms-0 mt-1" size={24} />
-                Purchase a Membership on Gumroad</a>
+                Purchase a Membership on Gumroad</a> */}
+                {/* Buy NFT Button */}
+              <button
+                type="button"
+                className="ml-1 flex text-xl font-semibold inline-block rounded bg-pink-500 ps-3 pe-4 pb-2 pt-2.5 leading-normal text-slate-800 shadow-[0_4px_9px_-4px_#3b71ca] transition duration-150 ease-in-out hover:bg-primary-600 hover:shadow-[0_8px_9px_-4px_rgba(59,113,202,0.3),0_4px_18px_0_rgba(59,113,202,0.2)] focus:bg-primary-600 focus:shadow-[0_8px_9px_-4px_rgba(59,113,202,0.3),0_4px_18px_0_rgba(59,113,202,0.2)] focus:outline-none focus:ring-0 active:bg-primary-700 active:shadow-[0_8px_9px_-4px_rgba(59,113,202,0.3),0_4px_18px_0_rgba(59,113,202,0.2)] dark:shadow-[0_4px_9px_-4px_rgba(59,113,202,0.5)] dark:hover:shadow-[0_8px_9px_-4px_rgba(59,113,202,0.2),0_4px_18px_0_rgba(59,113,202,0.1)] dark:focus:shadow-[0_8px_9px_-4px_rgba(59,113,202,0.2),0_4px_18px_0_rgba(59,113,202,0.1)] dark:active:shadow-[0_8px_9px_-4px_rgba(59,113,202,0.2),0_4px_18px_0_rgba(59,113,202,0.1)]"
+                data-te-ripple-init
+                onClick={() =>
+                  renderPaperCheckoutLink({
+                    checkoutLinkUrl: shareableLink,
+                  })
+                }
+                data-te-ripple-color="light"
+              >
+                Purchase A Membership
+              </button>
               </div>
             </div>
           </div>

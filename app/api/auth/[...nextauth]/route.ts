@@ -10,7 +10,7 @@ export const authOptions: AuthOptions = {
       clientSecret: process.env.DISCORD_CLIENT_SECRET,
       authorization: {
         params: {
-          redirect_uri: "https://stunner-production-c449.up.railway.app/",
+          redirect_uri: "https://stunner-production-c449.up.railway.app/generate",
           scope: "identify email guilds",
         },
       },

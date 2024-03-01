@@ -31,7 +31,7 @@ export default function Paywall({ emails }) {
   // Thirdweb Stuff
   const sdk = new ThirdwebSDK("mumbai");
   const contractAddress = "0xA28CB6fE47b4da5cd3D23Ca3f9d88B1D3eA9d49c";
-  const shareableLink = "https://withpaper.com/checkout/43982ab0-569f-4e92-9957-d221c7246747";
+  const shareableLink = "https://withpaper.com/checkout/5f7c73a7-1245-4ebe-910a-97a60a7df49a";
   const minimumBalance = 1;
   const erc1155TokenId = 0;
 

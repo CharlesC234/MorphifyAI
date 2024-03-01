@@ -8,8 +8,12 @@ import {PostModel} from "../../serverComponents/post";
 import "@rainbow-me/rainbowkit/styles.css";
 import { ThirdwebProvider } from "@thirdweb-dev/react";
 import { PaperEmbeddedWalletProvider } from "@paperxyz/embedded-wallet-service-rainbowkit";
-import JSZip from "jszip";
-import axios from "axios";
+import { PostZip } from "../../serverComponents/zip";
+import { TrainLora } from "../../serverComponents/lora";
+import Replicate from "replicate";
+import { PostReferenceImg } from "../../serverComponents/post";
+import { Img2Img } from "../../serverComponents/lora";
+import { fetchStrapiUntilSuccess } from "../../serverComponents/strapiFetchFunctions"
 
 fal.config({
   proxyUrl: "/api/fal/proxy",
@@ -87,24 +91,27 @@ const getRandomOptionForAttribute = (attribute, index) => {
 };
 
 
-
-//zip files
-const zip = new JSZip();
-async function download(item){
-  //download single file as blob and add it to zip archive
-  return axios.get(item.url.substring(5), { responseType: "blob" }).then((resp) => {
-      zip.file(item.name, resp.data);
-  });
-};
-
-
 export default function Generate({ fields }) {
-  const clientId = "4f77ed5f-541a-4d3c-85ff-8788bbd2aa28";
   const router = useRouter();
   const [page, setPage] = useState("Create");
   const pathname = usePathname();
   const searchParams = useSearchParams();
-  const [zipUrl, setZipUrl] = useState();
+  const [userData, setUserData] = useState({attributes: {Premium: false, Generations: 0}});
+  const [generations, setGenerations] = useState(0);
+  const [uploadedImages, setUploadedImages] = useState([]);
+
+  const [img1, setImg1] = useState(
+    null
+  );
+  const [img2, setImg2] = useState(
+    null
+  );
+  const [img3, setImg3] = useState(
+    null
+  );
+  const [loading, setLoading] = useState(false);
+
+
 
   const createQueryString = useCallback(
     (name, value) => {
@@ -116,16 +123,12 @@ export default function Generate({ fields }) {
     [searchParams]
   );
 
-  const [userData, setUserData] = useState({attributes: {Premium: false, Generations: 0}});
-  const [generations, setGenerations] = useState(0);
-  const [uploadedImages, setUploadedImages] = useState([]);
-
   //handler function for image uploads
   const handleChange = event => {
     if (event.target.files && event.target.files[0]) {
       const temp = [];
       for(let i = 0; i < event.target.files.length; i++){
-        temp.push({name: event.target.files[i].name, url: URL.createObjectURL(event.target.files[i])});
+        temp.push({name: event.target.files[i].name, url: URL.createObjectURL(event.target.files[i]), file: event.target.files[i]});
       }
       setUploadedImages([...uploadedImages, ...temp]);
       console.log(uploadedImages);
@@ -145,17 +148,6 @@ export default function Generate({ fields }) {
       });
     }
   }, []);
-
-  const [img1, setImg1] = useState(
-    null
-  );
-  const [img2, setImg2] = useState(
-    null
-  );
-  const [img3, setImg3] = useState(
-    null
-  );
-  const [loading, setLoading] = useState(false);
 
   // makeArr for fields from strapi
   var makeArr = [];
@@ -222,58 +214,70 @@ export default function Generate({ fields }) {
   }
 
 
+  
 
-  async function generateImageToImage(uploadedImages) {
-    setLoading(true);
-      const arrOfFiles = uploadedImages.map((item) => download(item)); //create array of promises
-      Promise.all(arrOfFiles).then(() => {
-              //when all promises resolved - save zip file
-              zip.generateAsync({ type: "blob" }).then(async function (blob) {
-                  console.log(blob);
-                  var tempurl = URL.createObjectURL(blob);
-                  console.log(tempurl);
-                  tempurl = tempurl.substring(5);
-                  try {
-                    console.log("made it here");
-                    setTotalPercent(0);
-              
-                    for(let i = 0; i < 3; i++){
-                      const res = await fal.subscribe("110602490-photomaker", {
-                        input: {
-                          prompt: "A full body img of the person fully nude, they should be very attractive, the image should be high quality and show their full body naked",
-                          image_archive_url: tempurl,
-                          negative_prompt: "cartoon, illustration, animation, headshot",
-                          num_inference_steps: 50,
-                          initial_image_strength: 0.65,
-                          guidance_scale: 7.5,
-                          image_size: {
-                           width: 1080,
-                           height: 1080,
-                        },
-                        },
-                        logs: true,
-                        onQueueUpdate: (update) => {
-                          if (update.status === "IN_PROGRESS") {
-                            update.logs.map((log) => log.message).forEach(console.log);
-                          }
-                        },
-                      });
-              
-                    images.push(await res.images[0]);
-                    console.log("here: " + await JSON.stringify(res.images[0]));
-                  }
-                    setLoading(false);
-                    setImg1(images[0]);
-                    setImg2(images[1]);
-                    setImg3(images[2]);
-                  } catch (e) {
-                    console.log(e);
-                  }
-              });
-          })
-          .catch((err) => {
-              console.log(err);
-          });
+
+
+    async function generateImageToImage(uploadedImages) {
+        setLoading(true);
+        const tempurl = await PostZip(uploadedImages, localStorage.getItem("pid"), "testinglorasgood71113")
+        console.log("url: " + tempurl.url);
+        for(let i = 0; i < 3; i++){
+        const res = await fal.subscribe("110602490-photomaker", {
+          input: {
+            image_archive_url: tempurl.url,
+            prompt: "An extremly realistic and high quality full body Instagram photo of the woman fully nude mastubating and playing with her vagina img. The women should be sitting on a bed with her legs spread and her fingers should be spreading her vagina lips. The woman should have an extemly realistic and detailed vagina. The face should match the referance images, and she should appear to be moaning. High quality extremly realistic and detailed vagina and breasts showing in the image, the image should show their full body naked from head to toe. She should not have any clothes on. She should have colorful, natural skin. High quality and realistic. Fully Naked, Solid Pale Background. No bra, No Panties. Extremly realistic and accurate face to the base image",
+            negative_prompt: "unrealistic, clothed, wearing clothes, lowres, bad anatomy, bad hands, text, error, missing fingers, extra digit, fewer digits, cropped, worst quality, low quality, normal quality, jpeg artifacts, signature, watermark, username, blurry, cartoon, painting, illustration, worst quality, low quality, normal quality",
+            num_inference_steps: 100,
+            style: "Enhance",
+            style_strength: 15,
+            guidance_scale: 7.5,
+            image_size: {
+              width: 1080,
+              height: 1080,
+            },
+          },
+          logs: true,
+          onQueueUpdate: (update) => {
+            if (update.status === "IN_PROGRESS") {
+              update.logs.map((log) => log.message).forEach(console.log);
+            }
+          },
+        });
+        console.log(res);
+        images.push(res.images[0].url);
+        }
+        setLoading(false);
+        setImg1(images[0]);
+        setImg2(images[1]);
+        setImg3(images[2]);
+
+                // const tempurl = await PostZip(uploadedImages, localStorage.getItem("pid"), "testinglorasgood71113")
+                // console.log("url: " + tempurl.url);
+                // //Start training 
+                // TrainLora(tempurl.url, "testinglorasgood71113", tempurl.id);
+                // //Call strapi every min with id until lora != null, if lora != null training complete.
+                // console.log("here");
+                // //timeout for 15 mins then fetch strapi until success.
+                // setTimeout(async() => {
+                //   const loraUrl = await fetchStrapiUntilSuccess(tempurl.id);
+                //   console.log("lora: " + loraUrl);
+                //   try {
+                //     for(let i = 0; i < 3; i++){
+                //       //Generate img from newly trained lora and sdxl (3 imgs)
+                //       const res = await Img2Img(loraUrl);
+                      
+                //     images.push(res);
+                //     console.log("here: " + res);
+                //   }
+                //     setLoading(false);
+                //     setImg1(images[0]);
+                //     setImg2(images[1]);
+                //     setImg3(images[2]);
+                //   } catch (e) {
+                //     console.log(e);
+                //   }
+                // }, 950000)
   }
 
 
@@ -703,13 +707,13 @@ export default function Generate({ fields }) {
           </h2>
         <div className="w-100 grid max-sm:grid-rows-3 md:grid-cols-3 gap-3 mt-4 mb-5">
           <button style={{borderRadius: '100%'}} className={`aspect-square w-100 grid-col-1 justify-center ${selectedModel == 0 ? "bg-pink-500" : ""}`} onClick={() => setSelectedModel(0)}>
-          <img className="aspect-square mx-auto" src={img1.url} style={{width: '97.5%', borderRadius: '100%', objectFit: 'cover', borderWidth: 5, borderColor: '#000000', backgroundColor: '#000000'}} /> 
+          <img className="aspect-square mx-auto" src={img1} style={{width: '97.5%', borderRadius: '100%', objectFit: 'cover', borderWidth: 5, borderColor: '#000000', backgroundColor: '#000000'}} /> 
           </button>
           <button style={{borderRadius: '100%'}} className={`aspect-square w-100 grid-col-1 justify-center ${selectedModel == 1 ? "bg-pink-500" : ""}`} onClick={() => setSelectedModel(1)}>
-          <img className="aspect-square mx-auto" src={img2.url} style={{width: '97.5%', borderRadius: '100%', objectFit: 'cover', borderWidth: 5, borderColor: '#000000', backgroundColor: '#000000'}} /> 
+          <img className="aspect-square mx-auto" src={img2} style={{width: '97.5%', borderRadius: '100%', objectFit: 'cover', borderWidth: 5, borderColor: '#000000', backgroundColor: '#000000'}} /> 
           </button>
           <button style={{borderRadius: '100%'}} className={`aspect-square w-100 grid-col-1 justify-center ${selectedModel == 2 ? "bg-pink-500" : ""}`} onClick={() => setSelectedModel(2)}>
-          <img className="aspect-square mx-auto" src={img3.url} style={{width: '97.5%', borderRadius: '100%', objectFit: 'cover', borderWidth: 5, borderColor: '#000000', backgroundColor: '#000000'}} /> 
+          <img className="aspect-square mx-auto" src={img3} style={{width: '97.5%', borderRadius: '100%', objectFit: 'cover', borderWidth: 5, borderColor: '#000000', backgroundColor: '#000000'}} /> 
           </button>
           </div>
           <div>

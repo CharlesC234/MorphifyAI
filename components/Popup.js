@@ -29,7 +29,8 @@ export default function Popup({emails}) {
     useEffect(() => {
         let modal_status = localStorage.getItem('modal_status');
               if(!modal_status){
-                setVisible(true);
+                setVisible(false);
+                  //true
                 localStorage.setItem('modal_status',1);
               }
       }, []);

@@ -90,7 +90,7 @@ export default function Navbar({ searchArr }) {
           href="/"
         >
           <h1 class="text-6xl mb-1 font-extrabold text-transparent bg-clip-text bg-pink-500">
-            xpixels
+            Morphify.AI
           </h1>
         </a>
         <button
